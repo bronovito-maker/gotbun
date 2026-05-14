@@ -1,0 +1,525 @@
+:root {
+  --background: #1b100b;
+  --background-soft: #27160d;
+  --cream: #fff2d8;
+  --cream-muted: #f5d9aa;
+  --orange: #ff7a1a;
+  --orange-dark: #d64e0f;
+  --mustard: #ffc342;
+  --green: #78c257;
+  --red: #ef4f35;
+  --ink: #23130c;
+  --white: #fffaf0;
+  --line: rgba(255, 242, 216, 0.18);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 16% 6%, rgba(255, 122, 26, 0.28), transparent 30rem),
+    radial-gradient(circle at 84% 12%, rgba(255, 195, 66, 0.16), transparent 26rem),
+    linear-gradient(140deg, #160b07 0%, var(--background) 52%, #2b160c 100%);
+  color: var(--cream);
+  font-family: ui-rounded, "Avenir Next", "Trebuchet MS", sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+
+.hero-section {
+  display: grid;
+  gap: 28px;
+  min-height: 92vh;
+  align-items: center;
+  padding: 42px 0 26px;
+}
+
+.hero-copy,
+.section-heading,
+.form-heading,
+.success-card,
+.benefit-section {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--mustard);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 720px;
+  margin-bottom: 18px;
+  font-size: clamp(3rem, 16vw, 6.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.08em;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 8vw, 4.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+h3 {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+}
+
+.hero-subtitle,
+.benefit-section p,
+.form-heading p,
+.step-card p,
+.privacy-copy,
+.conditions,
+.expiry,
+.cta-note {
+  color: rgba(255, 242, 216, 0.78);
+  line-height: 1.65;
+}
+
+.hero-subtitle {
+  max-width: 630px;
+  margin-bottom: 26px;
+  font-size: clamp(1.08rem, 4vw, 1.35rem);
+}
+
+.hero-cta,
+.primary-button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--mustard), var(--orange));
+  box-shadow: 0 16px 42px rgba(255, 122, 26, 0.32);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 950;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.hero-cta:hover,
+.primary-button:hover {
+  box-shadow: 0 20px 58px rgba(255, 122, 26, 0.42);
+  transform: translateY(-2px);
+}
+
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+  transform: none;
+}
+
+.cta-note {
+  margin-top: 12px;
+  font-size: 0.92rem;
+}
+
+.burger-card {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 38px;
+  background:
+    linear-gradient(160deg, rgba(255, 242, 216, 0.13), rgba(255, 122, 26, 0.08)),
+    var(--background-soft);
+  box-shadow: var(--shadow);
+}
+
+.burger-card::before {
+  position: absolute;
+  inset: -30% -20% auto auto;
+  width: 250px;
+  height: 250px;
+  border-radius: 999px;
+  background: rgba(255, 195, 66, 0.18);
+  content: "";
+  filter: blur(2px);
+}
+
+.burger-visual {
+  position: absolute;
+  inset: 62px 28px 48px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  transform: rotate(-5deg);
+}
+
+.burger-visual span {
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 18px 26px rgba(0, 0, 0, 0.18);
+}
+
+.bun {
+  width: min(86%, 360px);
+  height: 70px;
+  background: linear-gradient(180deg, #ffb44c, #c96c21);
+}
+
+.top-bun {
+  border-radius: 999px 999px 32px 32px;
+}
+
+.bottom-bun {
+  height: 46px;
+  border-radius: 28px 28px 999px 999px;
+}
+
+.lettuce {
+  width: min(92%, 390px);
+  height: 28px;
+  border-radius: 999px;
+  background: var(--green);
+}
+
+.cheese {
+  width: min(82%, 340px);
+  height: 24px;
+  border-radius: 8px;
+  background: var(--mustard);
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 72% 48%, 54% 100%, 36% 45%, 18% 100%, 0 68%);
+}
+
+.patty {
+  width: min(88%, 370px);
+  height: 52px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #6b2e18, #2a120a);
+}
+
+.offer-badge {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  width: 118px;
+  height: 118px;
+  place-items: center;
+  border: 8px solid rgba(35, 19, 12, 0.18);
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--white);
+  text-align: center;
+  transform: rotate(8deg);
+}
+
+.offer-badge span {
+  align-self: end;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.offer-badge strong {
+  align-self: start;
+  font-size: 2.55rem;
+  letter-spacing: -0.08em;
+}
+
+.steps-section,
+.claim-section,
+.benefit-section {
+  margin-top: 34px;
+}
+
+.steps-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.step-card,
+.form-card,
+.success-card,
+.benefit-section {
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: rgba(255, 242, 216, 0.08);
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.step-card {
+  padding: 24px;
+}
+
+.step-card span {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  background: rgba(255, 195, 66, 0.15);
+  color: var(--mustard);
+  font-weight: 950;
+}
+
+.benefit-section {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 122, 26, 0.18), rgba(255, 242, 216, 0.07)),
+    rgba(255, 242, 216, 0.08);
+}
+
+.form-card,
+.success-card {
+  padding: 24px;
+}
+
+.form-card {
+  display: grid;
+  gap: 16px;
+}
+
+.form-card label:not(.checkbox-row) {
+  display: grid;
+  gap: 8px;
+  color: var(--cream-muted);
+  font-weight: 800;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid rgba(255, 242, 216, 0.18);
+  border-radius: 18px;
+  outline: 0;
+  background: rgba(255, 250, 240, 0.1);
+  color: var(--white);
+  padding: 0 16px;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+input::placeholder {
+  color: rgba(255, 242, 216, 0.45);
+}
+
+input:focus {
+  border-color: rgba(255, 195, 66, 0.78);
+  box-shadow: 0 0 0 4px rgba(255, 195, 66, 0.12);
+}
+
+.checkbox-row {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  color: rgba(255, 242, 216, 0.82);
+  line-height: 1.45;
+}
+
+.checkbox-row input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--orange);
+}
+
+.checkbox-row a {
+  color: var(--mustard);
+  font-weight: 900;
+}
+
+.recommended span::after {
+  content: " consigliato";
+  color: var(--mustard);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.form-error {
+  margin: 0;
+  border-radius: 16px;
+  background: rgba(239, 79, 53, 0.16);
+  color: #ffd3ca;
+  padding: 12px 14px;
+  line-height: 1.45;
+}
+
+.privacy-copy {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.debug-box {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(255, 195, 66, 0.32);
+  border-radius: 22px;
+  background: rgba(20, 11, 7, 0.58);
+  color: rgba(255, 242, 216, 0.86);
+  padding: 16px;
+  text-align: left;
+}
+
+.debug-box h3,
+.debug-box p {
+  margin: 0;
+}
+
+.debug-box h3 {
+  color: var(--mustard);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.debug-box pre {
+  max-height: 280px;
+  overflow: auto;
+  margin: 0;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #ffe5b5;
+  padding: 14px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.success-card {
+  text-align: center;
+}
+
+.coupon-code {
+  margin: 24px auto 14px;
+  border: 2px dashed rgba(255, 195, 66, 0.72);
+  border-radius: 24px;
+  background: rgba(255, 195, 66, 0.12);
+  color: var(--mustard);
+  padding: 18px 12px;
+  font-size: clamp(1.6rem, 7vw, 3rem);
+  font-weight: 950;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.expiry {
+  margin-bottom: 12px;
+  color: var(--white);
+  font-weight: 900;
+}
+
+.conditions {
+  margin-bottom: 24px;
+}
+
+@media (min-width: 720px) {
+  .page-shell {
+    width: min(1120px, calc(100% - 56px));
+    padding-top: 40px;
+  }
+
+  .hero-section {
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    gap: 44px;
+  }
+
+  .hero-cta,
+  .primary-button {
+    width: auto;
+    padding: 0 30px;
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .benefit-section {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    padding: 38px;
+  }
+
+  .form-card,
+  .success-card {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy,
+  .burger-card,
+  .step-card,
+  .benefit-section,
+  .form-card,
+  .success-card {
+    animation: rise-in 650ms ease both;
+  }
+
+  .burger-card {
+    animation-delay: 120ms;
+  }
+
+  .step-card:nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .step-card:nth-child(3) {
+    animation-delay: 180ms;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

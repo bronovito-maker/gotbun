@@ -1,0 +1,320 @@
+{
+  "name": "gotbun",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gotbun-coupon",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "108d6430-ceb3-40ec-9afd-3f6479de65cb",
+      "name": "Webhook",
+      "webhookId": "gotbun-coupon"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "event",
+              "name": "event",
+              "value": "={{ $json.body?.event || $json.event || 'coupon_claimed' }}",
+              "type": "string"
+            },
+            {
+              "id": "brand",
+              "name": "brand",
+              "value": "={{ $json.body?.brand || $json.brand || 'GotBun Riccione' }}",
+              "type": "string"
+            },
+            {
+              "id": "name",
+              "name": "name",
+              "value": "={{ ($json.body?.name || $json.name || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "name": "email",
+              "value": "={{ ($json.body?.email || $json.email || '').trim().toLowerCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "phone",
+              "name": "phone",
+              "value": "={{ ($json.body?.phone || $json.phone || '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "privacyConsent",
+              "name": "privacyConsent",
+              "value": "={{ Boolean($json.body?.privacyConsent ?? $json.privacyConsent) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "marketingConsent",
+              "name": "marketingConsent",
+              "value": "={{ Boolean($json.body?.marketingConsent ?? $json.marketingConsent) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "couponCode",
+              "name": "couponCode",
+              "value": "={{ $json.body?.couponCode || $json.couponCode }}",
+              "type": "string"
+            },
+            {
+              "id": "couponType",
+              "name": "couponType",
+              "value": "={{ $json.body?.couponType || $json.couponType || '2x1' }}",
+              "type": "string"
+            },
+            {
+              "id": "createdAt",
+              "name": "createdAt",
+              "value": "={{ $json.body?.createdAt || $json.createdAt || $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "expiresAt",
+              "name": "expiresAt",
+              "value": "={{ $json.body?.expiresAt || $json.expiresAt }}",
+              "type": "string"
+            },
+            {
+              "id": "source",
+              "name": "source",
+              "value": "={{ $json.body?.source || $json.source || 'landing' }}",
+              "type": "string"
+            },
+            {
+              "id": "campaign",
+              "name": "campaign",
+              "value": "={{ $json.body?.campaign || $json.campaign || 'gotbun_2x1' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d3f3a8ab-0f4b-45ce-9f60-95b37da84b01",
+      "name": "Normalize Coupon Lead"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "app_REPLACE_WITH_AIRTABLE_BASE_ID"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "id",
+          "value": "tbl_REPLACE_WITH_AIRTABLE_TABLE_ID"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.name }}",
+            "Email": "={{ $json.email }}",
+            "Phone": "={{ $json.phone }}",
+            "Coupon Code": "={{ $json.couponCode }}",
+            "Coupon Type": "={{ $json.couponType }}",
+            "Brand": "={{ $json.brand }}",
+            "Source": "={{ $json.source }}",
+            "Campaign": "={{ $json.campaign }}",
+            "Privacy Consent": "={{ $json.privacyConsent }}",
+            "Marketing Consent": "={{ $json.marketingConsent }}",
+            "Created At": "={{ $json.createdAt }}",
+            "Expires At": "={{ $json.expiresAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "3a3cd98d-d4ba-43f0-927a-780a5ddcdbae",
+      "name": "Create Airtable Lead"
+    },
+    {
+      "parameters": {
+        "resource": "contact",
+        "operation": "create",
+        "email": "={{ $('Normalize Coupon Lead').item.json.email }}",
+        "createContactAttributes": {
+          "attributesValues": [
+            {
+              "fieldName": "FIRSTNAME",
+              "fieldValue": "={{ $('Normalize Coupon Lead').item.json.name }}"
+            },
+            {
+              "fieldName": "SMS",
+              "fieldValue": "={{ $('Normalize Coupon Lead').item.json.phone }}"
+            },
+            {
+              "fieldName": "COUPON",
+              "fieldValue": "={{ $('Normalize Coupon Lead').item.json.couponCode }}"
+            },
+            {
+              "fieldName": "SOURCE",
+              "fieldValue": "={{ $('Normalize Coupon Lead').item.json.source }}"
+            },
+            {
+              "fieldName": "CAMPAIGN",
+              "fieldValue": "={{ $('Normalize Coupon Lead').item.json.campaign }}"
+            }
+          ]
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.sendInBlue",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "4f6e11f2-0f42-4f22-b37e-a8d15346644d",
+      "name": "Create Brevo Contact",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "resource": "email",
+        "operation": "sendTemplate",
+        "templateId": "REPLACE_WITH_BREVO_TEMPLATE_ID",
+        "receipients": "={{ $('Normalize Coupon Lead').item.json.email }}",
+        "additionalFields": {
+          "emailTags": {
+            "tags": {
+              "tag": "gotbun_2x1"
+            }
+          },
+          "templateParameters": {
+            "parameterValues": {
+              "parameters": "=name={{ $('Normalize Coupon Lead').item.json.name }},couponCode={{ $('Normalize Coupon Lead').item.json.couponCode }},expiresAt={{ $('Normalize Coupon Lead').item.json.expiresAt }},officialOrderUrl=https://gotbun.it"
+            }
+          }
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.sendInBlue",
+      "typeVersion": 1,
+      "position": [
+        896,
+        0
+      ],
+      "id": "fc80cf95-0c5d-4cca-8925-2303bfa6217e",
+      "name": "Send Brevo Coupon Email"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\n  success: true,\n  received: true,\n  couponCode: $('Normalize Coupon Lead').item.json.couponCode,\n  email: $('Normalize Coupon Lead').item.json.email,\n  airtableRecordId: $('Create Airtable Lead').item.json.id || '',\n  brevoMessageId: $json.messageId || ''\n} }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "feca72d9-70d3-48dc-9d1e-15800d629153",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Coupon Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Coupon Lead": {
+      "main": [
+        [
+          {
+            "node": "Create Airtable Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Airtable Lead": {
+      "main": [
+        [
+          {
+            "node": "Create Brevo Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Brevo Contact": {
+      "main": [
+        [
+          {
+            "node": "Send Brevo Coupon Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Brevo Coupon Email": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e24c8f4d-66ac-441a-a855-ba02c32c048b",
+  "meta": {
+    "instanceId": "e5e4156406eb2781358eadbaabf7ac25423788a2a1b74d65514ae4da6dc2f496"
+  },
+  "id": "bbIMngH6a6UgPbE6",
+  "tags": []
+}
