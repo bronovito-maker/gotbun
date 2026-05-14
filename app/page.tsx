@@ -137,12 +137,18 @@ export default function Home() {
       <section className="hero-section" aria-labelledby="hero-title">
         <div className="hero-copy">
           <p className="eyebrow">Promo esclusiva GotBun Riccione</p>
-          <h1 id="hero-title">2 panini al prezzo di 1 da GotBun Riccione 🍔</h1>
+          <h1 id="hero-title">2 panini al prezzo di 1 da GotBun Riccione</h1>
           <p className="hero-subtitle">
             Scarica il coupon e usalo dal lunedì al giovedì ordinando dal nostro sito ufficiale o mostrandolo in locale.
           </p>
           <a className="hero-cta" href="#coupon-form">Scarica il coupon 2x1</a>
-          <p className="cta-note">Non valido su JustEat, Deliveroo o Glovo.</p>
+          <p className="cta-note">
+            Valido solo sul nostro{" "}
+            <a href="https://gotbun.order.app.hd.digital/menus" rel="noreferrer" target="_blank">
+              sito ufficiale
+            </a>
+            .
+          </p>
         </div>
 
         <div className="burger-card" aria-label="Area foto hamburger">
@@ -163,13 +169,13 @@ export default function Home() {
       <section className="steps-section" aria-labelledby="steps-title">
         <div className="section-heading">
           <p className="eyebrow">Come funziona</p>
-          <h2 id="steps-title">Tre mosse, zero sbatti.</h2>
+          <h2 id="steps-title">Tre mosse e il coupon è tuo.</h2>
         </div>
         <div className="steps-grid">
           {[
-            ["01", "Lasci i tuoi dati", "Compila il form in meno di un minuto."],
-            ["02", "Ricevi il coupon", "Generiamo subito un codice unico per te."],
-            ["03", "Ordini dal sito ufficiale", "Oppure lo mostri direttamente in locale."],
+            ["01", "Lasci i tuoi dati", "Compila il form in pochi secondi."],
+            ["02", "Ricevi il codice", "Generiamo un coupon unico per te."],
+            ["03", "Ordini da GotBun", "Usalo dal sito ufficiale o in locale."],
           ].map(([number, title, text]) => (
             <article className="step-card" key={number}>
               <span>{number}</span>
@@ -183,10 +189,10 @@ export default function Home() {
       <section className="benefit-section" aria-label="Beneficio sito ufficiale">
         <div>
           <p className="eyebrow">Perché dal sito ufficiale</p>
-          <h2>Più promo per te, più supporto al locale.</h2>
+          <h2>Le promo migliori passano dal sito ufficiale.</h2>
         </div>
         <p>
-          Ordinando dal sito ufficiale hai accesso alle promo riservate e supporti direttamente il locale, evitando le commissioni delle piattaforme delivery.
+          Ordinando dal sito ufficiale trovi le promo riservate GotBun e ci aiuti a offrirti più vantaggi, senza passare dalle piattaforme delivery.
         </p>
       </section>
 
@@ -198,7 +204,7 @@ export default function Home() {
             <div className="coupon-code" aria-label="Codice coupon">{success.couponCode}</div>
             <p className="expiry">Scade il {expiresAtLabel}</p>
             <p className="conditions">
-              Valido dal lunedì al giovedì. Non cumulabile. Non valido su piattaforme delivery.
+              Valido dal lunedì al giovedì. Non cumulabile. Usalo solo sul nostro sito ufficiale.
             </p>
             {isDevelopment ? (
               <div className="debug-box">
@@ -216,8 +222,8 @@ export default function Home() {
           <form className="form-card" onSubmit={handleSubmit} noValidate>
             <div className="form-heading">
               <p className="eyebrow">Scarica il coupon</p>
-              <h2 id="form-title">Mandiamo il codice al volo.</h2>
-              <p>Lascia i dati e ricevi subito il coupon 2x1 GotBun.</p>
+              <h2 id="form-title">Ricevi subito il tuo codice.</h2>
+              <p>Lascia i dati e ti inviamo il coupon 2x1 GotBun.</p>
             </div>
 
             <label>
