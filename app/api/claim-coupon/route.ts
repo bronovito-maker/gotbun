@@ -4,7 +4,7 @@ import { validateCouponClaim } from "@/lib/validation";
 
 export const runtime = "nodejs";
 
-const OFFICIAL_ORDER_URL = "https://gotbun.it";
+const OFFICIAL_ORDER_URL = "https://gotbun.order.app.hd.digital/menus";
 
 type WebhookPayload = {
   event: "coupon_claimed";

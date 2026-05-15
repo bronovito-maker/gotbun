@@ -13,6 +13,7 @@ export type ValidationResult =
   | { success: false; errors: Record<string, string> };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ALLOWED_SOURCES = new Set(["landing", "instagram", "facebook", "tiktok", "google", "whatsapp", "qr_code", "other"]);
 
 function normalizeOptionalText(value: unknown, fallback: string): string {
   if (typeof value !== "string") return fallback;
@@ -20,9 +21,15 @@ function normalizeOptionalText(value: unknown, fallback: string): string {
   return trimmed.length > 0 ? trimmed.slice(0, 120) : fallback;
 }
 
+function normalizeSource(value: unknown): string {
+  const source = normalizeOptionalText(value, "landing").toLowerCase();
+  return ALLOWED_SOURCES.has(source) ? source : "other";
+}
+
 function normalizeItalianPhone(value: string): string {
   const compact = value.trim().replace(/[\s().-]/g, "");
 
+  if (!compact) return "";
   if (compact.startsWith("+")) return compact;
   if (compact.startsWith("00")) return `+${compact.slice(2)}`;
   return `+39${compact.replace(/^0+/, "")}`;
@@ -46,7 +53,7 @@ export function validateCouponClaim(body: unknown): ValidationResult {
     errors.email = "Inserisci un indirizzo email valido.";
   }
 
-  if (rawPhone.length < 8) {
+  if (rawPhone.length > 0 && rawPhone.length < 8) {
     errors.phone = "Inserisci un numero di telefono valido.";
   }
 
@@ -66,7 +73,7 @@ export function validateCouponClaim(body: unknown): ValidationResult {
       phone,
       privacyConsent,
       marketingConsent,
-      source: normalizeOptionalText(payload.source, "landing"),
+      source: normalizeSource(payload.source),
       campaign: normalizeOptionalText(payload.campaign, "gotbun_2x1"),
     },
   };

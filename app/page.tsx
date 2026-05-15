@@ -19,6 +19,18 @@ type SuccessState = {
   webhookSent: boolean;
 };
 
+type ClaimCouponResponse = {
+  success?: boolean;
+  error?: string;
+  couponCode?: unknown;
+  expiresAt?: unknown;
+  officialOrderUrl?: unknown;
+  webhookSent?: unknown;
+};
+
+const OFFICIAL_ORDER_URL = "https://gotbun.order.app.hd.digital/menus";
+const ALLOWED_SOURCES = new Set(["landing", "instagram", "facebook", "tiktok", "google", "whatsapp", "qr_code", "other"]);
+
 const initialFormState: FormState = {
   name: "",
   email: "",
@@ -32,17 +44,32 @@ const initialFormState: FormState = {
 const isDevelopment = process.env.NODE_ENV === "development";
 
 function formatItalianDate(value: string): string {
-  return new Intl.DateTimeFormat("it-IT", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(value));
+  try {
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return value;
+    return new Intl.DateTimeFormat("it-IT", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(date);
+  } catch {
+    return value;
+  }
+}
+
+function stringOrFallback(value: unknown, fallback: string): string {
+  return typeof value === "string" && value.trim().length > 0 ? value : fallback;
+}
+
+function normalizeSource(value: string): string {
+  const source = value.trim().toLowerCase();
+  return ALLOWED_SOURCES.has(source) ? source : "other";
 }
 
 function validateClientForm(form: FormState): string | null {
   if (form.name.trim().length < 2) return "Inserisci un nome di almeno 2 caratteri.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) return "Inserisci un indirizzo email valido.";
-  if (form.phone.trim().length < 8) return "Inserisci un numero di telefono valido.";
+  if (form.phone.trim().length > 0 && form.phone.trim().length < 8) return "Inserisci un numero di telefono valido.";
   if (!form.privacyConsent) return "Accetta il trattamento dei dati per ricevere il coupon.";
   return null;
 }
@@ -55,7 +82,7 @@ export default function Home() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const source = searchParams.get("source")?.trim() || "landing";
+    const source = normalizeSource(searchParams.get("source") ?? "landing");
     const campaign = searchParams.get("campaign")?.trim() || "gotbun_2x1";
 
     setForm((current) => ({ ...current, source, campaign }));
@@ -112,7 +139,7 @@ export default function Home() {
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as ClaimCouponResponse;
 
       if (!response.ok || !data.success) {
         setError(data.error ?? "Non siamo riusciti a generare il coupon. Riprova tra poco.");
@@ -120,9 +147,9 @@ export default function Home() {
       }
 
       setSuccess({
-        couponCode: data.couponCode,
-        expiresAt: data.expiresAt,
-        officialOrderUrl: data.officialOrderUrl,
+        couponCode: stringOrFallback(data.couponCode, "GOTBUN-2X1"),
+        expiresAt: stringOrFallback(data.expiresAt, new Date().toISOString()),
+        officialOrderUrl: stringOrFallback(data.officialOrderUrl, OFFICIAL_ORDER_URL),
         webhookSent: Boolean(data.webhookSent),
       });
     } catch {
@@ -134,6 +161,10 @@ export default function Home() {
 
   return (
     <main className="page-shell">
+      <header className="site-header">
+        <img className="site-logo" src="/gotbun_logo.png" alt="GotBun Riccione" width="360" height="90" />
+      </header>
+
       <section className="hero-section" aria-labelledby="hero-title">
         <div className="hero-copy">
           <p className="eyebrow">Promo esclusiva GotBun Riccione</p>
@@ -141,28 +172,135 @@ export default function Home() {
           <p className="hero-subtitle">
             Scarica il coupon e usalo dal lunedì al giovedì ordinando dal nostro sito ufficiale o mostrandolo in locale.
           </p>
+          <p className="urgency-copy">Coupon 2x1 giornalieri limitati: richiedilo prima che finiscano.</p>
           <a className="hero-cta" href="#coupon-form">Scarica il coupon 2x1</a>
+          <p className="social-proof" aria-label="Riprova sociale">
+            <span aria-hidden="true">★★★★★</span>
+            59 recensioni dai clienti GotBun
+          </p>
           <p className="cta-note">
             Valido solo sul nostro{" "}
-            <a href="https://gotbun.order.app.hd.digital/menus" rel="noreferrer" target="_blank">
+            <a href={OFFICIAL_ORDER_URL} rel="noreferrer" target="_blank">
               sito ufficiale
             </a>
             .
           </p>
         </div>
 
-        <div className="burger-card" aria-label="Area foto hamburger">
-          <div className="burger-visual">
-            <span className="bun top-bun" />
-            <span className="lettuce" />
-            <span className="cheese" />
-            <span className="patty" />
-            <span className="bun bottom-bun" />
-          </div>
-          <div className="offer-badge">
-            <span>Coupon</span>
-            <strong>2x1</strong>
-          </div>
+        <div className="claim-section" id="coupon-form" aria-labelledby="form-title">
+          {success ? (
+            <div className="success-card" role="status">
+              <p className="eyebrow">Coupon generato con successo</p>
+              <h2>Il tuo 2x1 è pronto.</h2>
+              <div className="coupon-code" aria-label="Codice coupon">{success.couponCode}</div>
+              <p className="expiry">Scade il {expiresAtLabel}</p>
+              <p className="conditions">
+                Valido dal lunedì al giovedì. Non cumulabile. Usalo solo sul nostro sito ufficiale.
+              </p>
+              {isDevelopment ? (
+                <div className="debug-box">
+                  <h3>Debug demo</h3>
+                  <p>
+                    Webhook n8n inviato: <strong>{success.webhookSent ? "true" : "false"}</strong>
+                  </p>
+                </div>
+              ) : null}
+              <a className="primary-button" href={success.officialOrderUrl} rel="noreferrer" target="_blank">
+                Ordina dal sito ufficiale
+              </a>
+            </div>
+          ) : (
+            <form className="form-card" onSubmit={handleSubmit} noValidate>
+              <div className="form-heading">
+                <p className="eyebrow">Scarica il coupon</p>
+                <h2 id="form-title">Ricevi subito il tuo codice.</h2>
+                <p>Lascia i dati e ti inviamo subito il coupon 2x1 GotBun per email.</p>
+                <p className="form-proof">
+                  <span aria-hidden="true">★★★★★</span>
+                  59 recensioni dai clienti GotBun
+                </p>
+              </div>
+
+              <label>
+                Nome
+                <input
+                  autoComplete="name"
+                  name="name"
+                  onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
+                  placeholder="Es. Martina"
+                  required
+                  type="text"
+                  value={form.name}
+                />
+              </label>
+
+              <label>
+                Email
+                <input
+                  autoComplete="email"
+                  name="email"
+                  onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                  placeholder="nome@email.it"
+                  required
+                  type="email"
+                  value={form.email}
+                />
+              </label>
+
+              <label>
+                Telefono <span className="optional-label">opzionale</span>
+                <input
+                  autoComplete="tel"
+                  name="phone"
+                  onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))}
+                  placeholder="Es. 333 123 4567"
+                  type="tel"
+                  value={form.phone}
+                />
+              </label>
+
+              <label className="checkbox-row">
+                <input
+                  checked={form.privacyConsent}
+                  onChange={(event) => setForm((current) => ({ ...current, privacyConsent: event.target.checked }))}
+                  type="checkbox"
+                />
+                <span>
+                  Accetto il trattamento dei dati per ricevere il coupon.{" "}
+                  <a href="https://gotbun.order.app.hd.digital/privacy-policy" rel="noreferrer" target="_blank">
+                    Privacy
+                  </a>
+                </span>
+              </label>
+
+              <label className="checkbox-row recommended">
+                <input
+                  checked={form.marketingConsent}
+                  onChange={(event) => setForm((current) => ({ ...current, marketingConsent: event.target.checked }))}
+                  type="checkbox"
+                />
+                <span>Voglio ricevere offerte e promozioni future da GotBun.</span>
+              </label>
+
+              {error ? <p className="form-error">{error}</p> : null}
+
+              <button className="primary-button" disabled={isLoading} type="submit">
+                {isLoading ? "Genero il coupon..." : "Mandami il coupon"}
+              </button>
+
+              <p className="privacy-copy">
+                I dati saranno usati per inviarti il coupon e, solo se dai consenso, comunicazioni promozionali future. Potrai cancellarti in qualsiasi momento.
+              </p>
+
+              {isDevelopment ? (
+                <div className="debug-box">
+                  <h3>Debug demo</h3>
+                  <p>Payload che verrà inviato a n8n:</p>
+                  <pre>{JSON.stringify(demoPayload, null, 2)}</pre>
+                </div>
+              ) : null}
+            </form>
+          )}
         </div>
       </section>
 
@@ -196,115 +334,37 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="claim-section" id="coupon-form" aria-labelledby="form-title">
-        {success ? (
-          <div className="success-card" role="status">
-            <p className="eyebrow">Coupon generato con successo</p>
-            <h2>Il tuo 2x1 è pronto.</h2>
-            <div className="coupon-code" aria-label="Codice coupon">{success.couponCode}</div>
-            <p className="expiry">Scade il {expiresAtLabel}</p>
-            <p className="conditions">
-              Valido dal lunedì al giovedì. Non cumulabile. Usalo solo sul nostro sito ufficiale.
-            </p>
-            {isDevelopment ? (
-              <div className="debug-box">
-                <h3>Debug demo</h3>
-                <p>
-                  Webhook n8n inviato: <strong>{success.webhookSent ? "true" : "false"}</strong>
-                </p>
-              </div>
-            ) : null}
-            <a className="primary-button" href={success.officialOrderUrl} rel="noreferrer" target="_blank">
-              Ordina dal sito ufficiale
-            </a>
+      <section className="visual-section" aria-label="Area foto hamburger">
+        <div className="burger-card">
+          <div className="burger-visual">
+            <span className="bun top-bun" />
+            <span className="lettuce" />
+            <span className="cheese" />
+            <span className="patty" />
+            <span className="bun bottom-bun" />
           </div>
-        ) : (
-          <form className="form-card" onSubmit={handleSubmit} noValidate>
-            <div className="form-heading">
-              <p className="eyebrow">Scarica il coupon</p>
-              <h2 id="form-title">Ricevi subito il tuo codice.</h2>
-              <p>Lascia i dati e ti inviamo il coupon 2x1 GotBun.</p>
-            </div>
-
-            <label>
-              Nome
-              <input
-                autoComplete="name"
-                name="name"
-                onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
-                placeholder="Es. Martina"
-                required
-                type="text"
-                value={form.name}
-              />
-            </label>
-
-            <label>
-              Email
-              <input
-                autoComplete="email"
-                name="email"
-                onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
-                placeholder="nome@email.it"
-                required
-                type="email"
-                value={form.email}
-              />
-            </label>
-
-            <label>
-              Telefono
-              <input
-                autoComplete="tel"
-                name="phone"
-                onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))}
-                placeholder="Es. 333 123 4567"
-                required
-                type="tel"
-                value={form.phone}
-              />
-            </label>
-
-            <label className="checkbox-row">
-              <input
-                checked={form.privacyConsent}
-                onChange={(event) => setForm((current) => ({ ...current, privacyConsent: event.target.checked }))}
-                type="checkbox"
-              />
-              <span>
-                Accetto il trattamento dei dati per ricevere il coupon. <a href="#privacy">Privacy</a>
-              </span>
-            </label>
-
-            <label className="checkbox-row recommended">
-              <input
-                checked={form.marketingConsent}
-                onChange={(event) => setForm((current) => ({ ...current, marketingConsent: event.target.checked }))}
-                type="checkbox"
-              />
-              <span>Voglio ricevere offerte e promozioni future da GotBun.</span>
-            </label>
-
-            {error ? <p className="form-error">{error}</p> : null}
-
-            <button className="primary-button" disabled={isLoading} type="submit">
-              {isLoading ? "Genero il coupon..." : "Mandami il coupon"}
-            </button>
-
-            <p className="privacy-copy">
-              I dati saranno usati per inviarti il coupon e, solo se dai consenso, comunicazioni promozionali future. Potrai cancellarti in qualsiasi momento.
-            </p>
-
-            {isDevelopment ? (
-              <div className="debug-box">
-                <h3>Debug demo</h3>
-                <p>Payload che verrà inviato a n8n:</p>
-                <pre>{JSON.stringify(demoPayload, null, 2)}</pre>
-              </div>
-            ) : null}
-          </form>
-        )}
+          <div className="offer-badge">
+            <span>Coupon</span>
+            <strong>2x1</strong>
+          </div>
+        </div>
       </section>
+
+      <footer className="site-footer" id="privacy">
+        <p>
+          <a href="https://gotbun.order.app.hd.digital/privacy-policy" rel="noreferrer" target="_blank">
+            Privacy policy
+          </a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://gotbun.order.app.hd.digital/terms-and-conditions" rel="noreferrer" target="_blank">
+            Termini e condizioni
+          </a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://gotbun.order.app.hd.digital/legal-notice-it" rel="noreferrer" target="_blank">
+            Note legali
+          </a>
+        </p>
+      </footer>
     </main>
   );
 }
