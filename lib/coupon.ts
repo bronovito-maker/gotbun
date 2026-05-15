@@ -11,6 +11,10 @@ export function generateCouponCode(): string {
   return `${COUPON_PREFIX}-${suffix}`;
 }
 
+export function generateRedeemToken(): string {
+  return randomBytes(18).toString("base64url");
+}
+
 export function addDays(date: Date, days: number): Date {
   const nextDate = new Date(date);
   nextDate.setDate(nextDate.getDate() + days);

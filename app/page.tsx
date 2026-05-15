@@ -14,8 +14,10 @@ type FormState = {
 
 type SuccessState = {
   couponCode: string;
+  qrContent: string;
+  qrImageUrl: string;
   expiresAt: string;
-  officialOrderUrl: string;
+  promoHours: string;
   webhookSent: boolean;
 };
 
@@ -23,12 +25,13 @@ type ClaimCouponResponse = {
   success?: boolean;
   error?: string;
   couponCode?: unknown;
+  qrContent?: unknown;
+  qrImageUrl?: unknown;
   expiresAt?: unknown;
-  officialOrderUrl?: unknown;
+  promoHours?: unknown;
   webhookSent?: unknown;
 };
 
-const OFFICIAL_ORDER_URL = "https://gotbun.order.app.hd.digital/menus";
 const ALLOWED_SOURCES = new Set(["landing", "instagram", "facebook", "tiktok", "google", "whatsapp", "qr_code", "other"]);
 
 const initialFormState: FormState = {
@@ -38,7 +41,7 @@ const initialFormState: FormState = {
   privacyConsent: false,
   marketingConsent: true,
   source: "landing",
-  campaign: "gotbun_2x1",
+  campaign: "gotbun_tavoli_2x1",
 };
 
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -69,8 +72,8 @@ function normalizeSource(value: string): string {
 function validateClientForm(form: FormState): string | null {
   if (form.name.trim().length < 2) return "Inserisci un nome di almeno 2 caratteri.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) return "Inserisci un indirizzo email valido.";
-  if (form.phone.trim().length > 0 && form.phone.trim().length < 8) return "Inserisci un numero di telefono valido.";
-  if (!form.privacyConsent) return "Accetta il trattamento dei dati per ricevere il coupon.";
+  if (form.phone.replace(/\D/g, "").length < 8) return "Inserisci un numero di telefono valido: ci serve per inviarti il coupon anche su WhatsApp.";
+  if (!form.privacyConsent) return "Accetta il trattamento dei dati per ricevere e utilizzare il coupon.";
   return null;
 }
 
@@ -83,7 +86,7 @@ export default function Home() {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const source = normalizeSource(searchParams.get("source") ?? "landing");
-    const campaign = searchParams.get("campaign")?.trim() || "gotbun_2x1";
+    const campaign = searchParams.get("campaign")?.trim() || "gotbun_tavoli_2x1";
 
     setForm((current) => ({ ...current, source, campaign }));
   }, []);
@@ -103,7 +106,16 @@ export default function Home() {
       privacyConsent: form.privacyConsent,
       marketingConsent: form.marketingConsent,
       couponCode: "GOTBUN-2X1-XXXXXX",
+      redeemToken: "generato al submit",
+      redeemUrl: "https://n8n.example.com/webhook/gotbun-redeem?code=GOTBUN-2X1-XXXXXX&token=...",
+      qrContent: "https://n8n.example.com/webhook/gotbun-redeem?code=GOTBUN-2X1-XXXXXX&token=...",
+      qrImageUrl: "QR image URL generata al submit",
+      status: "Active",
       couponType: "2x1",
+      redemptionMode: "in_store",
+      usageLimit: 1,
+      promoDays: "lunedi-giovedi",
+      promoHours: "18:30-22:30",
       createdAt: "generato al submit",
       expiresAt: "createdAt + 14 giorni",
       source: form.source,
@@ -148,8 +160,10 @@ export default function Home() {
 
       setSuccess({
         couponCode: stringOrFallback(data.couponCode, "GOTBUN-2X1"),
+        qrContent: stringOrFallback(data.qrContent, stringOrFallback(data.couponCode, "GOTBUN-2X1")),
+        qrImageUrl: stringOrFallback(data.qrImageUrl, ""),
         expiresAt: stringOrFallback(data.expiresAt, new Date().toISOString()),
-        officialOrderUrl: stringOrFallback(data.officialOrderUrl, OFFICIAL_ORDER_URL),
+        promoHours: stringOrFallback(data.promoHours, "18:30-22:30"),
         webhookSent: Boolean(data.webhookSent),
       });
     } catch {
@@ -167,35 +181,45 @@ export default function Home() {
 
       <section className="hero-section" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <p className="eyebrow">Promo esclusiva GotBun Riccione</p>
-          <h1 id="hero-title">2 panini al prezzo di 1 da GotBun Riccione</h1>
+          <p className="eyebrow">Promo 2x1 GotBun Riccione</p>
+          <h1 id="hero-title">Porta chi dice "assaggio solo un morso".</h1>
           <p className="hero-subtitle">
-            Scarica il coupon e usalo dal lunedì al giovedì ordinando dal nostro sito ufficiale o mostrandolo in locale.
+            Con il coupon GotBun prendete 2 panini al prezzo di 1 e li gustate al tavolo. Scarica il QR, mostralo in cassa e ordina sul posto.
           </p>
-          <p className="urgency-copy">Coupon 2x1 giornalieri limitati: richiedilo prima che finiscano.</p>
-          <a className="hero-cta" href="#coupon-form">Scarica il coupon 2x1</a>
+          <dl className="promo-strip" aria-label="Condizioni principali della promozione">
+            <div>
+              <dt>Quando</dt>
+              <dd>Lun-gio · 18:30-22:30</dd>
+            </div>
+            <div>
+              <dt>Come</dt>
+              <dd>QR in cassa · Senza prenotazione</dd>
+            </div>
+          </dl>
+          <a className="hero-cta" href="#coupon-form">Ricevi il QR 2x1</a>
           <p className="social-proof" aria-label="Riprova sociale">
             <span aria-hidden="true">★★★★★</span>
             59 recensioni dai clienti GotBun
           </p>
-          <p className="cta-note">
-            Valido solo sul nostro{" "}
-            <a href={OFFICIAL_ORDER_URL} rel="noreferrer" target="_blank">
-              sito ufficiale
-            </a>
-            .
-          </p>
+          <p className="cta-note">Perfetto da condividere con chi finisce sempre per assaggiare il tuo burger. Il QR arriva via email e WhatsApp.</p>
         </div>
 
         <div className="claim-section" id="coupon-form" aria-labelledby="form-title">
           {success ? (
             <div className="success-card" role="status">
-              <p className="eyebrow">Coupon generato con successo</p>
-              <h2>Il tuo 2x1 è pronto.</h2>
-              <div className="coupon-code" aria-label="Codice coupon">{success.couponCode}</div>
-              <p className="expiry">Scade il {expiresAtLabel}</p>
+              <p className="eyebrow">Coupon creato</p>
+              <h2>Il tuo coupon 2x1 è pronto.</h2>
+              <p className="success-intro">Controlla la mail e salva il QR sul telefono. Se il messaggio tarda, puoi mostrare anche il codice qui sotto.</p>
+              <div className="qr-preview" aria-label="Anteprima QR coupon">
+                <img src={success.qrImageUrl} alt={`QR coupon ${success.couponCode}`} width="420" height="420" />
+              </div>
+              <div className="fallback-code">
+                <span>Codice fallback</span>
+                <strong>{success.couponCode}</strong>
+              </div>
+              <p className="expiry">Valido fino al {expiresAtLabel}</p>
               <p className="conditions">
-                Valido dal lunedì al giovedì. Non cumulabile. Usalo solo sul nostro sito ufficiale.
+                Mostra il QR o questo codice prima di pagare. Valido dal lunedì al giovedì, {success.promoHours}, solo per consumazione al tavolo.
               </p>
               {isDevelopment ? (
                 <div className="debug-box">
@@ -205,16 +229,14 @@ export default function Home() {
                   </p>
                 </div>
               ) : null}
-              <a className="primary-button" href={success.officialOrderUrl} rel="noreferrer" target="_blank">
-                Ordina dal sito ufficiale
-              </a>
+              <a className="primary-button" href="#come-funziona">Vedi come funziona</a>
             </div>
           ) : (
             <form className="form-card" onSubmit={handleSubmit} noValidate>
               <div className="form-heading">
-                <p className="eyebrow">Scarica il coupon</p>
-                <h2 id="form-title">Ricevi subito il tuo codice.</h2>
-                <p>Lascia i dati e ti inviamo subito il coupon 2x1 GotBun per email.</p>
+                <p className="eyebrow">Sai già con chi dividerlo</p>
+                <h2 id="form-title">Ricevi il tuo QR.</h2>
+                <p>Compila il form e ti inviamo il coupon 2x1 da salvare sul telefono e mostrare in cassa.</p>
                 <p className="form-proof">
                   <span aria-hidden="true">★★★★★</span>
                   59 recensioni dai clienti GotBun
@@ -248,12 +270,13 @@ export default function Home() {
               </label>
 
               <label>
-                Telefono <span className="optional-label">opzionale</span>
+                Telefono WhatsApp
                 <input
                   autoComplete="tel"
                   name="phone"
                   onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))}
                   placeholder="Es. 333 123 4567"
+                  required
                   type="tel"
                   value={form.phone}
                 />
@@ -266,9 +289,9 @@ export default function Home() {
                   type="checkbox"
                 />
                 <span>
-                  Accetto il trattamento dei dati per ricevere il coupon.{" "}
-                  <a href="https://gotbun.order.app.hd.digital/privacy-policy" rel="noreferrer" target="_blank">
-                    Privacy
+                  Accetto il trattamento dei dati per ricevere e utilizzare il coupon via email e WhatsApp.{" "}
+                  <a href="/privacy" target="_blank">
+                    Privacy e condizioni
                   </a>
                 </span>
               </label>
@@ -279,17 +302,17 @@ export default function Home() {
                   onChange={(event) => setForm((current) => ({ ...current, marketingConsent: event.target.checked }))}
                   type="checkbox"
                 />
-                <span>Voglio ricevere offerte e promozioni future da GotBun.</span>
+                <span>Voglio ricevere altre offerte GotBun via email o WhatsApp.</span>
               </label>
 
               {error ? <p className="form-error">{error}</p> : null}
 
               <button className="primary-button" disabled={isLoading} type="submit">
-                {isLoading ? "Genero il coupon..." : "Mandami il coupon"}
+                {isLoading ? "Sto generando il QR..." : "Ricevi il coupon 2x1"}
               </button>
 
               <p className="privacy-copy">
-                I dati saranno usati per inviarti il coupon e, solo se dai consenso, comunicazioni promozionali future. Potrai cancellarti in qualsiasi momento.
+                Useremo i dati per inviarti il coupon e gestire la promozione. Le offerte future arrivano solo se lasci il consenso marketing.
               </p>
 
               {isDevelopment ? (
@@ -304,16 +327,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="steps-section" aria-labelledby="steps-title">
+      <section className="steps-section" id="come-funziona" aria-labelledby="steps-title">
         <div className="section-heading">
           <p className="eyebrow">Come funziona</p>
-          <h2 id="steps-title">Tre mosse e il coupon è tuo.</h2>
+          <h2 id="steps-title">Tre passaggi, poi si mangia.</h2>
         </div>
         <div className="steps-grid">
           {[
-            ["01", "Lasci i tuoi dati", "Compila il form in pochi secondi."],
-            ["02", "Ricevi il codice", "Generiamo un coupon unico per te."],
-            ["03", "Ordini da GotBun", "Usalo dal sito ufficiale o in locale."],
+            ["01", "Scegli la compagnia", "Meglio se è quella che dice di non avere fame e poi assaggia tutto."],
+            ["02", "Salvi il QR", "Lo ricevi via email e WhatsApp, pronto da tenere sul telefono."],
+            ["03", "Lo mostri in cassa", "Passi da GotBun, mostri il codice prima di pagare e ti godi il 2x1."],
           ].map(([number, title, text]) => (
             <article className="step-card" key={number}>
               <span>{number}</span>
@@ -324,13 +347,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="benefit-section" aria-label="Beneficio sito ufficiale">
+      <section className="benefit-section" aria-label="Condizioni promozione">
         <div>
-          <p className="eyebrow">Perché dal sito ufficiale</p>
-          <h2>Le promo migliori passano dal sito ufficiale.</h2>
+          <p className="eyebrow">Da ricordare</p>
+          <h2>Se vieni con chi "non mangia", questa volta siete coperti.</h2>
         </div>
         <p>
-          Ordinando dal sito ufficiale trovi le promo riservate GotBun e ci aiuti a offrirti più vantaggi, senza passare dalle piattaforme delivery.
+          La promo è valida dal lunedì al giovedì, dalle 18:30 alle 22:30, solo nel locale GotBun Riccione. Il codice è personale, non cumulabile e utilizzabile una sola volta.
         </p>
       </section>
 
@@ -352,17 +375,7 @@ export default function Home() {
 
       <footer className="site-footer" id="privacy">
         <p>
-          <a href="https://gotbun.order.app.hd.digital/privacy-policy" rel="noreferrer" target="_blank">
-            Privacy policy
-          </a>
-          <span aria-hidden="true"> · </span>
-          <a href="https://gotbun.order.app.hd.digital/terms-and-conditions" rel="noreferrer" target="_blank">
-            Termini e condizioni
-          </a>
-          <span aria-hidden="true"> · </span>
-          <a href="https://gotbun.order.app.hd.digital/legal-notice-it" rel="noreferrer" target="_blank">
-            Note legali
-          </a>
+          <a href="/privacy">Privacy policy e condizioni promo</a>
         </p>
       </footer>
     </main>

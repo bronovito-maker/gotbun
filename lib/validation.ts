@@ -41,6 +41,7 @@ export function validateCouponClaim(body: unknown): ValidationResult {
   const email = typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
   const rawPhone = typeof payload.phone === "string" ? payload.phone.trim() : "";
   const phone = normalizeItalianPhone(rawPhone);
+  const phoneDigits = rawPhone.replace(/\D/g, "");
   const privacyConsent = payload.privacyConsent === true;
   const marketingConsent = payload.marketingConsent === true;
   const errors: Record<string, string> = {};
@@ -53,12 +54,12 @@ export function validateCouponClaim(body: unknown): ValidationResult {
     errors.email = "Inserisci un indirizzo email valido.";
   }
 
-  if (rawPhone.length > 0 && rawPhone.length < 8) {
-    errors.phone = "Inserisci un numero di telefono valido.";
+  if (phoneDigits.length < 8) {
+    errors.phone = "Inserisci un numero di telefono valido: ci serve per inviarti il coupon anche su WhatsApp.";
   }
 
   if (!privacyConsent) {
-    errors.privacyConsent = "Devi accettare il trattamento dei dati per ricevere il coupon.";
+    errors.privacyConsent = "Devi accettare il trattamento dei dati per ricevere e utilizzare il coupon.";
   }
 
   if (Object.keys(errors).length > 0) {
@@ -74,7 +75,7 @@ export function validateCouponClaim(body: unknown): ValidationResult {
       privacyConsent,
       marketingConsent,
       source: normalizeSource(payload.source),
-      campaign: normalizeOptionalText(payload.campaign, "gotbun_2x1"),
+      campaign: normalizeOptionalText(payload.campaign, "gotbun_tavoli_2x1"),
     },
   };
 }

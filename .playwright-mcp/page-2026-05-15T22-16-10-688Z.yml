@@ -1,0 +1,83 @@
+- main [ref=e2]:
+  - img "GotBun Riccione" [ref=e4]
+  - region "Porta chi dice \"assaggio solo un morso\"." [ref=e5]:
+    - generic [ref=e6]:
+      - paragraph [ref=e7]: Promo 2x1 GotBun Riccione
+      - heading "Porta chi dice \"assaggio solo un morso\"." [level=1] [ref=e8]
+      - paragraph [ref=e9]: Con il coupon GotBun prendete 2 panini al prezzo di 1 e li gustate al tavolo. Scarichi il QR, lo mostri in cassa e ordini sul posto.
+      - generic "Condizioni principali della promozione" [ref=e10]:
+        - generic [ref=e11]:
+          - term [ref=e12]: Quando
+          - definition [ref=e13]: Lun-gio · 18:30-22:30
+        - generic [ref=e14]:
+          - term [ref=e15]: Come
+          - definition [ref=e16]: QR in cassa · Senza prenotazione
+      - paragraph [ref=e17]:
+        - generic [ref=e18]: ★★★★★
+        - text: 59 recensioni dai clienti GotBun
+      - paragraph [ref=e19]: Perfetto da condividere con chi finisce sempre per assaggiare il tuo burger. Il QR arriva via email e WhatsApp.
+    - generic "Ricevi il tuo QR." [ref=e20]:
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - paragraph [ref=e23]: Sai già con chi dividerlo
+          - heading "Ricevi il tuo QR." [level=2] [ref=e24]
+          - paragraph [ref=e25]: Compila il form e ti inviamo il coupon 2x1 da salvare sul telefono e mostrare in cassa.
+          - paragraph [ref=e26]:
+            - generic [ref=e27]: ★★★★★
+            - text: 59 recensioni dai clienti GotBun
+        - generic [ref=e28]:
+          - text: Nome
+          - textbox "Nome" [ref=e29]:
+            - /placeholder: Es. Martina
+        - generic [ref=e30]:
+          - text: Email
+          - textbox "Email" [ref=e31]:
+            - /placeholder: nome@email.it
+        - generic [ref=e32]:
+          - text: Telefono WhatsApp
+          - textbox "Telefono WhatsApp" [ref=e33]:
+            - /placeholder: Es. 333 123 4567
+        - generic [ref=e34]:
+          - checkbox "Accetto il trattamento dei dati per ricevere e utilizzare il coupon via email e WhatsApp. Privacy e condizioni" [ref=e35]
+          - generic [ref=e36]:
+            - text: Accetto il trattamento dei dati per ricevere e utilizzare il coupon via email e WhatsApp.
+            - link "Privacy e condizioni" [ref=e37] [cursor=pointer]:
+              - /url: /privacy
+        - generic [ref=e38]:
+          - checkbox "Voglio ricevere altre offerte GotBun via email o WhatsApp. consigliato" [checked] [ref=e39]
+          - generic [ref=e40]: Voglio ricevere altre offerte GotBun via email o WhatsApp. consigliato
+        - button "Ricevi il coupon 2x1" [ref=e41] [cursor=pointer]
+        - paragraph [ref=e42]: Useremo i dati per inviarti il coupon e gestire la promozione. Le offerte future arrivano solo se lasci il consenso marketing.
+        - generic [ref=e43]:
+          - heading "Debug demo" [level=3] [ref=e44]
+          - paragraph [ref=e45]: "Payload che verrà inviato a n8n:"
+          - generic [ref=e46]: "{ \"event\": \"coupon_claimed\", \"brand\": \"GotBun Riccione\", \"name\": \"Nome cliente\", \"email\": \"cliente@example.com\", \"phone\": \"3331234567\", \"privacyConsent\": false, \"marketingConsent\": true, \"couponCode\": \"GOTBUN-2X1-XXXXXX\", \"redeemToken\": \"generato al submit\", \"redeemUrl\": \"https://n8n.example.com/webhook/gotbun-redeem?code=GOTBUN-2X1-XXXXXX&token=...\", \"qrContent\": \"https://n8n.example.com/webhook/gotbun-redeem?code=GOTBUN-2X1-XXXXXX&token=...\", \"qrImageUrl\": \"QR image URL generata al submit\", \"status\": \"Active\", \"couponType\": \"2x1\", \"redemptionMode\": \"in_store\", \"usageLimit\": 1, \"promoDays\": \"lunedi-giovedi\", \"promoHours\": \"18:30-22:30\", \"createdAt\": \"generato al submit\", \"expiresAt\": \"createdAt + 14 giorni\", \"source\": \"landing\", \"campaign\": \"gotbun_tavoli_2x1\" }"
+  - region "Tre passaggi, poi si mangia." [ref=e47]:
+    - generic [ref=e48]:
+      - paragraph [ref=e49]: Come funziona
+      - heading "Tre passaggi, poi si mangia." [level=2] [ref=e50]
+    - generic [ref=e51]:
+      - article [ref=e52]:
+        - generic [ref=e53]: "01"
+        - heading "Scegli la compagnia" [level=3] [ref=e54]
+        - paragraph [ref=e55]: Meglio se è quella che dice di non avere fame e poi assaggia tutto.
+      - article [ref=e56]:
+        - generic [ref=e57]: "02"
+        - heading "Salvi il QR" [level=3] [ref=e58]
+        - paragraph [ref=e59]: Lo ricevi via email e WhatsApp, pronto da tenere sul telefono.
+      - article [ref=e60]:
+        - generic [ref=e61]: "03"
+        - heading "Lo mostri in cassa" [level=3] [ref=e62]
+        - paragraph [ref=e63]: Passi da GotBun, mostri il codice prima di pagare e ti godi il 2x1.
+  - region "Condizioni promozione" [ref=e64]:
+    - generic [ref=e65]:
+      - paragraph [ref=e66]: Da ricordare
+      - heading "Se vieni con chi \"non mangia\", questa volta siete coperti." [level=2] [ref=e67]
+    - paragraph [ref=e68]: La promo è valida dal lunedì al giovedì, dalle 18:30 alle 22:30, solo nel locale GotBun Riccione. Il codice è personale, non cumulabile e utilizzabile una sola volta.
+  - region "Area foto hamburger" [ref=e69]:
+    - generic [ref=e77]:
+      - generic [ref=e78]: Coupon
+      - strong [ref=e79]: 2x1
+  - paragraph [ref=e81]:
+    - link "Privacy policy e condizioni promo" [ref=e82] [cursor=pointer]:
+      - /url: /privacy

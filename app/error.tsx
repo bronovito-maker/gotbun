@@ -18,7 +18,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         <p className="eyebrow">Qualcosa non ha funzionato</p>
         <h2>Riproviamo.</h2>
         <p className="conditions">
-          Se hai appena richiesto il coupon, controlla anche la tua email: il codice potrebbe essere gia stato inviato.
+          Se hai appena richiesto il coupon, controlla anche la tua email: il codice potrebbe essere già stato inviato.
         </p>
         <button className="primary-button" onClick={reset} type="button">
           Torna al form
