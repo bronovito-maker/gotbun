@@ -19,6 +19,10 @@
 }
 
 html {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(120, 194, 87, 0.16), transparent 22rem),
+    radial-gradient(circle at 8% 14%, rgba(255, 195, 66, 0.16), transparent 20rem),
+    linear-gradient(155deg, #0d0f0c 0%, #15130f 54%, #21130c 100%);
   scroll-behavior: smooth;
 }
 
@@ -28,7 +32,7 @@ body {
     radial-gradient(circle at 82% 8%, rgba(120, 194, 87, 0.16), transparent 22rem),
     radial-gradient(circle at 8% 14%, rgba(255, 195, 66, 0.16), transparent 20rem),
     linear-gradient(155deg, #0d0f0c 0%, #15130f 54%, #21130c 100%);
-  background-attachment: fixed;
+  min-height: 100vh;
   color: var(--cream);
   font-family: ui-rounded, "Avenir Next", "Trebuchet MS", sans-serif;
 }
