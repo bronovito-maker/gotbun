@@ -1,0 +1,70 @@
+- main [ref=e2]:
+  - generic "Intestazione GotBun Riccione" [ref=e3]:
+    - link "GotBun Riccione home" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - img "GotBun Riccione" [ref=e5]
+    - link "Menu" [ref=e6] [cursor=pointer]:
+      - /url: https://gotbun.order.app.hd.digital/menus
+  - region "Burger, tavolo e promo a Riccione." [ref=e7]:
+    - generic [ref=e8]:
+      - paragraph [ref=e9]: GotBun Riccione
+      - heading "Burger, tavolo e promo a Riccione." [level=1] [ref=e10]
+      - paragraph [ref=e11]: Smash burger, menu online e offerte da gustare in locale. Scegli cosa mangiare, ordina online o scopri le promo attive.
+      - generic "Azioni principali" [ref=e12]:
+        - link "Vedi il menu" [ref=e13] [cursor=pointer]:
+          - /url: https://gotbun.order.app.hd.digital/menus
+        - link "Ordina online" [ref=e14] [cursor=pointer]:
+          - /url: https://gotbun.order.app.hd.digital/menus
+      - link "Scopri il coupon 2x1" [ref=e15] [cursor=pointer]:
+        - /url: https://promo.gotbunriccione.it
+        - generic [ref=e16]: "%"
+        - text: Scopri il coupon 2x1
+    - generic "Burger GotBun" [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]: Riccione
+        - strong [ref=e20]: GotBun
+  - region "Cosa vuoi mangiare oggi?" [ref=e21]:
+    - generic [ref=e22]:
+      - paragraph [ref=e23]: Menu e ordini
+      - heading "Cosa vuoi mangiare oggi?" [level=2] [ref=e24]
+    - generic [ref=e25]:
+      - paragraph [ref=e26]: Dai un'occhiata al menu GotBun e ordina online in pochi tocchi. Scegli i tuoi burger, completa l'ordine dalla piattaforma ufficiale e passa in locale.
+      - link "Sfoglia il menu" [ref=e27] [cursor=pointer]:
+        - /url: https://gotbun.order.app.hd.digital/menus
+  - region "Porta chi dice \"assaggio solo un morso\"." [ref=e28]:
+    - generic [ref=e29]:
+      - paragraph [ref=e30]: Promo attiva
+      - heading "Porta chi dice \"assaggio solo un morso\"." [level=2] [ref=e31]
+      - paragraph [ref=e32]: Con il coupon GotBun prendete 2 panini al prezzo di 1 e li gustate al tavolo. Valido dal lunedì al giovedì, dalle 18:30 alle 22:30, senza prenotazione.
+    - link "Ottieni il coupon" [ref=e33] [cursor=pointer]:
+      - /url: https://promo.gotbunriccione.it
+  - region "Vieni a trovarci." [ref=e34]:
+    - generic [ref=e35]:
+      - paragraph [ref=e36]: Info locale
+      - heading "Vieni a trovarci." [level=2] [ref=e37]
+    - generic [ref=e38]:
+      - article [ref=e39]:
+        - generic [ref=e40]: Orari
+        - heading "Aperti tutti i giorni" [level=3] [ref=e41]
+        - paragraph [ref=e42]: Controlla gli orari aggiornati dal menu online o dai profili ufficiali GotBun.
+        - link "Vedi menu e orari" [ref=e43] [cursor=pointer]:
+          - /url: https://gotbun.order.app.hd.digital/menus
+      - article [ref=e44]:
+        - generic [ref=e45]: Indirizzo
+        - heading "GotBun Riccione" [level=3] [ref=e46]
+        - paragraph [ref=e47]: Passa in locale per mangiare al tavolo, ritirare l'ordine o usare le promo attive.
+        - link "Apri Maps" [ref=e48] [cursor=pointer]:
+          - /url: https://www.google.com/maps/search/?api=1&query=GotBun%20Riccione
+      - article [ref=e49]:
+        - generic [ref=e50]: Contatti
+        - heading "Menu e ordini online" [level=3] [ref=e51]
+        - paragraph [ref=e52]: Per ordinare usa la piattaforma ufficiale GotBun. È il modo più rapido per vedere disponibilità e prodotti.
+        - link "Ordina online" [ref=e53] [cursor=pointer]:
+          - /url: https://gotbun.order.app.hd.digital/menus
+  - generic [ref=e54]:
+    - paragraph [ref=e55]: © GotBun Riccione
+    - navigation "Link utili" [ref=e56]:
+      - link "Privacy e condizioni promo" [ref=e57] [cursor=pointer]:
+        - /url: /privacy
+      - link "Sito vetrina DISH" [ref=e58] [cursor=pointer]:
+        - /url: https://gotbunriccione.eatbu.com

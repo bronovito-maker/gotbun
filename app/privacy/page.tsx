@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy e condizioni promo tavoli | GotBun Riccione",
@@ -8,16 +9,16 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="policy-page">
-      <a className="policy-back" href="/">
+      <Link className="policy-back" href="/">
         Torna alla promo
-      </a>
+      </Link>
 
       <section className="policy-hero">
         <p className="eyebrow">GotBun Riccione</p>
         <h1>Privacy e condizioni promo tavoli 2x1</h1>
         <p>
           Questa pagina spiega come vengono trattati i dati raccolti tramite la landing della promozione tavoli e
-          quali condizioni regolano l'utilizzo del coupon.
+          quali condizioni regolano l&apos;utilizzo del coupon.
         </p>
       </section>
 
@@ -34,7 +35,7 @@ export default function PrivacyPage() {
           <h2>Finalità del trattamento</h2>
           <p>
             I dati sono usati per generare un codice univoco, inviare il coupon via email e, quando disponibile,
-            tramite WhatsApp, gestire l'utilizzo in cassa e prevenire riutilizzi non autorizzati. Con consenso
+            tramite WhatsApp, gestire l&apos;utilizzo in cassa e prevenire riutilizzi non autorizzati. Con consenso
             separato, i dati potranno essere usati per inviare offerte e comunicazioni promozionali future di GotBun.
           </p>
         </article>
@@ -42,7 +43,7 @@ export default function PrivacyPage() {
         <article>
           <h2>Base giuridica</h2>
           <p>
-            Il trattamento necessario all'invio e alla gestione del coupon si basa sulla richiesta dell'utente e sul
+            Il trattamento necessario all&apos;invio e alla gestione del coupon si basa sulla richiesta dell&apos;utente e sul
             consenso privacy espresso nel form. Le comunicazioni promozionali future sono inviate solo con consenso
             marketing facoltativo e revocabile.
           </p>
@@ -52,8 +53,8 @@ export default function PrivacyPage() {
           <h2>Strumenti e destinatari</h2>
           <p>
             I dati possono essere trattati tramite strumenti di automazione, CRM, database operativo, provider email e
-            servizi di messaggistica necessari all'invio del coupon e alla gestione della campagna. L'accesso ai dati è
-            limitato ai soggetti coinvolti nell'erogazione della promozione.
+            servizi di messaggistica necessari all&apos;invio del coupon e alla gestione della campagna. L&apos;accesso ai dati è
+            limitato ai soggetti coinvolti nell&apos;erogazione della promozione.
           </p>
         </article>
 
@@ -61,7 +62,7 @@ export default function PrivacyPage() {
           <h2>Conservazione</h2>
           <p>
             I dati legati al coupon sono conservati per il tempo necessario a gestire la promozione, verificare
-            l'utilizzo del codice e adempiere a eventuali obblighi amministrativi. I dati usati per marketing sono
+            l&apos;utilizzo del codice e adempiere a eventuali obblighi amministrativi. I dati usati per marketing sono
             conservati fino a revoca del consenso o richiesta di cancellazione.
           </p>
         </article>

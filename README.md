@@ -1,128 +1,144 @@
-# GotBun Riccione Promo Tavoli 2x1
+# GotBun Riccione
 
-Mini landing page promozionale per raccogliere lead, generare un coupon dinamico 2x1 per consumazione sul posto e inviare i dati a un webhook n8n per email/WhatsApp automation.
+Sito leggero e operativo per GotBun Riccione.
+
+Il progetto oggi gestisce due esperienze nello stesso codice:
+
+- **Sito principale** su `gotbunriccione.it`: home istituzionale, menu, ordini online, promo e info locale.
+- **Landing promo 2x1** su `promo.gotbunriccione.it`: raccolta lead, generazione coupon QR, invio dati a n8n/Brevo/Airtable e redemption in cassa.
 
 ## Stack
 
-- Next.js App Router
-- TypeScript
-- React
-- CSS globale custom
-- API route interna `POST /api/claim-coupon`
-- Invio server-side a webhook n8n
-- Nessun database interno
+- Next.js `16.2.6` con App Router e Turbopack
+- React `19.2.6`
+- TypeScript `6.0.3`
+- ESLint `9.39.4` con `eslint-config-next`
+- CSS globale custom in `app/globals.css`
+- API route server-side `POST /api/claim-coupon`
+- n8n per automazioni coupon, email, Airtable e redemption
+- Brevo per email transazionali
+- Airtable come database operativo coupon/lead
+- Nessun database interno all'app
 
-## Installazione
+> Nota: ESLint 10 esiste, ma il progetto resta su ESLint 9.39.x perché è la linea compatibile con i plugin usati da `eslint-config-next` 16.
+
+## Comandi
 
 ```bash
 npm install
-```
-
-## Avvio in locale
-
-```bash
 npm run dev
+npm run lint
+npm run build
+npm run start
 ```
 
-Poi apri:
+Durante lo sviluppo apri:
 
 ```text
 http://localhost:3000
 ```
 
-Puoi simulare sorgente e campagna con query params:
+## Route e domini
+
+| Dominio/route | Scopo |
+| --- | --- |
+| `https://gotbunriccione.it/` | Sito principale GotBun Riccione |
+| `https://www.gotbunriccione.it/` | Alias del sito principale |
+| `https://promo.gotbunriccione.it/` | Landing promo 2x1 |
+| `/promo` | Route interna della landing promo |
+| `/privacy` | Privacy policy e condizioni promo |
+| `/redeem` | Fallback locale se manca il webhook di redemption |
+| `/api/claim-coupon` | API interna per generare coupon e inviare payload a n8n |
+
+`proxy.ts` mantiene la separazione tra dominio principale e promo:
 
 ```text
-http://localhost:3000?source=instagram&campaign=2x1_maggio
+Host promo.gotbunriccione.it + path /
+-> rewrite interno a /promo
 ```
 
-Se i parametri non sono presenti, la landing usa:
+L'utente continua a vedere `promo.gotbunriccione.it`, mentre il sito principale usa `/`.
+
+## Link esterni operativi
+
+| Servizio | URL |
+| --- | --- |
+| Menu e ordini DISH Order | `https://gotbun.order.app.hd.digital/menus` |
+| Sito vetrina DISH | `https://gotbunriccione.eatbu.com` |
+| Landing promo pubblica | `https://promo.gotbunriccione.it` |
+
+Il menu e gli ordini restano su DISH Order. Il sito principale su Vercel deve linkare sempre il menu ufficiale, senza provare a replicare checkout o catalogo.
+
+## Struttura progetto
 
 ```text
-source=landing
-campaign=gotbun_tavoli_2x1
+app/
+├── api/
+│   └── claim-coupon/
+│       └── route.ts          # Generazione coupon, QR, payload n8n
+├── privacy/
+│   └── page.tsx              # Privacy e condizioni promo
+├── promo/
+│   └── page.tsx              # Landing promo 2x1 con form
+├── redeem/
+│   └── page.tsx              # Fallback redemption locale
+├── error.tsx                 # Error boundary
+├── globals.css               # Design system e stili di entrambe le esperienze
+├── icon.svg                  # Favicon
+├── layout.tsx                # Metadata e root layout
+└── page.tsx                  # Sito principale
+
+lib/
+├── coupon.ts                 # Codice coupon, token redemption, date helper
+└── validation.ts             # Validazione server-side form coupon
+
+proxy.ts                      # Rewrite host promo -> /promo
+gotbun.json                   # Workflow n8n lead/coupon/email
+gotbun-redeem.json            # Workflow n8n redemption in cassa
+docs/brand-copy.md            # Brand identity e stile copy
 ```
 
-## Configurazione webhook n8n
+## Variabili ambiente
 
-Crea un file `.env.local` partendo da `.env.example`:
+Parti da `.env.example`:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Imposta il webhook n8n:
+Variabili:
 
 ```env
-N8N_WEBHOOK_URL="https://your-n8n-domain.com/webhook/gotbun-coupon"
-N8N_REDEEM_WEBHOOK_URL="https://your-n8n-domain.com/webhook/gotbun-redeem"
+N8N_WEBHOOK_URL="https://primary-production-b2af.up.railway.app/webhook/gotbun-coupon"
+N8N_REDEEM_WEBHOOK_URL="https://primary-production-b2af.up.railway.app/webhook/gotbun-redeem"
+QR_IMAGE_BASE_URL=""
 ```
 
-Se `N8N_REDEEM_WEBHOOK_URL` non è configurato, il QR viene generato verso `/redeem` sul dominio corrente: utile solo come fallback di sviluppo. In produzione deve puntare al webhook di redemption n8n.
+Uso:
 
-## Configurazione workflow n8n
+- `N8N_WEBHOOK_URL`: riceve il lead e crea il coupon nel workflow principale.
+- `N8N_REDEEM_WEBHOOK_URL`: finisce nel QR e viene aperta quando il titolare scansiona il coupon.
+- `QR_IMAGE_BASE_URL`: opzionale. Se vuoto, usa `api.qrserver.com` con QR 420x420.
 
-Il file `gotbun.json` contiene il workflow pronto da importare in n8n.
+In produzione `N8N_REDEEM_WEBHOOK_URL` deve essere configurato. Il fallback `/redeem` serve solo a non rompere lo sviluppo locale.
 
-Prima di attivarlo:
-
-1. Nel nodo `Create Airtable Lead`, sostituisci `app_REPLACE_WITH_AIRTABLE_BASE_ID` con l'ID della base Airtable.
-2. Nel nodo `Create Airtable Lead`, sostituisci `tbl_REPLACE_WITH_AIRTABLE_TABLE_ID` con l'ID della tabella Airtable.
-3. Nel nodo `Send Brevo Coupon Email`, sostituisci `REPLACE_WITH_BREVO_TEMPLATE_ID` con l'ID del template transazionale Brevo.
-4. Seleziona le credenziali Airtable e Brevo direttamente dai rispettivi nodi.
-5. Imposta in `.env.local` o su Vercel la URL di produzione del webhook n8n:
-
-```env
-N8N_WEBHOOK_URL="https://your-n8n-domain.com/webhook/gotbun-coupon"
-```
-
-La tabella Airtable deve avere queste colonne:
+## Flusso coupon
 
 ```text
-Name
-Email
-Phone
-Coupon Code
-QR Content
-QR Image URL
-Redeem URL
-Redeem Token
-Coupon Type
-Redemption Mode
-Usage Limit
-Promo Days
-Promo Hours
-Status
-Redeemed At
-Redeemed By
-Redeem Attempts
-Brand
-Source
-Campaign
-Privacy Consent
-Marketing Consent
-Created At
-Expires At
+promo.gotbunriccione.it
+-> form cliente
+-> POST /api/claim-coupon
+-> validazione server-side
+-> generazione coupon GOTBUN-2X1-XXXXXX
+-> generazione redeem token sicuro
+-> redeemUrl con code + token
+-> QR image URL
+-> payload a n8n
+-> Airtable + Brevo
+-> email con QR e codice fallback
 ```
 
-Nel template transazionale Brevo puoi usare questi parametri:
-
-```text
-{{ params.name }}
-{{ params.couponCode }}
-{{ params.qrContent }}
-{{ params.qrImageUrl }}
-{{ params.redeemUrl }}
-{{ params.expiresAt }}
-{{ params.promoDays }}
-{{ params.promoHours }}
-```
-
-Nel contatto Brevo il workflow valorizza gli attributi `FIRSTNAME`, `SMS`, `COUPON`, `SOURCE` e `CAMPAIGN`: creali in Brevo o rinominali nel nodo `Create Brevo Contact`.
-
-## Payload inviato a n8n
-
-Quando il webhook è configurato, l'API invia un payload come questo:
+Payload inviato a n8n:
 
 ```json
 {
@@ -130,13 +146,13 @@ Quando il webhook è configurato, l'API invia un payload come questo:
   "brand": "GotBun Riccione",
   "name": "Martina",
   "email": "martina@example.com",
-  "phone": "3331234567",
+  "phone": "+393331234567",
   "privacyConsent": true,
   "marketingConsent": true,
   "couponCode": "GOTBUN-2X1-ABC123",
-  "redeemToken": "N6J0xF0bI_1nMe6TwCx3b6b8",
-  "redeemUrl": "https://your-n8n-domain.com/webhook/gotbun-redeem?code=GOTBUN-2X1-ABC123&token=N6J0xF0bI_1nMe6TwCx3b6b8",
-  "qrContent": "https://your-n8n-domain.com/webhook/gotbun-redeem?code=GOTBUN-2X1-ABC123&token=N6J0xF0bI_1nMe6TwCx3b6b8",
+  "redeemToken": "token-sicuro",
+  "redeemUrl": "https://primary-production-b2af.up.railway.app/webhook/gotbun-redeem?code=GOTBUN-2X1-ABC123&token=token-sicuro",
+  "qrContent": "https://primary-production-b2af.up.railway.app/webhook/gotbun-redeem?code=GOTBUN-2X1-ABC123&token=token-sicuro",
   "qrImageUrl": "https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=...",
   "status": "Active",
   "couponType": "2x1",
@@ -144,70 +160,149 @@ Quando il webhook è configurato, l'API invia un payload come questo:
   "usageLimit": 1,
   "promoDays": "lunedi-giovedi",
   "promoHours": "18:30-22:30",
-  "createdAt": "2026-05-14T20:30:00.000Z",
-  "expiresAt": "2026-05-28T20:30:00.000Z",
+  "createdAt": "2026-05-16T10:00:00.000Z",
+  "expiresAt": "2026-05-30T10:00:00.000Z",
   "source": "instagram",
-  "campaign": "2x1_maggio"
+  "campaign": "gotbun_tavoli_2x1"
 }
 ```
 
-## Test con curl
+## Workflow n8n
 
-Con server locale attivo:
+### `gotbun.json`
 
-```bash
-curl -X POST http://localhost:3000/api/claim-coupon \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Martina",
-    "email": "martina@example.com",
-    "phone": "3331234567",
-    "privacyConsent": true,
-    "marketingConsent": true,
-    "source": "instagram",
-    "campaign": "2x1_maggio"
-  }'
-```
-
-Risposta attesa:
-
-```json
-{
-  "success": true,
-  "couponCode": "GOTBUN-2X1-ABC123",
-  "qrContent": "https://your-n8n-domain.com/webhook/gotbun-redeem?code=GOTBUN-2X1-ABC123&token=...",
-  "qrImageUrl": "https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=...",
-  "expiresAt": "2026-05-28T20:30:00.000Z",
-  "redemptionMode": "in_store",
-  "promoDays": "lunedi-giovedi",
-  "promoHours": "18:30-22:30",
-  "webhookSent": false
-}
-```
-
-## Deploy su Vercel
-
-1. Collega il repository a Vercel.
-2. Imposta la variabile ambiente `N8N_WEBHOOK_URL` nelle Project Settings.
-3. Esegui deploy con impostazioni standard Next.js.
-4. Testa la landing con una URL tracciata, per esempio `/ ?source=instagram&campaign=2x1_maggio` senza lo spazio.
-
-## Note MVP
-
-Questa demo copre il flusso:
+Workflow principale:
 
 ```text
-landing -> form -> coupon dinamico -> webhook n8n -> CRM/database/email/WhatsApp automation -> QR in cassa
+Webhook gotbun-coupon
+-> normalizzazione lead/coupon
+-> Airtable lead/coupon
+-> contatto Brevo
+-> email transazionale con QR
 ```
 
-Non include e-commerce, pagamenti o database interno. L'uso singolo del codice va gestito nel sistema collegato a n8n, per esempio Airtable/CRM con stato "redeemed".
+Template Brevo richiesto:
 
-## Redemption in cassa
+```text
+name
+couponCode
+qrImageUrl
+redeemUrl
+expiresAt
+```
 
-Il QR deve contenere `qrContent`, cioe la `redeemUrl` con `code` e `token`. Il workflow n8n di redemption deve:
+Campi Airtable essenziali:
 
-1. Ricevere `GET /webhook/gotbun-redeem?code=...&token=...`.
-2. Cercare in Airtable un record con lo stesso `Coupon Code` e `Redeem Token`.
-3. Rifiutare il coupon se `Status` e gia `Redeemed`, se e scaduto o se la promo non e attiva in quel giorno/orario.
-4. Se valido, aggiornare `Status = Redeemed`, `Redeemed At = now`, `Redeemed By = cassa`, `Redeem Attempts = Redeem Attempts + 1`.
-5. Rispondere con una pagina HTML chiara per il titolare: valido, gia usato, scaduto, fuori orario o non trovato.
+```text
+Name
+Email
+Phone
+Coupon Code
+Redeem Token
+Redeem URL
+QR Content
+QR Image URL
+Status
+Usage Limit
+Redeem Attempts
+Redeemed At
+Redeemed By
+Privacy Consent
+Marketing Consent
+Brand
+Source
+Campaign
+Created At
+Expires At
+```
+
+`Status` è una single select con valori:
+
+```text
+Active
+Email Sent
+Redeemed
+Expired
+Invalid
+```
+
+### `gotbun-redeem.json`
+
+Workflow cassa:
+
+```text
+QR scan
+-> pagina PIN cassa
+-> verifica code + token in Airtable
+-> verifica status, scadenza e finestra promo
+-> update Status = Redeemed
+-> Redeemed At in formato italiano
+-> pagina finale per il titolare
+```
+
+Il QR non deve segnare automaticamente il coupon come usato da qualsiasi telefono. Serve il PIN cassa.
+
+Configurare su n8n/Railway:
+
+```env
+GOTBUN_REDEEM_PIN="PIN_SCELTO"
+```
+
+## Promo 2x1
+
+Regole attuali:
+
+- Valida dal lunedì al giovedì
+- Dalle 18:30 alle 22:30
+- Solo in locale
+- Senza prenotazione
+- Consumazione al tavolo
+- QR/codice da mostrare in cassa prima di pagare
+- Codice personale, univoco, utilizzabile una sola volta
+- Non cumulabile
+
+## DNS e deploy
+
+Deployment consigliato su Vercel.
+
+Domini da collegare al progetto:
+
+```text
+gotbunriccione.it
+www.gotbunriccione.it
+promo.gotbunriccione.it
+```
+
+DNS indicativi:
+
+```text
+@      A      76.76.21.21
+www    CNAME  cname.vercel-dns.com
+promo  CNAME  valore specifico fornito da Vercel
+```
+
+Non modificare record email, Brevo, DKIM, DMARC o MX quando si aggiorna il sito.
+
+## Qualità e verifica
+
+Prima di consegnare modifiche:
+
+```bash
+npm run lint
+npm run build
+```
+
+Controlli minimi:
+
+- `/` carica la home principale.
+- `/promo` carica il form coupon.
+- `Host: promo.gotbunriccione.it` su `/` riscrive a `/promo`.
+- Il form coupon genera QR, codice fallback e invia payload a n8n quando la variabile è configurata.
+- La promo non deve essere rotta da modifiche alla home principale.
+
+## Documentazione collegata
+
+- [Brand identity e copy](docs/brand-copy.md)
+- [Workflow Brevo](brevo_workflow_docs.md)
+- `gotbun.json`
+- `gotbun-redeem.json`
