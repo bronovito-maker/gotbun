@@ -36,6 +36,7 @@ export default function Home() {
       <header className="main-header" aria-label="Intestazione GotBun Riccione">
         <Link className="main-logo-link" href="/" aria-label="GotBun Riccione home">
           <Image className="main-logo" src="/gotbun_logo.png" alt="GotBun Riccione" width={360} height={90} priority />
+          <span>Riccione</span>
         </Link>
         <a className="main-header-action" href={MENU_URL} rel="noreferrer" target="_blank">
           Menu
@@ -44,7 +45,6 @@ export default function Home() {
 
       <section className="main-hero" aria-labelledby="main-hero-title">
         <div className="main-hero-copy">
-          <p className="main-eyebrow">GotBun Riccione</p>
           <h1 id="main-hero-title">
             Street food caldo, croccante, <span>serio</span>.
           </h1>
@@ -65,8 +65,8 @@ export default function Home() {
 
         <div className="main-hero-visual" aria-label="Burger GotBun">
           <div className="main-visual-badge">
-            <span>Riccione</span>
-            <strong>GotBun</strong>
+            <span>🔥 Burger del mese</span>
+            <strong>Habanero 🌶️🌶️🌶️</strong>
           </div>
         </div>
       </section>

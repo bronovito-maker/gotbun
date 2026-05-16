@@ -33,6 +33,7 @@ type ClaimCouponResponse = {
 };
 
 const ALLOWED_SOURCES = new Set(["landing", "instagram", "facebook", "tiktok", "google", "whatsapp", "qr_code", "other"]);
+const MAIN_SITE_URL = "https://gotbunriccione.it";
 
 const initialFormState: FormState = {
   name: "",
@@ -179,7 +180,9 @@ export default function Home() {
   return (
     <main className="page-shell">
       <header className="site-header">
-        <Image className="site-logo" src="/gotbun_logo.png" alt="GotBun Riccione" width={360} height={90} priority />
+        <a href={MAIN_SITE_URL} aria-label="Vai al sito GotBun Riccione">
+          <Image className="site-logo" src="/gotbun_logo.png" alt="GotBun Riccione" width={360} height={90} priority />
+        </a>
       </header>
 
       <section className="hero-section" aria-labelledby="hero-title">
@@ -361,17 +364,10 @@ export default function Home() {
       </section>
 
       <section className="visual-section" aria-label="Area foto hamburger">
-        <div className="burger-card">
-          <div className="burger-visual">
-            <span className="bun top-bun" />
-            <span className="lettuce" />
-            <span className="cheese" />
-            <span className="patty" />
-            <span className="bun bottom-bun" />
-          </div>
-          <div className="offer-badge">
-            <span>Coupon</span>
-            <strong>2x1</strong>
+        <div className="main-hero-visual promo-photo-visual" aria-label="Burger GotBun">
+          <div className="main-visual-badge">
+            <span>🔥 Burger del mese</span>
+            <strong>Habanero 🌶️🌶️🌶️</strong>
           </div>
         </div>
       </section>
