@@ -4,6 +4,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy e condizioni promo tavoli | GotBun Riccione",
   description: "Informativa privacy e condizioni della promozione tavoli 2x1 GotBun Riccione.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

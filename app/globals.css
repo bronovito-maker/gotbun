@@ -875,6 +875,7 @@ input:focus {
 .main-hero-text,
 .main-section-copy p,
 .main-promo-card p,
+.main-faq-item p,
 .info-card p,
 .main-footer {
   color: rgba(255, 242, 216, 0.76);
@@ -1080,6 +1081,33 @@ input:focus {
   padding: 0 13px;
   text-decoration: none;
   transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.main-faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.main-faq-item {
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 242, 216, 0.12);
+  padding-bottom: 16px;
+}
+
+.main-faq-item:last-child {
+  border-bottom: 0;
+}
+
+.main-faq-item h3,
+.main-faq-item p {
+  margin: 0;
+}
+
+.main-faq-item h3 {
+  color: var(--white);
+  font-size: 1.08rem;
+  letter-spacing: 0;
 }
 
 .main-footer {

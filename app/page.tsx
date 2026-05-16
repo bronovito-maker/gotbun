@@ -1,10 +1,20 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { business, DISH_URL, homeFaqs, jsonLd, MAPS_URL, MENU_URL, PROMO_URL, SITE_URL } from "@/lib/seo";
 
-const MENU_URL = "https://gotbun.order.app.hd.digital/menus";
-const PROMO_URL = "https://promo.gotbunriccione.it";
-const DISH_URL = "https://gotbunriccione.eatbu.com";
-const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=GotBun%20Riccione";
+export const metadata: Metadata = {
+  title: "Burger a Riccione, menu online e promo 2x1",
+  description: "GotBun Riccione in Viale Emilia 40: smash burger, hot dog, wrap, menu online, ordini e promo 2x1 al tavolo.",
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    url: SITE_URL,
+    title: "GotBun Riccione - Burger, menu e promo 2x1",
+    description: "Smash burger, menu online, ordini e promo 2x1 da gustare in locale a Riccione.",
+  },
+};
 
 const infoCards = [
   {
@@ -31,8 +41,86 @@ const infoCards = [
 ];
 
 export default function Home() {
+  const restaurantSchema = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "@id": `${SITE_URL}/#restaurant`,
+    name: business.name,
+    description: business.description,
+    url: SITE_URL,
+    telephone: business.phone,
+    image: [`${SITE_URL}/gotbun_logo.png`, `${SITE_URL}/gotbun-hero-burger.png`],
+    logo: `${SITE_URL}/gotbun_logo.png`,
+    servesCuisine: ["Burger", "Smash burger", "Street food", "Hot dog", "Wrap"],
+    priceRange: "€€",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: business.streetAddress,
+      addressLocality: business.city,
+      addressRegion: business.region,
+      postalCode: business.postalCode,
+      addressCountry: business.country,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: business.latitude,
+      longitude: business.longitude,
+    },
+    openingHours: business.openingHours,
+    hasMenu: MENU_URL,
+    acceptsReservations: false,
+    sameAs: [DISH_URL, MENU_URL, MAPS_URL, PROMO_URL],
+    potentialAction: {
+      "@type": "OrderAction",
+      target: MENU_URL,
+      deliveryMethod: "https://schema.org/OnSitePickup",
+    },
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: business.name,
+    url: SITE_URL,
+    inLanguage: "it-IT",
+    publisher: {
+      "@id": `${SITE_URL}/#restaurant`,
+    },
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: homeFaqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "GotBun Riccione",
+        item: SITE_URL,
+      },
+    ],
+  };
+
   return (
     <main className="main-site">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(restaurantSchema)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(websiteSchema)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(breadcrumbSchema)} />
       <header className="main-header" aria-label="Intestazione GotBun Riccione">
         <Link className="main-logo-link" href="/" aria-label="GotBun Riccione home">
           <Image className="main-logo" src="/gotbun_logo.png" alt="GotBun Riccione" width={360} height={90} priority />
@@ -109,6 +197,21 @@ export default function Home() {
               <a href={card.href} rel="noreferrer" target="_blank">
                 {card.action}
               </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="main-section main-faq-section" aria-labelledby="faq-title">
+        <div>
+          <p className="main-eyebrow">Domande veloci</p>
+          <h2 id="faq-title">Quello che ti serve sapere.</h2>
+        </div>
+        <div className="main-faq-list">
+          {homeFaqs.map((item) => (
+            <article className="main-faq-item" key={item.question}>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
             </article>
           ))}
         </div>

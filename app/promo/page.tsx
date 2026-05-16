@@ -217,6 +217,8 @@ export default function Home() {
               <h2>Il tuo coupon 2x1 è pronto.</h2>
               <p className="success-intro">Controlla la mail e salva il QR sul telefono. Se il messaggio tarda, puoi mostrare anche il codice qui sotto.</p>
               <div className="qr-preview" aria-label="Anteprima QR coupon">
+                {/* QR esterno e configurabile: evita vincoli di remote image domains. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={success.qrImageUrl} alt={`QR coupon ${success.couponCode}`} width="420" height="420" />
               </div>
               <div className="fallback-code">

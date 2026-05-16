@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Redemption coupon | GotBun Riccione",
   description: "Pagina di fallback per la redemption dei coupon GotBun.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RedeemFallbackPage() {
