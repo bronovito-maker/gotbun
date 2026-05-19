@@ -238,7 +238,7 @@ export default function Home() {
               priority
             />
             <div className="gallery-image-overlay">
-              <span className="gallery-tag">🔥 Smash Burger Originale</span>
+              <span className="gallery-tag">🔥 Burger del mese: Habanero 🌶️🌶️🌶️</span>
               <p className="gallery-caption">Carne selezionata croccante sulla piastra, pane morbido tostato, salse e tanto formaggio filante.</p>
             </div>
           </div>
