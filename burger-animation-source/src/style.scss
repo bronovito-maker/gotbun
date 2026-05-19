@@ -1,0 +1,224 @@
+:root {
+  --scrollHeight: 200vh;
+  --animationFrom: 0;
+  --animationTo: calc(100% - 36vh); // var(--scrollHeight);
+  
+  --fromX: 0;
+  --toX: 0;
+  
+  --fromY: -400vh;
+  --toY: 0;
+
+  --fromRotate: 0deg;
+  --toRotate: 0deg;
+  
+  --fromOpacity: 1;
+  --toOpacity: 1;
+  
+  --fromBlur: 0;
+  --toBlur: 0;
+}
+
+body {
+  margin: 0;
+  background-color: #cbd6d5;
+
+  height: var(--scrollHeight);
+}
+
+.burger {
+  position: fixed;
+  top: 50vh;
+  
+  display: grid;
+  width: 100%;
+  height: 90vh;
+  max-height: 600px;
+  
+  transform: translateY(-50%);
+  container: burger / size;
+  
+  &__visual {
+    display: grid;
+    width: 100cqh;
+    height: 100cqh;
+    
+    margin: 0 auto;
+  
+    * {
+      grid-column-start: 1;
+      grid-column-end: 1;
+      grid-row-start: 1;
+      grid-row-end: 1;
+
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      background-position-x: 50%;
+      
+      transform: translate(var(--fromX), var(--fromY)) rotate(var(--fromRotate));
+      opacity: var(--fromOpacity);
+      filter: blur(var(--fromBlur));
+      
+      animation: fallingBurger ease-out 1s forwards;
+      
+      @for $i from 1 through 7 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{7 - $i}00ms;
+        }
+      }
+      
+      @supports (animation-timeline: view()) {
+        animation: fallingBurger ease-out both;
+        animation-timeline: view();
+        animation-range: cover var(--animationFrom) cover var(--animationTo);
+      }
+    }
+  }
+    
+  &__top {
+    --fromRotate: 35deg;
+    --animationFrom: 45vh;
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/top.png);
+    background-position-y: 22%;
+    background-size: 85% auto;
+    z-index: 0;
+  }
+
+  &__salad {
+    --fromRotate: -35deg;
+    --animationFrom: 5vh;
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/salad.png);
+    background-position-y: 36.5%;
+    background-size: 90% auto;
+    z-index: 6;
+  }
+
+  &__cheese {
+    --fromRotate: 35deg;
+    --animationFrom: 10vh;
+    --animationTo: calc(100% - 45vh);
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/cheese.png);
+    background-position-y: 57%;
+    z-index: 7;
+  }
+
+  &__cucumber {
+    --animationTo: calc(100% - 55vh);
+    --fromRotate: -45deg;
+    --toRotate: 1deg;
+    --toX: -.5%;
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/cucumber.png);
+    background-position-y: 49%;
+    background-size: 80% auto;
+    z-index: 4;
+  }
+
+  &__tomato {
+    --animationTo: calc(100% - 60vh);
+    --fromRotate: 35deg;
+    --toRotate: 2deg;
+    --toX: -1%;
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/tomato.png);
+    background-position-y: 55%;
+    background-size: 85% auto;
+    z-index: 3;
+    transform-origin: 50% 45%;
+  }
+
+  &__meat {
+    --animationTo: calc(100% - 70vh);
+    --fromX: 25%;
+    --fromRotate: -35deg;
+    --toRotate: -1deg;
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/meat.png);
+    background-position-y: 64%;
+    background-size: 90% auto;
+    z-index: 2;
+    transform-origin: 50% 85%;
+  }
+
+  &__bottom {
+    --animationTo: calc(100% - 80vh);
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/bottom.png);
+    background-position-y: 90%;
+    background-size: 90% auto;
+    z-index: 8;
+  }
+
+  &__shadow {
+    --animationFrom: 50vh;
+    --animationTo: calc(100% - 60vh);
+    --fromY: 0;
+    --fromX: -15%;
+    --toX: 15%;
+    --fromBlur: 40px;
+    --fromOpacity: 0;
+    
+    background-image: url(https://donotfold.be/data/codepen/burger/shadow.png);
+    background-position-y: 100%;
+    z-index: 1;
+    transform: translateX(15%);
+  }
+}
+
+@keyframes fallingBurger {
+  from {
+    transform: translate(var(--fromX), var(--fromY)) rotate(var(--fromRotate));
+    opacity: var(--fromOpacity);
+    filter: blur(var(--fromBlur));
+  }
+  to {
+    transform: translate(var(--toX), var(--toY)) rotate(var(--toRotate));
+    opacity: var(--toOpacity);
+    filter: blur(var(--toBlur));
+  }
+}
+
+small {
+  position: absolute;
+  top: 48vh;
+  
+  display: none;
+  width: 100%;
+  
+  text-align: center;
+  font-family: Arial, sans-serif;
+  line-height: 1.8;
+  
+  animation: fadeOut ease-out both;
+  animation-timeline: view();
+  animation-range: cover 50% cover 65%;
+  
+  strong {
+    display: block;
+    font-size: 30px;
+  }
+  
+  @supports (animation-timeline: view()) {
+    display: block;
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+em {
+  display: block;
+  margin: 4px;
+  text-align: center;
+  font-style: normal;
+  font-size: small;
+  
+  @supports (animation-timeline: view()) {
+    display: none;
+  }
+}
