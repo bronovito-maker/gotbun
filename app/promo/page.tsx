@@ -179,10 +179,19 @@ export default function Home() {
 
   return (
     <main className="page-shell">
-      <header className="site-header">
-        <a href={MAIN_SITE_URL} aria-label="Vai al sito GotBun Riccione">
-          <Image className="site-logo" src="/gotbun_logo.png" alt="GotBun Riccione" width={360} height={90} priority />
-        </a>
+      <header className="main-header-centered">
+        <Link className="main-logo-centered-link" href={MAIN_SITE_URL} aria-label="Vai al sito GotBun Riccione">
+          <div className="main-logo-container">
+            <Image 
+              src="/gotbun_logo.png" 
+              alt="GotBun Riccione Logo" 
+              width={220} 
+              height={55}
+              priority
+            />
+          </div>
+          <span className="main-logo-subtitle">riccione</span>
+        </Link>
       </header>
 
       <section className="hero-section" aria-labelledby="hero-title">
@@ -365,11 +374,21 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="visual-section" aria-label="Area foto hamburger">
-        <div className="main-hero-visual promo-photo-visual" aria-label="Burger GotBun">
-          <div className="main-visual-badge">
-            <span>🔥 Burger del mese</span>
-            <strong>Habanero 🌶️🌶️🌶️</strong>
+      <section className="main-photo-gallery" aria-label="Area foto hamburger">
+        <div className="main-gallery-card">
+          <div className="gallery-image-wrapper">
+            <Image 
+              className="gallery-image" 
+              src="/gotbun-hero-burger.png" 
+              alt="GotBun Smash Burger caldo e croccante" 
+              width={1200} 
+              height={800}
+              priority
+            />
+            <div className="gallery-image-overlay">
+              <span className="gallery-tag">🔥 Burger del mese: Habanero 🌶️🌶️🌶️</span>
+              <p className="gallery-caption">Carne selezionata croccante sulla piastra, pane morbido tostato, salse e tanto formaggio filante.</p>
+            </div>
           </div>
         </div>
       </section>
