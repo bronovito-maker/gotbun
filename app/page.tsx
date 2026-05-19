@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import BurgerAnimation from "./components/BurgerAnimation";
-import { business, DISH_URL, homeFaqs, jsonLd, MAPS_URL, MENU_URL, PROMO_URL, SITE_URL } from "@/lib/seo";
+import { business, DISH_URL, DISH_ORDER_URL, homeFaqs, jsonLd, MAPS_URL, MENU_URL, PROMO_URL, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Burger a Riccione, menu online e promo 2x1",
@@ -170,14 +170,14 @@ export default function Home() {
 
         {/* 4 CTAs */}
         <div className="main-cta-group" aria-label="Azioni principali">
-          <a className="main-cta-btn cta-order" href={MENU_URL} rel="noreferrer" target="_blank">
+          <a className="main-cta-btn cta-order" href={DISH_ORDER_URL} rel="noreferrer" target="_blank">
             <svg className="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
               <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
             <span>Ordina Online</span>
           </a>
-          <a className="main-cta-btn cta-menu" href={MENU_URL} rel="noreferrer" target="_blank">
+          <Link className="main-cta-btn cta-menu" href={MENU_URL}>
             <svg className="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <line x1="8" y1="6" x2="21" y2="6" />
               <line x1="8" y1="12" x2="21" y2="12" />
@@ -187,7 +187,7 @@ export default function Home() {
               <line x1="3" y1="18" x2="3.01" y2="18" />
             </svg>
             <span>Menu</span>
-          </a>
+          </Link>
           <a className="main-cta-btn cta-call" href="tel:+390541645598">
             <svg className="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -252,9 +252,9 @@ export default function Home() {
         </div>
         <div className="main-section-copy">
           <p>Signature burger pieni, smash burger bassi e cattivi con crosticina da applauso, hot dog carichi, wrap veloci e insalate per chi oggi vuole stare leggero senza mangiare triste.</p>
-          <a className="main-cta-btn cta-menu" style={{ width: 'fit-content' }} href={MENU_URL} rel="noreferrer" target="_blank">
+          <Link className="main-cta-btn cta-menu" style={{ width: 'fit-content' }} href={MENU_URL}>
             Sfoglia il menu
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -280,9 +280,15 @@ export default function Home() {
               <span>{card.label}</span>
               <h3>{card.title}</h3>
               <p>{card.text}</p>
-              <a href={card.href} rel="noreferrer" target="_blank">
-                {card.action}
-              </a>
+              {card.href.startsWith('/') ? (
+                <Link href={card.href}>
+                  {card.action}
+                </Link>
+              ) : (
+                <a href={card.href} rel="noreferrer" target="_blank">
+                  {card.action}
+                </a>
+              )}
             </article>
           ))}
         </div>
@@ -309,7 +315,7 @@ export default function Home() {
           <h2 id="final-cta-title">Ti è venuta fame? Ordina GotBun.</h2>
           <p>Vai al portale ufficiale, scegli il tuo burger e lascia che la piastra faccia il resto.</p>
         </div>
-        <a className="main-cta-btn cta-order" href={MENU_URL} rel="noreferrer" target="_blank">
+        <a className="main-cta-btn cta-order" href={DISH_ORDER_URL} rel="noreferrer" target="_blank">
           Ordina ora
         </a>
       </section>

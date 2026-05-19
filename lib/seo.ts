@@ -1,6 +1,7 @@
 export const SITE_URL = "https://gotbunriccione.it";
 export const PROMO_URL = "https://promo.gotbunriccione.it";
-export const MENU_URL = "https://gotbun.order.app.hd.digital/menus";
+export const MENU_URL = "/menu";
+export const DISH_ORDER_URL = "https://gotbun.order.app.hd.digital/menus";
 export const DISH_URL = "https://gotbunriccione.eatbu.com";
 export const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=GotBun%20Riccione";
 
