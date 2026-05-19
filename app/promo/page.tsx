@@ -183,10 +183,11 @@ export default function Home() {
         <Link className="main-logo-centered-link" href={MAIN_SITE_URL} aria-label="Vai al sito GotBun Riccione">
           <div className="main-logo-container">
             <Image 
+              className="main-logo-large"
               src="/gotbun_logo.png" 
               alt="GotBun Riccione Logo" 
-              width={220} 
-              height={55}
+              width={320} 
+              height={80}
               priority
             />
           </div>
