@@ -387,7 +387,7 @@ export default function Home() {
             />
             <div className="gallery-image-overlay">
               <span className="gallery-tag">🔥 Burger del mese: Habanero 🌶️🌶️🌶️</span>
-              <p className="gallery-caption">Carne selezionata croccante sulla piastra, pane morbido tostato, salse e tanto formaggio filante.</p>
+              <p className="gallery-caption">Pane nero, hamburger di manzo nostrano, cheddar, bacon, cipolla, cetriolini pickled, salsa Habanero, salsa Maionese</p>
             </div>
           </div>
         </div>
