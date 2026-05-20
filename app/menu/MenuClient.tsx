@@ -73,8 +73,16 @@ const CONFIG_SAUCES = [
   { id: "senape", name: "Senape", price: 0.50 },
 ];
 
-// Fallback Image Component to render placeholder if files are not present in public/
-const MenuItemImage = ({ src, alt }: { src: string; alt: string }) => {
+// Fallback Image Component — accepts optional onClick for lightbox
+const MenuItemImage = ({
+  src,
+  alt,
+  onClick,
+}: {
+  src: string;
+  alt: string;
+  onClick?: () => void;
+}) => {
   const [hasError, setHasError] = useState(false);
 
   if (hasError || !src) {
@@ -92,10 +100,11 @@ const MenuItemImage = ({ src, alt }: { src: string; alt: string }) => {
   return (
     /* eslint-disable-next-line @next/next/no-img-element */
     <img
-      className="menu-item-photo"
+      className={`menu-item-photo${onClick ? " menu-item-photo--clickable" : ""}`}
       src={src}
       alt={alt}
       onError={() => setHasError(true)}
+      onClick={onClick}
       loading="lazy"
     />
   );
@@ -113,6 +122,26 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
   const [selectedPatties, setSelectedPatties] = useState<string[]>([]);
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
   const [selectedSauces, setSelectedSauces] = useState<string[]>([]);
+
+  // Lightbox state
+  const [lightboxItem, setLightboxItem] = useState<{ src: string; name: string } | null>(null);
+
+  // Close lightbox on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxItem(null);
+    };
+    if (lightboxItem) {
+      document.addEventListener("keydown", handleKey);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [lightboxItem]);
 
   // Smooth scroll with offset for sticky nav
   const scrollToCategory = (id: string) => {
@@ -530,11 +559,12 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                         </div>
                       </div>
 
-                      {/* Display image fallback slot */}
+                      {/* Clickable photo with lightbox */}
                       <div className="menu-item-photo-wrapper">
-                        <MenuItemImage 
-                          src={item.image || ""} 
-                          alt={item.name} 
+                        <MenuItemImage
+                          src={item.image || ""}
+                          alt={item.name}
+                          onClick={item.image ? () => setLightboxItem({ src: item.image!, name: item.name }) : undefined}
                         />
                       </div>
                     </div>
@@ -545,6 +575,34 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
           );
         })}
       </div>
+
+      {/* ── Lightbox overlay ── */}
+      {lightboxItem && (
+        <div
+          className="lightbox-backdrop"
+          onClick={() => setLightboxItem(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Foto: ${lightboxItem.name}`}
+        >
+          <div className="lightbox-card" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="lightbox-close"
+              onClick={() => setLightboxItem(null)}
+              aria-label="Chiudi"
+            >
+              ✕
+            </button>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="lightbox-image"
+              src={lightboxItem.src}
+              alt={lightboxItem.name}
+            />
+            <p className="lightbox-name">{lightboxItem.name}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
