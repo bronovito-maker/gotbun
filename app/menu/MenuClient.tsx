@@ -323,7 +323,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                               <span className="config-option-name">{br.name}</span>
                             </div>
                             <span className="config-option-price">
-                              {br.price > 0 ? `+€${br.price.toFixed(2)}` : "Gratis"}
+                              {br.price > 0 ? `€${br.price.toFixed(2)}` : "Gratis"}
                             </span>
                           </div>
                         ))}
@@ -351,7 +351,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                               />
                               <span className="config-option-name">{c.name}</span>
                             </div>
-                            <span className="config-option-price">+€{c.price.toFixed(2)}</span>
+                            <span className="config-option-price">€{c.price.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
@@ -378,7 +378,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                               />
                               <span className="config-option-name">{v.name}</span>
                             </div>
-                            <span className="config-option-price">+€{v.price.toFixed(2)}</span>
+                            <span className="config-option-price">€{v.price.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
@@ -405,7 +405,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                               />
                               <span className="config-option-name">{p.name}</span>
                             </div>
-                            <span className="config-option-price">+€{p.price.toFixed(2)}</span>
+                            <span className="config-option-price">€{p.price.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
@@ -432,7 +432,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                               />
                               <span className="config-option-name">{e.name}</span>
                             </div>
-                            <span className="config-option-price">+€{e.price.toFixed(2)}</span>
+                            <span className="config-option-price">€{e.price.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
@@ -459,7 +459,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                               />
                               <span className="config-option-name">{s.name}</span>
                             </div>
-                            <span className="config-option-price">+€{s.price.toFixed(2)}</span>
+                            <span className="config-option-price">€{s.price.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
@@ -507,24 +507,26 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                       <div className="menu-item-details">
                         <div className="menu-item-header">
                           <h3 className="menu-item-name">{item.name}</h3>
-                          <span className="menu-item-price">€{item.price.toFixed(2)}</span>
                         </div>
                         <p className="menu-item-description">{item.description}</p>
-                        <div className="menu-item-tags">
-                          {item.tag && (
-                            <span className={`menu-item-tag ${
-                              item.tag.includes("🌶️") || item.tag.includes("🔥")
-                                ? "spicy-tag"
-                                : item.tag.includes("🌱")
-                                  ? "veg-tag"
-                                  : "default-tag"
-                            }`}>
-                              {item.tag}
-                            </span>
-                          )}
-                          {item.isPopular && (
-                            <span className="menu-item-tag popular-tag">👑 Popolare</span>
-                          )}
+                        <div className="menu-item-footer">
+                          <span className="menu-item-price">€{item.price.toFixed(2)}</span>
+                          <div className="menu-item-tags">
+                            {item.tag && (
+                              <span className={`menu-item-tag ${
+                                item.tag.includes("🌶️") || item.tag.includes("🔥")
+                                  ? "spicy-tag"
+                                  : item.tag.includes("🌱")
+                                    ? "veg-tag"
+                                    : "default-tag"
+                              }`}>
+                                {item.tag}
+                              </span>
+                            )}
+                            {item.isPopular && (
+                              <span className="menu-item-tag popular-tag">👑 Popolare</span>
+                            )}
+                          </div>
                         </div>
                       </div>
 

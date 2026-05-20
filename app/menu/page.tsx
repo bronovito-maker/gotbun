@@ -21,7 +21,7 @@ export default function MenuPage() {
       icon: "🍔",
       items: [
         {
-          name: "LUFFY 👑",
+          name: "LUFFY",
           price: 11.90,
           description: "Hamburger di manzo nostrano, insalata, cipolla caramellata, cheddar, salsa Burger",
           tag: "Consigliato",
@@ -29,7 +29,7 @@ export default function MenuPage() {
           image: "/menu/luffy.png"
         },
         {
-          name: "SMOOKYPIG 🐷",
+          name: "SMOOKYPIG",
           price: 12.90,
           description: "Pane nero, Pulled Pork speziato, cipolla caramellata, bucciato romagnolo, peperoni arrosto, salsa BBQ, salsa Maionese",
           tag: "Carne Speziata",
@@ -37,7 +37,7 @@ export default function MenuPage() {
           image: "/menu/smookypig.png"
         },
         {
-          name: "CHICKENBUN 🐔",
+          name: "CHICKENBUN",
           price: 10.90,
           description: "Cotoletta di pollo, insalata, bacon, bucciato romagnolo, salsa Ketchup, salsa Maionese",
           image: "/menu/chickenbun.png"
@@ -50,41 +50,41 @@ export default function MenuPage() {
           image: "/menu/gotcheese-bacon.png"
         },
         {
-          name: "AMERICANBUN 🇺🇸🍳",
+          name: "AMERICANBUN",
           price: 12.90,
           description: "Hamburger di manzo nostrano, cheddar, uovo all’occhio di bue, bacon, insalata, doppia salsa BBQ",
           tag: "Carico",
           image: "/menu/americanbun.png"
         },
         {
-          name: "GUILTY PLEASURE 😋",
+          name: "GUILTY PLEASURE",
           price: 10.90,
           description: "Hamburger di manzo nostrano, cipolla, scamorza affumicata, bacon, salsa Maionese, salsa Ketchup",
           image: "/menu/guilty-pleasure.png"
         },
         {
-          name: "HABANERO 🌶️🌶️",
+          name: "HABANERO",
           price: 12.90,
           description: "Pane nero, hamburger di manzo nostrano, cheddar, bacon, cipolla, cetriolini pickled, salsa Habanero, salsa Maionese",
           tag: "Molto Piccante 🌶️🌶️",
           image: "/menu/habanero.png"
         },
         {
-          name: "PESCATORE 🐟",
+          name: "PESCATORE",
           price: 12.90,
           description: "Salmone affumicato norvegese, squacquerone di Romagna, rucola, pomodorini confit , salsa Avocado",
           tag: "Novità Mare",
           image: "/menu/pescatore.png"
         },
         {
-          name: "GREENBUN 🌱",
+          name: "GREENBUN",
           price: 11.90,
           description: "Pane ai cereali artigianale, falafel di ceci, bucciato romagnolo, Melanzane grigliate, insalata, salsa Maionese",
           tag: "Vegetariano 🌱",
           image: "/menu/greenbun.png"
         },
         {
-          name: "LIGHTBUN 🌱",
+          name: "LIGHTBUN",
           price: 12.90,
           description: "Pane Vegano ai 5 Cereali, Falafel di ceci Gotmade, peperoni arrosto, scamorza affumicata, cipolla caramellata, salsa Burger",
           tag: "Vegano Friendly 🌱",
@@ -104,33 +104,33 @@ export default function MenuPage() {
       icon: "🥯",
       items: [
         {
-          name: "STORICA 🤫",
+          name: "STORICA",
           price: 8.00,
           description: "Prosciutto crudo di Parma, squacquerone di Romagna, rucola fresca",
           tag: "Tradizione Romagna",
           image: "/menu/piadina-storica.png"
         },
         {
-          name: "MARINARA 🐠",
+          name: "MARINARA",
           price: 9.00,
           description: "Salmone affumicato, Squacquerone di Romagna DOP, rucola fresca",
           image: "/menu/piadina-marinara.png"
         },
         {
-          name: "PROTEICA 😎",
+          name: "PROTEICA",
           price: 9.00,
           description: "Bresaola IGP, scaglie di Grana Padano, rucola fresca",
           image: "/menu/piadina-proteica.png"
         },
         {
-          name: "PECCATO DI GOLA 😋",
+          name: "PECCATO DI GOLA",
           price: 8.50,
           description: "Salsiccia fresca, cipolla stufata (Aggiunta Squacquerone DOP +0.50€)",
           isPopular: true,
           image: "/menu/piadina-peccatogola.png"
         },
         {
-          name: "VEGETALE 🌱",
+          name: "VEGETALE",
           price: 7.50,
           description: "Verdure grigliate (melanzane e zucchine), cipolla caramellata, squacquerone di Romagna DOP",
           tag: "Vegetariano 🌱",
@@ -196,7 +196,7 @@ export default function MenuPage() {
           image: "/menu/hotbacon-dog.png"
         },
         {
-          name: "VEG DOG 🌱",
+          name: "VEG DOG",
           price: 7.90,
           description: "Würstel di falafel, bucciato romagnolo, salsa ketchup , salsa maionese",
           tag: "Vegetariano 🌱",
@@ -429,15 +429,18 @@ export default function MenuPage() {
 
       {/* Header section with back home navigation */}
       <header className="menu-page-header">
-        <Link href="/" aria-label="Torna alla homepage">
-          <Image
-            className="main-logo-large"
-            src="/gotbun-logo.png"
-            alt="GotBun Logo"
-            width={320}
-            height={80}
-            priority
-          />
+        <Link className="main-logo-centered-link" href="/" aria-label="Torna alla homepage">
+          <div className="main-logo-container">
+            <Image
+              className="main-logo-large"
+              src="/gotbun_logo.png"
+              alt="GotBun Riccione"
+              width={320}
+              height={80}
+              priority
+            />
+            <span className="main-logo-subtitle">riccione</span>
+          </div>
         </Link>
         <h1 className="menu-page-subtitle">Scegli & Addenta</h1>
         <p className="menu-page-description">

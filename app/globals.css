@@ -1767,15 +1767,14 @@ input:focus {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  min-width: 0; /* Let details container shrink to support ellipsis */
 }
 
 .menu-item-header {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
   margin-bottom: 8px;
+  min-width: 0;
 }
 
 .menu-item-name {
@@ -1784,13 +1783,10 @@ input:focus {
   color: #0c2a38; /* Crisp dark slate-teal */
   margin: 0;
   line-height: 1.2;
-}
-
-.menu-item-price {
-  font-size: 1.18rem;
-  font-weight: 800;
-  color: var(--main-turquoise-dark);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .menu-item-description {
@@ -1801,11 +1797,29 @@ input:focus {
   margin: 0 0 16px;
 }
 
+.menu-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  gap: 12px;
+  padding-top: 10px;
+  min-width: 0;
+}
+
+.menu-item-price {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--main-turquoise-dark);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .menu-item-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: auto;
+  gap: 6px;
+  justify-content: flex-end;
 }
 
 /* Tag Pills styling */
@@ -2001,6 +2015,8 @@ input:focus {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
+  flex: 1;
 }
 
 .config-option-input {
@@ -2008,18 +2024,24 @@ input:focus {
   width: 16px;
   height: 16px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .config-option-name {
   font-size: 0.88rem;
   font-weight: 600;
   color: #0c2a38;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .config-option-price {
   font-size: 0.88rem;
   font-weight: 800;
   color: var(--main-turquoise-dark);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .configurator-footer {
