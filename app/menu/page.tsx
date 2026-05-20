@@ -457,7 +457,7 @@ export default function MenuPage() {
       <MenuClient categories={menuCategories} />
 
       {/* Call to Order Info */}
-      <section className="main-final-cta" style={{ marginTop: "48px" }}>
+      <section className="main-final-cta menu-final-cta">
         <div>
           <p className="main-eyebrow">Ci siamo</p>
           <h2 id="final-cta-title" style={{ fontSize: "clamp(1.8rem, 5vw, 2.5rem)" }}>Ti è venuta fame?</h2>

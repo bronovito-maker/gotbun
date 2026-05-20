@@ -320,6 +320,18 @@ export default function Home() {
         </a>
       </section>
 
+      {/* Zona burger: sfondo visibile + hook testuale finale convincente */}
+      <div className="main-burger-zone">
+        <div className="main-burger-spacer" aria-hidden="true" />
+        <div className="main-burger-closing">
+          <p className="burger-closing-label">Ancora lì?</p>
+          <p className="burger-closing-tagline">La piastra è accesa.</p>
+          <p className="burger-closing-sub">
+            Ogni sera dalle&nbsp;18:30 &nbsp;·&nbsp; Viale Emilia 40, Riccione
+          </p>
+        </div>
+      </div>
+
       <footer className="main-footer">
         <p>© GotBun Riccione</p>
         <nav aria-label="Link utili">

@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import "./BurgerAnimation.css";
 
 type Ingredient = {
@@ -29,10 +29,7 @@ type BurgerMotion = {
 };
 
 type PageMetrics = {
-  start: number;
-  end: number;
-  decomposeStart: number;
-  decomposeEnd: number;
+  scrollMax: number;
 };
 
 const EPSILON = 0.001;
@@ -189,6 +186,20 @@ function easeOutCubic(value: number) {
   return 1 - Math.pow(1 - value, 3);
 }
 
+function getScrollY() {
+  return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+}
+
+function subscribeToMediaQuery(query: MediaQueryList, listener: () => void) {
+  if (typeof query.addEventListener === "function") {
+    query.addEventListener("change", listener);
+    return () => query.removeEventListener("change", listener);
+  }
+
+  query.addListener(listener);
+  return () => query.removeListener(listener);
+}
+
 function getLayerMotionStyle(ingredient: Ingredient, motion: BurgerMotion): CSSProperties {
   const easedProgress = easeOutCubic(motion.assemble);
   const decomposeProgress = easeOutCubic(motion.decompose);
@@ -230,7 +241,7 @@ export default function BurgerAnimation() {
   const displayMotionRef = useRef<BurgerMotion>(INITIAL_MOTION);
   const pageMetricsRef = useRef<PageMetrics | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileQuery = window.matchMedia("(max-width: 640px)");
 
@@ -259,25 +270,10 @@ export default function BurgerAnimation() {
 
     const measurePage = () => {
       const viewportHeight = window.innerHeight || 1;
-      const scrollY = document.scrollingElement?.scrollTop ?? window.scrollY;
-      const hero = document.querySelector<HTMLElement>(".main-hero");
-      const menuSection = document.querySelector<HTMLElement>(".main-menu-section");
-      const faq = document.querySelector<HTMLElement>(".main-faq-section");
-      const heroTop = hero ? hero.getBoundingClientRect().top + scrollY : 0;
-      const menuTop = menuSection ? menuSection.getBoundingClientRect().top + scrollY : heroTop + viewportHeight * 1.35;
-      const heroHeight = hero?.offsetHeight ?? viewportHeight;
-      const start = heroTop + Math.min(heroHeight * 0.34, viewportHeight * 0.46);
-      const defaultEnd = start + viewportHeight * 0.72;
-      const menuDrivenEnd = menuTop - viewportHeight * 0.32;
-      const end = Math.max(start + viewportHeight * 0.36, Math.min(defaultEnd, menuDrivenEnd));
       const scrollMax = Math.max(1, document.documentElement.scrollHeight - viewportHeight);
-      const faqTop = faq ? faq.getBoundingClientRect().top + scrollY : scrollMax * 0.74;
 
       pageMetricsRef.current = {
-        start,
-        end,
-        decomposeStart: Math.min(scrollMax - viewportHeight * 0.18, Math.max(0, faqTop - viewportHeight * 0.50)),
-        decomposeEnd: scrollMax,
+        scrollMax,
       };
     };
 
@@ -295,16 +291,30 @@ export default function BurgerAnimation() {
       const metrics = pageMetricsRef.current;
       if (!metrics) return;
 
-      const scrollY = document.scrollingElement?.scrollTop ?? window.scrollY;
+      const scrollY = getScrollY();
       const nextMotion = reducedMotion.matches
-        ? { assemble: 1, decompose: 0.42, mobile: mobileQuery.matches }
+        ? { assemble: 1, decompose: 0, mobile: mobileQuery.matches }
         : {
-            assemble: clamp((scrollY - metrics.start) / Math.max(1, metrics.end - metrics.start)),
-            decompose: clamp((scrollY - metrics.decomposeStart) / Math.max(1, metrics.decomposeEnd - metrics.decomposeStart)),
+            assemble: clamp(scrollY / metrics.scrollMax),
+            decompose: 0,
             mobile: mobileQuery.matches,
           };
+      const isAtScrollEdge = !reducedMotion.matches && (scrollY <= 1 || scrollY >= metrics.scrollMax - 1);
 
       if (reducedMotion.matches) {
+        targetMotionRef.current = nextMotion;
+        displayMotionRef.current = nextMotion;
+
+        if (frameRef.current !== null) {
+          window.cancelAnimationFrame(frameRef.current);
+          frameRef.current = null;
+        }
+
+        applyMotion(nextMotion);
+        return;
+      }
+
+      if (isAtScrollEdge) {
         targetMotionRef.current = nextMotion;
         displayMotionRef.current = nextMotion;
 
@@ -373,9 +383,10 @@ export default function BurgerAnimation() {
     updateTarget();
 
     window.addEventListener("scroll", scheduleTargetUpdate, { passive: true });
+    document.addEventListener("scroll", scheduleTargetUpdate, { passive: true });
     window.addEventListener("resize", handleLayoutChange);
-    mobileQuery.addEventListener("change", handleLayoutChange);
-    reducedMotion.addEventListener("change", handleLayoutChange);
+    const unsubscribeMobileQuery = subscribeToMediaQuery(mobileQuery, handleLayoutChange);
+    const unsubscribeReducedMotion = subscribeToMediaQuery(reducedMotion, handleLayoutChange);
 
     const observedElements = [
       document.querySelector<HTMLElement>(".main-hero"),
@@ -395,9 +406,10 @@ export default function BurgerAnimation() {
 
     return () => {
       window.removeEventListener("scroll", scheduleTargetUpdate);
+      document.removeEventListener("scroll", scheduleTargetUpdate);
       window.removeEventListener("resize", handleLayoutChange);
-      mobileQuery.removeEventListener("change", handleLayoutChange);
-      reducedMotion.removeEventListener("change", handleLayoutChange);
+      unsubscribeMobileQuery();
+      unsubscribeReducedMotion();
       resizeObserver?.disconnect();
 
       if (targetFrameRef.current !== null) {
