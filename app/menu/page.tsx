@@ -26,7 +26,7 @@ export default function MenuPage() {
           description: "Hamburger di manzo nostrano, insalata, cipolla caramellata, cheddar, salsa Burger",
           tag: "Consigliato",
           isPopular: true,
-          image: "/menu/luffy.png"
+          image: "/menu/luffy.jpg"
         },
         {
           name: "SMOOKYPIG 🐷",
@@ -34,61 +34,61 @@ export default function MenuPage() {
           description: "Pane nero, Pulled Pork speziato, cipolla caramellata, bucciato romagnolo, peperoni arrosto, salsa BBQ, salsa Maionese",
           tag: "Carne Speziata",
           isPopular: true,
-          image: "/menu/smookypig.png"
+          image: "/menu/smookypig.jpg"
         },
         {
           name: "CHICKENBUN 🐔",
           price: 10.90,
           description: "Cotoletta di pollo, insalata, bacon, bucciato romagnolo, salsa Ketchup, salsa Maionese",
-          image: "/menu/chickenbun.png"
+          image: "/menu/chickenbun.jpg"
         },
         {
           name: "GOTCHESSEBACON",
           price: 11.90,
           description: "Il classico BaconCheese: Hamburger di manzo nostrano, doppio Cheddar, bacon, pomodoro, salsa Burger",
           tag: "Ispirato ai classici",
-          image: "/menu/gotcheese-bacon.png"
+          image: "/menu/gotcheese-bacon.jpg"
         },
         {
           name: "AMERICANBUN 🇺🇸🍳",
           price: 12.90,
           description: "Hamburger di manzo nostrano, cheddar, uovo all’occhio di bue, bacon, insalata, doppia salsa BBQ",
           tag: "Carico",
-          image: "/menu/americanbun.png"
+          image: "/menu/americanbun.jpg"
         },
         {
           name: "GUILTY PLEASURE 😋",
           price: 10.90,
           description: "Hamburger di manzo nostrano, cipolla, scamorza affumicata, bacon, salsa Maionese, salsa Ketchup",
-          image: "/menu/guilty-pleasure.png"
+          image: "/menu/guilty-pleasure.jpg"
         },
         {
           name: "HABANERO 🌶️🌶️",
           price: 12.90,
           description: "Pane nero, hamburger di manzo nostrano, cheddar, bacon, cipolla, cetriolini pickled, salsa Habanero, salsa Maionese",
           tag: "Molto Piccante 🌶️🌶️",
-          image: "/menu/habanero.png"
+          image: "/menu/habanero.jpg"
         },
         {
           name: "PESCATORE 🐟",
           price: 12.90,
           description: "Salmone affumicato norvegese, squacquerone di Romagna, rucola, pomodorini confit , salsa Avocado",
           tag: "Novità Mare",
-          image: "/menu/pescatore.png"
+          image: "/menu/pescatore.jpg"
         },
         {
           name: "GREENBUN 🌱",
           price: 11.90,
           description: "Pane ai cereali artigianale, falafel di ceci, bucciato romagnolo, Melanzane grigliate, insalata, salsa Maionese",
           tag: "Vegetariano 🌱",
-          image: "/menu/greenbun.png"
+          image: "/menu/greenbun.jpg"
         },
         {
           name: "LIGHTBUN 🌱",
           price: 12.90,
           description: "Pane Vegano ai 5 Cereali, Falafel di ceci Gotmade, peperoni arrosto, scamorza affumicata, cipolla caramellata, salsa Burger",
           tag: "Vegano Friendly 🌱",
-          image: "/menu/lightbun.png"
+          image: "/menu/lightbun.jpg"
         }
       ]
     },
@@ -108,33 +108,33 @@ export default function MenuPage() {
           price: 8.00,
           description: "Prosciutto crudo di Parma, squacquerone di Romagna, rucola fresca",
           tag: "Tradizione Romagna",
-          image: "/menu/piadina-storica.png"
+          image: "/menu/piadina-storica.jpg"
         },
         {
           name: "MARINARA 🐠",
           price: 9.00,
           description: "Salmone affumicato, Squacquerone di Romagna DOP, rucola fresca",
-          image: "/menu/piadina-marinara.png"
+          image: "/menu/piadina-marinara.jpg"
         },
         {
           name: "PROTEICA 😎",
           price: 9.00,
           description: "Bresaola IGP, scaglie di Grana Padano, rucola fresca",
-          image: "/menu/piadina-proteica.png"
+          image: "/menu/piadina-proteica.jpg"
         },
         {
           name: "PECCATO DI GOLA 😋",
           price: 8.50,
           description: "Salsiccia fresca, cipolla stufata (Aggiunta Squacquerone DOP +0.50€)",
           isPopular: true,
-          image: "/menu/piadina-peccatogola.png"
+          image: "/menu/piadina-peccatogola.jpg"
         },
         {
           name: "VEGETALE 🌱",
           price: 7.50,
           description: "Verdure grigliate (melanzane e zucchine), cipolla caramellata, squacquerone di Romagna DOP",
           tag: "Vegetariano 🌱",
-          image: "/menu/piadina-vegetale.png"
+          image: "/menu/piadina-vegetale.jpg"
         }
       ]
     },
@@ -147,27 +147,27 @@ export default function MenuPage() {
           name: "SMOOKYPIG WRAP",
           price: 8.90,
           description: "Tortilla Messicana, pulled pork, Cheddar, cipolla , insalata, salsa BBQ",
-          image: "/menu/smookypig-wrap.png"
+          image: "/menu/smookypig-wrap.jpg"
         },
         {
           name: "CHICKEN WRAP",
           price: 7.90,
           description: "Tortilla Messicana, cotoletta di pollo, insalata, pomodoro, patatine fritte, salsa cesar",
-          image: "/menu/chicken-wrap.png"
+          image: "/menu/chicken-wrap.jpg"
         },
         {
           name: "PROTEIN WRAPP",
           price: 8.90,
           description: "Tortilla Messicana, manzo nostrano, Bucciato romagnolo , insalata, pomodoro, salsa burger",
           isPopular: true,
-          image: "/menu/protein-wrap.png"
+          image: "/menu/protein-wrap.jpg"
         },
         {
           name: "FALAFEL WRAP",
           price: 7.90,
           description: "Tortilla Messicana, falafel di ceci, insalata, pomodoro, cetriolini, Salsa maionese , salsa ketchup",
           tag: "Vegetariano 🌱",
-          image: "/menu/falafel-wrap.png"
+          image: "/menu/falafel-wrap.jpg"
         }
       ]
     },
@@ -180,27 +180,27 @@ export default function MenuPage() {
           name: "BASIC HOTDOG",
           price: 6.90,
           description: "Würstel di pollo e tacchino, salsa Ketchup, salsa Maionese",
-          image: "/menu/basic-hotdog.png"
+          image: "/menu/basic-hotdog.jpg"
         },
         {
           name: "GOLOSO DOG",
           price: 9.90,
           description: "Würstel di pollo e tacchino, scamorza affumicata, cipolla caramellata, salsa ketchup, senape",
           isPopular: true,
-          image: "/menu/goloso-dog.png"
+          image: "/menu/goloso-dog.jpg"
         },
         {
           name: "HOTBACON DOG",
           price: 8.90,
           description: "Würstel di pollo e tacchino, cheddar, bacon, salsa BBQ",
-          image: "/menu/hotbacon-dog.png"
+          image: "/menu/hotbacon-dog.jpg"
         },
         {
           name: "VEG DOG 🌱",
           price: 7.90,
           description: "Würstel di falafel, bucciato romagnolo, salsa ketchup , salsa maionese",
           tag: "Vegetariano 🌱",
-          image: "/menu/veg-dog.png"
+          image: "/menu/veg-dog.jpg"
         }
       ]
     },
@@ -213,34 +213,34 @@ export default function MenuPage() {
           name: "Salmone",
           price: 9.40,
           description: "Insalata, salmone affumicato norvegese, pomodorini confit, olive a rondelle rucola, salsa Avocado",
-          image: "/menu/insalata-salmone.png"
+          image: "/menu/insalata-salmone.jpg"
         },
         {
           name: "Imperiale",
           price: 9.90,
           description: "Insalata, Hamburger di manzo nostrano strips, pomodoro, cipolla fresca, scaglie di formaggio, salsa BBQ",
-          image: "/menu/insalata-imperiale.png"
+          image: "/menu/insalata-imperiale.jpg"
         },
         {
           name: "Caesar",
           price: 9.40,
           description: "Insalata, Cotoletta di pollo strips, scaglie di formaggio, crostini di pane, salsa Caesar",
           isPopular: true,
-          image: "/menu/insalata-caesar.png"
+          image: "/menu/insalata-caesar.jpg"
         },
         {
           name: "Greca",
           price: 8.90,
           description: "Insalata, Feta a cubetti, cetrioli, pomodoro, olive nere a rondelle, cipolla fresca, crema di Aceto Balsamico",
           tag: "Vegetariano 🌱",
-          image: "/menu/insalata-greca.png"
+          image: "/menu/insalata-greca.jpg"
         },
         {
           name: "Light",
           price: 8.90,
           description: "Insalata, Falafel di ceci strips GotMade, rucola, noci, scaglie di formaggio, crema di aceto balsamico",
           tag: "Vegetariano 🌱",
-          image: "/menu/insalata-light.png"
+          image: "/menu/insalata-light.jpg"
         }
       ]
     },
@@ -254,73 +254,73 @@ export default function MenuPage() {
           price: 5.90,
           description: "Patatine fritte con Pulled Pork speziato, salsa Cheddar, salsa BBQ",
           tag: "Super Carico 🔥",
-          image: "/menu/dirty-fingers.png"
+          image: "/menu/dirty-fingers.jpg"
         },
         {
           name: "Anelli di Cipolla",
           price: 5.90,
           description: "Rondelle di cipolla pastellate e fritte",
-          image: "/menu/anelli-cipolla.png"
+          image: "/menu/anelli-cipolla.jpg"
         },
         {
           name: "Patatine Classic Piccole",
           price: 1.90,
           description: "Patatine fritte ma più croccanti",
-          image: "/menu/patatine-classic-piccole.png"
+          image: "/menu/patatine-classic-piccole.jpg"
         },
         {
           name: "Patatine fritte Classic Grandi",
           price: 3.90,
           description: "Patatine classiche ma più croccanti",
-          image: "/menu/patatine-classic-grandi.png"
+          image: "/menu/patatine-classic-grandi.jpg"
         },
         {
           name: "Patatine Crispers Piccola",
           price: 2.90,
           description: "Spicchi di patate croccanti, con la buccia",
-          image: "/menu/patatine-crispers-piccola.png"
+          image: "/menu/patatine-crispers-piccola.jpg"
         },
         {
           name: "Patatine Crispers Grandi",
           price: 4.50,
           description: "Spicchi di patate croccanti, con la buccia",
-          image: "/menu/patatine-crispers-grandi.png"
+          image: "/menu/patatine-crispers-grandi.jpg"
         },
         {
           name: "Olive all’ Ascolana",
           price: 5.90,
           description: "Palline fritte ripiene di carne macinata e oliva",
-          image: "/menu/olive-ascolana.png"
+          image: "/menu/olive-ascolana.jpg"
         },
         {
           name: "Pepite di Pollo 6 pezzi",
           price: 5.90,
           description: "Pepite di pollo fresco fatte in casa 6 pezzi",
-          image: "/menu/pepite-pollo-6.png"
+          image: "/menu/pepite-pollo-6.jpg"
         },
         {
           name: "Pepite di pollo 9 pezzi",
           price: 7.90,
           description: "Pepite di pollo fresco fatte in casa 9 pezzi",
-          image: "/menu/pepite-pollo-9.png"
+          image: "/menu/pepite-pollo-9.jpg"
         },
         {
           name: "Petali di Cipolla",
           price: 5.90,
           description: "Fettine di cipolla pastellate e fritte",
-          image: "/menu/petali-cipolla.png"
+          image: "/menu/petali-cipolla.jpg"
         },
         {
           name: "Mozzarelline in Carrozza 6 Pezzi",
           price: 5.90,
           description: "Deliziosi bocconcini di mozzarella, fritti",
-          image: "/menu/mozzarelline-6.png"
+          image: "/menu/mozzarelline-6.jpg"
         },
         {
           name: "Mozzarelline in carrozza 9 pezzi",
           price: 7.90,
           description: "Deliziosi bocconcini di mozzarella, fritti",
-          image: "/menu/mozzarelline-9.png"
+          image: "/menu/mozzarelline-9.jpg"
         }
       ]
     },
@@ -334,7 +334,7 @@ export default function MenuPage() {
           price: 8.40,
           description: "Pane Baby artigianale, salsa Ketchup, salsa Maionese, a scelta tra: Hamburger di manzo nostrano, Falafel di ceci GotMade, Cotoletta di pollo, Würstel di pollo e tacchino. Patatine fritte comprese",
           tag: "Per i più piccoli",
-          image: "/menu/gotbaby-burger.png"
+          image: "/menu/gotbaby-burger.jpg"
         }
       ]
     },
@@ -347,13 +347,13 @@ export default function MenuPage() {
           name: "Apple Pie",
           price: 4.90,
           description: "Delizioso trancio di torta di mele",
-          image: "/menu/apple-pie.png"
+          image: "/menu/apple-pie.jpg"
         },
         {
           name: "Brownie",
           price: 4.90,
           description: "Classico dolce americano, “cioccolatoso” e saporito",
-          image: "/menu/brownie.png"
+          image: "/menu/brownie.jpg"
         }
       ]
     },
