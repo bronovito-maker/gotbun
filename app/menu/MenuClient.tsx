@@ -276,7 +276,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
               onClick={() => scrollToCategory(cat.id)}
             >
               <span style={{ marginRight: "4px" }}>{cat.icon}</span>
-              {cat.label.replace(/[^a-zA-Z\s&]/g, "").trim()}
+              {cat.label.replace(/[^\p{L}\s&]/gu, "").trim()}
             </button>
           ))}
         </div>
