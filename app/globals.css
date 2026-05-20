@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
   --background: #ffffff;
@@ -104,8 +104,18 @@ input {
 h1,
 h2,
 h3,
+h4,
 p {
   margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 h1 {
@@ -113,14 +123,12 @@ h1 {
   margin-bottom: 12px;
   font-size: clamp(3rem, 11.8vw, 6.6rem);
   line-height: 0.92;
-  letter-spacing: -0.07em;
 }
 
 h2 {
   margin-bottom: 12px;
   font-size: clamp(2rem, 7.6vw, 4.2rem);
   line-height: 0.98;
-  letter-spacing: -0.045em;
 }
 
 h3 {
@@ -562,6 +570,9 @@ input:focus {
 .policy-hero h1 {
   max-width: 840px;
   font-size: clamp(2.6rem, 9vw, 5.6rem);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .policy-hero p,
@@ -589,6 +600,9 @@ input:focus {
 
 .policy-content h2 {
   font-size: clamp(1.45rem, 4vw, 2.5rem);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .policy-content ul {
@@ -776,8 +790,12 @@ input:focus {
   --main-turquoise: #00a3d9;
   --main-turquoise-dark: #007fa8;
   --main-white: #ffffff;
-  --main-white-translucent: rgba(255, 255, 255, 0.82);
+  --main-white-translucent: rgba(255, 255, 255, 0.65);
   --main-card-border: rgba(0, 163, 217, 0.16);
+  --main-shadow-sm: 0 4px 12px rgba(10, 34, 45, 0.04);
+  --main-shadow-md: 0 12px 36px rgba(10, 34, 45, 0.06);
+  --main-shadow-lg: 0 20px 48px rgba(10, 34, 45, 0.09);
+  --main-shadow-hover: 0 24px 60px rgba(10, 34, 45, 0.15);
 
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
@@ -800,9 +818,17 @@ input:focus {
     radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.08) 52%, rgba(255, 255, 255, 0.25) 100%),
     linear-gradient(90deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05) 46%, rgba(255, 255, 255, 0.25)),
     linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(0, 163, 217, 0.04) 46%, rgba(0, 163, 217, 0.08));
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  opacity: 0.92;
+  -webkit-backdrop-filter: blur(6px) saturate(1.16);
+  backdrop-filter: blur(6px) saturate(1.16);
+  opacity: 0.86;
+}
+
+@media (max-width: 640px) {
+  .main-site .burger-anim::after {
+    -webkit-backdrop-filter: blur(4px) saturate(1.12);
+    backdrop-filter: blur(4px) saturate(1.12);
+    opacity: 0.78;
+  }
 }
 
 .main-header-centered,
@@ -851,11 +877,12 @@ input:focus {
 }
 
 .main-logo-subtitle {
-  font-size: 0.85rem;
-  font-weight: 900;
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.4em;
-  text-indent: 0.4em; /* Compensate for letter-spacing of the last letter to ensure mathematical centering */
+  letter-spacing: 0.35em;
+  text-indent: 0.35em; /* Compensate for letter-spacing of the last letter to ensure mathematical centering */
   color: var(--main-turquoise-dark);
   text-shadow: 0 1px 3px rgba(0, 163, 217, 0.08);
   margin-top: -2px;
@@ -947,12 +974,27 @@ input:focus {
 }
 
 .main-eyebrow {
-  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 12px 0;
   color: var(--main-turquoise-dark);
-  font-size: 0.76rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  background: rgba(0, 163, 217, 0.07);
+  border: 1px solid rgba(0, 163, 217, 0.15);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(0, 163, 217, 0.03);
+}
+
+.main-visit-section .main-eyebrow {
+  color: var(--main-white);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .main-hero h1 {
@@ -960,8 +1002,8 @@ input:focus {
   color: var(--main-text);
   font-size: clamp(2rem, 8.2vw, 3.8rem);
   line-height: 1.02;
-  letter-spacing: -0.02em;
-  font-weight: 900;
+  letter-spacing: 0.02em;
+  font-weight: 400;
   max-width: 900px;
 }
 
@@ -1075,6 +1117,7 @@ input:focus {
   margin-top: 24px;
   width: 100%;
   max-width: 600px;
+  margin-inline: auto;
 }
 
 .main-bubble {
@@ -1087,7 +1130,7 @@ input:focus {
   border-radius: 24px;
   background: var(--main-white-translucent);
   border: 1px solid var(--main-card-border);
-  box-shadow: 0 10px 30px rgba(0, 163, 217, 0.05);
+  box-shadow: var(--main-shadow-md);
   backdrop-filter: blur(10px);
   text-decoration: none;
   color: var(--main-text);
@@ -1109,7 +1152,7 @@ input:focus {
 
 .main-bubble:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 18px 40px rgba(0, 163, 217, 0.12);
+  box-shadow: var(--main-shadow-hover);
   border-color: rgba(0, 163, 217, 0.35);
 }
 
@@ -1144,10 +1187,11 @@ input:focus {
 }
 
 .bubble-highlight {
+  font-family: 'Luckiest Guy', cursive, sans-serif;
   font-size: 2.8rem;
-  font-weight: 900;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
 }
 
 .bubble-2x1 .bubble-highlight {
@@ -1208,9 +1252,16 @@ input:focus {
   border-radius: 28px;
   overflow: hidden;
   border: 1px solid var(--main-card-border);
-  box-shadow: 0 16px 40px rgba(0, 163, 217, 0.08);
+  box-shadow: var(--main-shadow-lg);
   background: var(--main-white-translucent);
   backdrop-filter: blur(10px);
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.main-gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--main-shadow-hover);
+  border-color: rgba(0, 163, 217, 0.35);
 }
 
 .gallery-image-wrapper {
@@ -1278,8 +1329,8 @@ input:focus {
   color: var(--main-text);
   font-size: clamp(2rem, 7.6vw, 3.8rem);
   line-height: 1.05;
-  font-weight: 900;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .main-section-copy {
@@ -1297,7 +1348,7 @@ input:focus {
 .main-faq-section {
   border: 1px solid rgba(0, 163, 217, 0.22);
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(0, 163, 217, 0.04)), var(--main-white-translucent);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(0, 163, 217, 0.03)), var(--main-white-translucent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 15px 40px rgba(0, 163, 217, 0.06);
@@ -1315,14 +1366,22 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
   border: 1px solid var(--main-card-border);
   border-radius: 24px;
   background: var(--main-white-translucent);
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0, 163, 217, 0.04);
+  box-shadow: var(--main-shadow-md);
   padding: 24px;
   text-align: left;
+  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--main-shadow-hover);
+  border-color: rgba(0, 163, 217, 0.35);
 }
 
 .info-card span {
@@ -1376,11 +1435,18 @@ input:focus {
   gap: 22px;
   border: 1px solid rgba(0, 163, 217, 0.22);
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(0, 163, 217, 0.04)), var(--main-white-translucent);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(0, 163, 217, 0.03)), var(--main-white-translucent);
   backdrop-filter: blur(12px);
-  box-shadow: 0 15px 40px rgba(0, 163, 217, 0.06);
+  box-shadow: var(--main-shadow-lg);
   padding: 28px 24px;
   text-align: left;
+  transition: all 250ms ease;
+}
+
+.main-promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--main-shadow-hover);
+  border-color: rgba(255, 122, 26, 0.35);
 }
 
 .main-promo-card h2 {
@@ -1388,7 +1454,7 @@ input:focus {
   color: var(--main-text);
   font-size: clamp(1.85rem, 6.5vw, 3.2rem);
   line-height: 1.05;
-  font-weight: 900;
+  font-weight: 400;
   margin-bottom: 8px;
 }
 
@@ -1404,19 +1470,26 @@ input:focus {
   gap: 20px;
   border: 1px solid rgba(0, 163, 217, 0.26);
   border-radius: 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(0, 163, 217, 0.06)), var(--main-white-translucent);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(0, 163, 217, 0.04)), var(--main-white-translucent);
   backdrop-filter: blur(12px);
-  box-shadow: 0 16px 45px rgba(0, 163, 217, 0.08);
+  box-shadow: var(--main-shadow-lg);
   margin-top: 18px;
   padding: 32px 24px;
   text-align: left;
+  transition: all 250ms ease;
+}
+
+.main-final-cta:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--main-shadow-hover);
+  border-color: rgba(0, 163, 217, 0.35);
 }
 
 .main-final-cta h2 {
   color: var(--main-text);
   font-size: clamp(1.85rem, 6.5vw, 3.2rem);
   line-height: 1.05;
-  font-weight: 900;
+  font-weight: 400;
   margin: 0 0 8px 0;
 }
 
@@ -1449,6 +1522,7 @@ input:focus {
   color: var(--main-text);
   font-size: 1.12rem;
   font-weight: 800;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .main-faq-item p {
@@ -1505,6 +1579,16 @@ input:focus {
     padding: 48px 0 32px;
   }
 
+  .main-logo-large {
+    width: 220px;
+  }
+
+  .main-logo-subtitle {
+    font-size: 1.25rem;
+    letter-spacing: 0.38em;
+    text-indent: 0.38em;
+  }
+
   .main-hero {
     padding: 24px 0 54px;
     gap: 32px;
@@ -1528,20 +1612,30 @@ input:focus {
 
   .main-bubbles-grid {
     grid-template-columns: 1fr 1fr;
-    max-width: 720px;
+    max-width: 840px;
+    margin-inline: auto;
   }
 
   .main-photo-gallery {
+    max-width: 840px;
     margin-top: 24px;
     margin-bottom: 48px;
+  }
+
+  .gallery-image-wrapper {
+    aspect-ratio: 16/10;
   }
 
   .main-section {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: 64px;
-    align-items: start;
+    align-items: center;
     padding: 58px 0;
     text-align: left;
+  }
+
+  .main-faq-section {
+    align-items: start;
   }
 
   .main-menu-section,
@@ -1563,6 +1657,7 @@ input:focus {
     align-items: center;
     gap: 48px;
     padding: 42px 48px;
+    max-width: 840px;
   }
 
   .main-final-cta {
@@ -1571,6 +1666,7 @@ input:focus {
     gap: 48px;
     margin-top: 36px;
     padding: 42px 48px;
+    max-width: 840px;
   }
 
   .info-grid {
@@ -1582,6 +1678,119 @@ input:focus {
     grid-template-columns: 1fr auto;
     align-items: center;
     margin-top: 48px;
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoint: Desktop Asymmetric Hero min-width: 900px
+   ========================================================================== */
+@media (min-width: 900px) {
+  /* Offset the ambient burger animation stage to the right behind the bubbles panel */
+  .main-site .burger-anim {
+    justify-content: end;
+    padding-right: 5%;
+  }
+
+  /* Logo aligns to the left above-the-fold and is scaled down for height optimization */
+  .main-header-centered {
+    align-items: flex-start;
+    text-align: left;
+    padding: 12px 0 8px;
+  }
+
+  .main-logo-centered-link {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .main-logo-large {
+    width: 170px;
+  }
+
+  .main-logo-subtitle {
+    font-size: 2.2rem;
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
+  }
+
+  /* Split hero layout: left column for value & CTAs, right column for active promos */
+  .main-hero {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    grid-template-areas:
+      "pills bubbles"
+      "copy bubbles"
+      "ctas bubbles";
+    gap: 12px 48px;
+    align-items: center;
+    text-align: left;
+    padding: 4px 0 16px;
+  }
+
+  .main-pills-container {
+    grid-area: pills;
+    justify-content: flex-start;
+    margin: 0 0 4px;
+  }
+
+  .main-hero-copy {
+    grid-area: copy;
+    align-items: flex-start;
+    text-align: left;
+    gap: 8px;
+  }
+
+  /* Dial down heading size so it does not swallow the whole screen height */
+  .main-hero h1 {
+    font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  }
+
+  .main-hero-text {
+    margin-inline: 0;
+    max-width: 560px;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  /* 2x2 grid of CTAs on the left for maximum space optimization */
+  .main-cta-group {
+    grid-area: ctas;
+    grid-template-columns: 1fr 1fr;
+    max-width: 480px;
+    margin-inline: 0;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  /* Vertically stacked bubbles in the right column above-the-fold */
+  .main-bubbles-grid {
+    grid-area: bubbles;
+    grid-template-columns: 1fr;
+    max-width: 350px;
+    width: 100%;
+    margin-inline: 0;
+    justify-self: end;
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .main-bubble {
+    padding: 16px 20px;
+  }
+
+  .bubble-badge {
+    margin-bottom: 6px;
+    padding: 2px 10px;
+  }
+
+  .bubble-content {
+    margin-bottom: 8px;
+    gap: 2px;
+  }
+
+  .bubble-highlight {
+    font-size: 2.2rem;
   }
 }
 
@@ -1608,10 +1817,10 @@ input:focus {
 
 .menu-page-subtitle {
   font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 900;
+  font-weight: 400;
   color: var(--main-text);
   margin: 16px 0 8px;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.02em;
 }
 
 .menu-page-description {
@@ -1642,8 +1851,9 @@ input:focus {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
   padding-bottom: 2px;
+  position: relative; /* needed for the sliding pill indicator */
 }
 
 .menu-nav::-webkit-scrollbar {
@@ -1659,10 +1869,47 @@ input:focus {
   border-radius: 99px;
   border: 1.5px solid rgba(0, 28, 40, 0.08);
   background: rgba(255, 255, 255, 0.7);
-  color: #3a5a6a; /* darker resting text — actually readable */
+  color: #3a5a6a;
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  position: relative; /* above slider */
+  z-index: 1;
+}
+
+/* Magic sliding pill indicator */
+.menu-nav-slider {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--menu-nav-slider-width, 0px);
+  height: var(--menu-nav-slider-height, 0px);
+  border-radius: 99px;
+  background: linear-gradient(135deg, #ff8c2a 0%, #ff4f00 100%);
+  box-shadow: 0 6px 20px rgba(255, 100, 0, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(
+    var(--menu-nav-slider-x, 0px),
+    var(--menu-nav-slider-y, 0px),
+    0
+  );
+  will-change: transform, width, height;
+  z-index: 0;
+  transition: none;
+}
+
+.menu-nav-slider.is-visible {
+  opacity: 1;
+}
+
+.menu-nav-slider.is-ready {
+  /* Spring easing: transform travels fast with slight overshoot, width stretches more slowly */
+  transition:
+    transform 380ms cubic-bezier(0.34, 1.15, 0.64, 1),
+    width 280ms cubic-bezier(0.34, 1.15, 0.64, 1),
+    height 280ms cubic-bezier(0.34, 1.15, 0.64, 1),
+    opacity 200ms ease;
 }
 
 .menu-nav-btn:hover {
@@ -1674,12 +1921,16 @@ input:focus {
 }
 
 .menu-nav-btn.active {
-  background: linear-gradient(135deg, #ff8c2a 0%, #ff4f00 100%);
+  /* Background removed — the slider span underneath handles it */
+  background: transparent;
   color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 6px 20px rgba(255, 100, 0, 0.35);
-  transform: scale(1.04);
+  box-shadow: none;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.menu-nav-btn.active:hover {
+  transform: none;
 }
 
 /* Menu Layout */
@@ -1795,16 +2046,25 @@ input:focus {
 
 .menu-item-content {
   display: flex;
+  flex-direction: column;
   padding: 20px 24px;
-  gap: 20px;
+  gap: 0;
   height: 100%;
+}
+
+/* Top row: text on the left, photo on the right */
+.menu-item-top-row {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
 }
 
 .menu-item-details {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Let details container shrink to support ellipsis */
+  min-width: 0;
 }
 
 .menu-item-header {
@@ -1815,32 +2075,37 @@ input:focus {
 }
 
 .menu-item-name {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #0c2a38; /* Crisp dark slate-teal */
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #0c2a38;
   margin: 0;
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  letter-spacing: 0.02em;
 }
 
 .menu-item-description {
   font-size: 0.85rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #557280; /* Elegant readable slate grey */
+  color: #557280;
   margin: 0 0 16px;
 }
 
+/* Footer: always full-width at the bottom of the card */
 .menu-item-footer {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   align-items: center;
-  margin-top: auto;
-  gap: 12px;
-  padding-top: 10px;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 163, 217, 0.08);
+  margin-top: 12px;
   min-width: 0;
 }
 
@@ -1854,20 +2119,23 @@ input:focus {
 
 .menu-item-tags {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
-  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
 }
 
 /* Tag Pills styling */
 .menu-item-tag {
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 4px 10px;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
   border-radius: 99px;
   border: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .menu-item-tag.default-tag {
@@ -1974,7 +2242,7 @@ input:focus {
 
 .configurator-title {
   font-size: 1.5rem;
-  font-weight: 900;
+  font-weight: 400;
   color: #0c2a38;
   margin: 0 0 8px;
 }
@@ -2006,7 +2274,7 @@ input:focus {
 
 .config-group-heading {
   font-size: 0.95rem;
-  font-weight: 900;
+  font-weight: 400;
   color: #0c2a38;
   margin: 0 0 16px;
   text-transform: uppercase;
@@ -2019,6 +2287,7 @@ input:focus {
 }
 
 .config-group-heading span {
+  font-family: 'Outfit', sans-serif;
   font-weight: 500;
   text-transform: none;
   font-size: 0.82rem;
@@ -2284,13 +2553,13 @@ input:focus {
 
 /* ── Lightbox product name ── */
 .lightbox-name {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.92);
   text-align: center;
   padding: 16px 20px;
   margin: 0;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }

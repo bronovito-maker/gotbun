@@ -63,11 +63,11 @@ export default function MenuPage() {
           image: "/menu/guilty-pleasure.jpg"
         },
         {
-          name: "HABANERO 🌶️🌶️",
+          name: "HABANERO 🌶️🌶️🌶️",
           price: 12.90,
           description: "Pane nero, hamburger di manzo nostrano, cheddar, bacon, cipolla, cetriolini pickled, salsa Habanero, salsa Maionese",
-          tag: "Molto Piccante 🌶️🌶️",
-          image: "/menu/habanero.jpg"
+          tag: "Molto Piccante 🌶️🌶️🌶️",
+          image: "/Menu piatti Got Bun/habanero.webp"
         },
         {
           name: "PESCATORE 🐟",
@@ -93,6 +93,20 @@ export default function MenuPage() {
       ]
     },
     {
+      id: "kids-menu",
+      label: "Kids Menu 👶",
+      icon: "👶",
+      items: [
+        {
+          name: "GOTBABY BURGER",
+          price: 8.40,
+          description: "Pane Baby artigianale, salsa Ketchup, salsa Maionese, a scelta tra: Hamburger di manzo nostrano, Falafel di ceci GotMade, Cotoletta di pollo, Würstel di pollo e tacchino. Patatine fritte comprese",
+          tag: "Per i più piccoli",
+          image: "emoji:👶"
+        }
+      ]
+    },
+    {
       id: "create-my-bun",
       label: "Crea il tuo Bun 🛠️",
       icon: "🛠️",
@@ -108,33 +122,33 @@ export default function MenuPage() {
           price: 8.00,
           description: "Prosciutto crudo di Parma, squacquerone di Romagna, rucola fresca",
           tag: "Tradizione Romagna",
-          image: "/menu/piadina-storica.jpg"
+          image: ""
         },
         {
           name: "MARINARA 🐠",
           price: 9.00,
           description: "Salmone affumicato, Squacquerone di Romagna DOP, rucola fresca",
-          image: "/menu/piadina-marinara.jpg"
+          image: ""
         },
         {
           name: "PROTEICA 😎",
           price: 9.00,
           description: "Bresaola IGP, scaglie di Grana Padano, rucola fresca",
-          image: "/menu/piadina-proteica.jpg"
+          image: ""
         },
         {
           name: "PECCATO DI GOLA 😋",
           price: 8.50,
           description: "Salsiccia fresca, cipolla stufata (Aggiunta Squacquerone DOP +0.50€)",
           isPopular: true,
-          image: "/menu/piadina-peccatogola.jpg"
+          image: ""
         },
         {
           name: "VEGETALE 🌱",
           price: 7.50,
           description: "Verdure grigliate (melanzane e zucchine), cipolla caramellata, squacquerone di Romagna DOP",
           tag: "Vegetariano 🌱",
-          image: "/menu/piadina-vegetale.jpg"
+          image: ""
         }
       ]
     },
@@ -160,7 +174,7 @@ export default function MenuPage() {
           price: 8.90,
           description: "Tortilla Messicana, manzo nostrano, Bucciato romagnolo , insalata, pomodoro, salsa burger",
           isPopular: true,
-          image: "/menu/protein-wrap.jpg"
+          image: "/Menu piatti Got Bun/protein wrap.webp"
         },
         {
           name: "FALAFEL WRAP",
@@ -213,7 +227,7 @@ export default function MenuPage() {
           name: "Salmone",
           price: 9.40,
           description: "Insalata, salmone affumicato norvegese, pomodorini confit, olive a rondelle rucola, salsa Avocado",
-          image: "/menu/insalata-salmone.jpg"
+          image: "/Menu piatti Got Bun/insalata di salmone.webp"
         },
         {
           name: "Imperiale",
@@ -325,20 +339,6 @@ export default function MenuPage() {
       ]
     },
     {
-      id: "kids-menu",
-      label: "Kids Menu 👶",
-      icon: "👶",
-      items: [
-        {
-          name: "GotBaby Burger",
-          price: 8.40,
-          description: "Pane Baby artigianale, salsa Ketchup, salsa Maionese, a scelta tra: Hamburger di manzo nostrano, Falafel di ceci GotMade, Cotoletta di pollo, Würstel di pollo e tacchino. Patatine fritte comprese",
-          tag: "Per i più piccoli",
-          image: "/menu/gotbaby-burger.jpg"
-        }
-      ]
-    },
-    {
       id: "dolci",
       label: "Dolci 🍰",
       icon: "🍰",
@@ -362,25 +362,30 @@ export default function MenuPage() {
       label: "Bevande 🍺",
       icon: "🍺",
       items: [
-        { name: "Franziskaner Weissbier 50cl", price: 4.00, description: "Birra Weiss di alta qualità" },
-        { name: "Ichnusa non filtrata 33cl", price: 3.50, description: "Birra Sarda non filtrata" },
-        { name: "Ichnusa non filtrata 50cl", price: 4.50, description: "Birra Sarda non filtrata" },
-        { name: "Corona 33cl", price: 4.00, description: "Messicana chiara rinfrescante" },
-        { name: "Ceres 33cl", price: 4.00, description: "Strong lager a doppia fermentazione" },
-        { name: "Messina 33cl", price: 3.50, description: "Ricetta classica siciliana" },
-        { name: "Budweiser 33cl", price: 4.00, description: "American lager pulita e leggera" },
-        { name: "Moretti filtrata a freddo 33cl", price: 3.50, description: "Birra lager filtrata a freddo" },
-        { name: "La Moretti 0.0% Alcol", price: 3.50, description: "Zero alcol, gusto pieno" },
-        { name: "San Miguel 1L", price: 6.00, description: "Formato condivisione da 1 litro" },
-        { name: "Acqua Naturale 50cl", price: 1.50, description: "Acqua minerale frizzante o naturale" },
-        { name: "Acqua Naturale 1L", price: 2.50, description: "Acqua minerale frizzante o naturale" },
-        { name: "Coca Cola 33cl", price: 2.50, description: "Disponibile anche Zero" },
-        { name: "Coca Cola 1.5L", price: 4.50, description: "Bottiglia grande per asporto" },
-        { name: "Fanta 33cl", price: 2.50, description: "Bibita all'arancia" },
-        { name: "Sprite 33cl", price: 2.50, description: "Bibita limone e lime" },
-        { name: "The Limone 33cl", price: 2.50, description: "Te freddo San Benedetto o Estathé" },
-        { name: "The Pesca 33cl", price: 2.50, description: "Te freddo San Benedetto o Estathé" },
-        { name: "Redbull 25cl", price: 3.00, description: "Energy drink" }
+        { name: "Franziskaner Weissbier 50cl", price: 4.00, description: "Birra Weiss di alta qualità", image: "/Menu piatti Got Bun/franziskaner 50cl.webp" },
+        { name: "Ichnusa non filtrata 33cl", price: 3.50, description: "Birra Sarda non filtrata", image: "/Menu piatti Got Bun/ichnusa 33cl.webp" },
+        { name: "Ichnusa non filtrata 50cl", price: 4.50, description: "Birra Sarda non filtrata", image: "/Menu piatti Got Bun/ichnusa non filtrata 50cl.webp" },
+        { name: "Corona 33cl", price: 4.00, description: "Messicana chiara rinfrescante", image: "/Menu piatti Got Bun/corona extra.webp" },
+        { name: "Ceres 33cl", price: 4.00, description: "Strong lager a doppia fermentazione", image: "/Menu piatti Got Bun/ceres.webp" },
+        { name: "Messina 33cl", price: 3.50, description: "Ricetta classica siciliana con cristalli di sale", image: "/Menu piatti Got Bun/messina 33.webp" },
+        { name: "Birra Moretti filtrata a freddo 33cl", price: 3.50, description: "Birra lager filtrata a freddo", image: "/Menu piatti Got Bun/moretti filtrata 33.webp" },
+        { name: "Birra Moretti 0.0% Alcol 33cl", price: 3.50, description: "Zero alcol, gusto pieno", image: "/Menu piatti Got Bun/moretti 0 alcool.webp" },
+        { name: "Birra Amarcord Gradisca 33cl", price: 4.00, description: "Birra bionda artigianale del territorio", image: "/Menu piatti Got Bun/amarcord.webp" },
+        { name: "San Miguel 1L", price: 6.00, description: "Formato condivisione da 1 litro", image: "/Menu piatti Got Bun/san miguel 1l.webp" },
+        { name: "Acqua Naturale 50cl", price: 1.50, description: "Acqua minerale naturale", image: "/Menu piatti Got Bun/acqua naturale.webp" },
+        { name: "Acqua Frizzante 50cl", price: 1.50, description: "Acqua minerale frizzante", image: "/Menu piatti Got Bun/acqua frizzante 50cl.webp" },
+        { name: "Acqua Naturale 1L", price: 2.50, description: "Acqua minerale naturale in bottiglia grande", image: "/Menu piatti Got Bun/acqua naturale 1l.webp" },
+        { name: "Acqua Frizzante 1L", price: 2.50, description: "Acqua minerale frizzante in bottiglia grande", image: "/Menu piatti Got Bun/acqua frizzante 1l.webp" },
+        { name: "Coca Cola 33cl", price: 2.50, description: "Lattina da 33cl classica", image: "/Menu piatti Got Bun/coca cola.webp" },
+        { name: "Coca Cola Zero 33cl", price: 2.50, description: "Lattina da 33cl senza zuccheri", image: "/Menu piatti Got Bun/coca cola zero.webp" },
+        { name: "Coca Cola 1.5L", price: 4.50, description: "Bottiglia grande classica per asporto", image: "/Menu piatti Got Bun/coca cola 1.5l.webp" },
+        { name: "Coca Cola Zero 1.5L", price: 4.50, description: "Bottiglia grande senza zuccheri per asporto", image: "/Menu piatti Got Bun/coca cola zero 1.5l.webp" },
+        { name: "Fanta 33cl", price: 2.50, description: "Bibita all'arancia", image: "/Menu piatti Got Bun/fanta.webp" },
+        { name: "Sprite 33cl", price: 2.50, description: "Bibita limone e lime", image: "/Menu piatti Got Bun/sprite.webp" },
+        { name: "The Limone 33cl", price: 2.50, description: "Te freddo San Benedetto o Estathé", image: "/Menu piatti Got Bun/te al limone.webp" },
+        { name: "The Pesca 33cl", price: 2.50, description: "Te freddo San Benedetto o Estathé", image: "/Menu piatti Got Bun/te alla pesca.webp" },
+        { name: "Redbull 25cl", price: 3.00, description: "Energy drink", image: "/Menu piatti Got Bun/redbull.webp" },
+        { name: "Budweiser 33cl", price: 4.00, description: "American lager pulita e leggera", image: "" }
       ]
     },
     {
@@ -388,12 +393,12 @@ export default function MenuPage() {
       label: "Salse 🥫",
       icon: "🥫",
       items: [
-        { name: "Salsa Ketchup", price: 0.50, description: "Fatta in casa con pomodori freschi" },
-        { name: "Salsa Maionese (Veg)", price: 0.50, description: "Fatta in casa, 100% vegetale" },
-        { name: "Salsa BBQ", price: 0.50, description: "Fatta in casa, gusto affumicato" },
-        { name: "Salsa Habanero", price: 0.80, description: "Fatta in casa, molto piccante 🌶️🌶️" },
-        { name: "Salsa Senape", price: 0.50, description: "Salsa senape tradizionale" },
-        { name: "Salsa Burger", price: 0.50, description: "Salsa signature GotBun per panini" }
+        { name: "Salsa Ketchup", price: 0.50, description: "Fatta in casa con pomodori freschi", image: "/Menu piatti Got Bun/salsa ketchup.webp" },
+        { name: "Salsa Maionese (Veg)", price: 0.50, description: "Fatta in casa, 100% vegetale", image: "/Menu piatti Got Bun/salsa maionese.webp" },
+        { name: "Salsa BBQ", price: 0.50, description: "Fatta in casa, gusto affumicato", image: "/Menu piatti Got Bun/salsa barbecue.webp" },
+        { name: "Salsa Habanero", price: 0.80, description: "Fatta in casa, molto piccante 🌶️🌶️🌶️", image: "/Menu piatti Got Bun/salsa habanero.webp" },
+        { name: "Salsa Senape", price: 0.50, description: "Salsa senape tradizionale", image: "/Menu piatti Got Bun/salsa senape.webp" },
+        { name: "Salsa Burger", price: 0.50, description: "Salsa signature GotBun per panini", image: "/Menu piatti Got Bun/salsa burger.webp" }
       ]
     }
   ];

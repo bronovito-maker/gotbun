@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { DISH_ORDER_URL } from "@/lib/seo";
 
 // Types
@@ -67,7 +67,7 @@ const CONFIG_EXTRAS = [
 const CONFIG_SAUCES = [
   { id: "ketchup", name: "Ketchup (fatto in casa)", price: 0.50 },
   { id: "maionese", name: "Maionese Veg (fatta in casa)", price: 0.50 },
-  { id: "habanero", name: "Habanero (fatto in casa) 🌶️", price: 0.80 },
+  { id: "habanero", name: "Habanero (fatto in casa) 🌶️🌶️🌶️", price: 0.80 },
   { id: "bbq", name: "BBQ (fatta in casa)", price: 0.50 },
   { id: "burger", name: "Salsa Burger", price: 0.50 },
   { id: "senape", name: "Senape", price: 0.50 },
@@ -84,6 +84,15 @@ const MenuItemImage = ({
   onClick?: () => void;
 }) => {
   const [hasError, setHasError] = useState(false);
+
+  if (src && src.startsWith("emoji:")) {
+    const emoji = src.replace("emoji:", "");
+    return (
+      <div className="menu-item-photo-placeholder menu-item-photo-emoji" style={{ background: "rgba(0, 163, 217, 0.08)", border: "1px solid rgba(0, 163, 217, 0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span style={{ fontSize: "2.6rem", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.08))" }}>{emoji}</span>
+      </div>
+    );
+  }
 
   if (hasError || !src) {
     return (
@@ -111,8 +120,13 @@ const MenuItemImage = ({
 };
 
 export default function MenuClient({ categories }: { categories: MenuCategory[] }) {
+  const initialCategoryId = categories[0]?.id ?? "";
   const navRef = useRef<HTMLDivElement>(null);
-  const [activeCategory, setActiveCategory] = useState("burgers");
+  const sliderRef = useRef<HTMLSpanElement>(null);
+  const activeCategoryRef = useRef(initialCategoryId);
+  const sliderMeasuredRef = useRef(false);
+  const sliderReadyFrameRef = useRef<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState(initialCategoryId);
 
   // Configurator states
   const [selectedBase, setSelectedBase] = useState("manzo");
@@ -125,6 +139,12 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
 
   // Lightbox state
   const [lightboxItem, setLightboxItem] = useState<{ src: string; name: string } | null>(null);
+
+  const setCurrentCategory = useCallback((id: string) => {
+    if (activeCategoryRef.current === id) return;
+    activeCategoryRef.current = id;
+    setActiveCategory(id);
+  }, []);
 
   // Close lightbox on Escape key
   useEffect(() => {
@@ -145,7 +165,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
 
   // Smooth scroll with offset for sticky nav
   const scrollToCategory = (id: string) => {
-    setActiveCategory(id);
+    setCurrentCategory(id);
     const element = document.getElementById(id);
     if (element) {
       const stickyOffset = 90; // height of sticky bar + padding
@@ -158,6 +178,65 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
       });
     }
   };
+
+  const updateSlider = useCallback(() => {
+    const container = navRef.current;
+    const slider = sliderRef.current;
+    if (!container || !slider) return false;
+
+    const activeBtn = container.querySelector<HTMLElement>(".menu-nav-btn.active");
+    if (!activeBtn) return false;
+
+    slider.style.setProperty("--menu-nav-slider-x", `${activeBtn.offsetLeft}px`);
+    slider.style.setProperty("--menu-nav-slider-y", `${activeBtn.offsetTop}px`);
+    slider.style.setProperty("--menu-nav-slider-width", `${activeBtn.offsetWidth}px`);
+    slider.style.setProperty("--menu-nav-slider-height", `${activeBtn.offsetHeight}px`);
+
+    if (!sliderMeasuredRef.current) {
+      sliderMeasuredRef.current = true;
+      slider.classList.add("is-visible");
+      sliderReadyFrameRef.current = requestAnimationFrame(() => {
+        slider.classList.add("is-ready");
+        sliderReadyFrameRef.current = null;
+      });
+    }
+
+    return true;
+  }, []);
+
+  // Slider: measure before paint and drive the pill through CSS variables.
+  useLayoutEffect(() => {
+    updateSlider();
+  }, [activeCategory, updateSlider]);
+
+  useEffect(() => {
+    return () => {
+      if (sliderReadyFrameRef.current !== null) {
+        cancelAnimationFrame(sliderReadyFrameRef.current);
+      }
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const container = navRef.current;
+    if (!container) return;
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateSlider);
+      return () => window.removeEventListener("resize", updateSlider);
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSlider();
+    });
+
+    resizeObserver.observe(container);
+    container.querySelectorAll(".menu-nav-btn").forEach((button) => {
+      resizeObserver.observe(button);
+    });
+
+    return () => resizeObserver.disconnect();
+  }, [categories, updateSlider]);
 
   // Center active pill button in horizontal scroll container
   useEffect(() => {
@@ -179,7 +258,12 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
 
   // Viewport scroll tracking with high precision
   useEffect(() => {
-    const handleScroll = () => {
+    let frame: number | null = null;
+
+    const updateActiveCategory = () => {
+      frame = null;
+      if (categories.length === 0) return;
+
       const offset = 140; // viewport top offset
       let activeId = categories[0].id;
       
@@ -192,13 +276,22 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
           }
         }
       }
-      setActiveCategory(activeId);
+      setCurrentCategory(activeId);
+    };
+
+    const handleScroll = () => {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(updateActiveCategory);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run once initially
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [categories]);
+    updateActiveCategory(); // run once initially
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [categories, setCurrentCategory]);
 
   // Price calculator logic
   const calculateTotal = () => {
@@ -269,6 +362,12 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
       {/* Category Pills Navigation */}
       <nav className="menu-nav-wrapper" aria-label="Categorie menu">
         <div className="menu-nav" ref={navRef}>
+          {/* Magic sliding indicator */}
+          <span
+            ref={sliderRef}
+            className="menu-nav-slider"
+            aria-hidden="true"
+          />
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -536,39 +635,43 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                 {cat.items.map((item) => (
                   <article className={`menu-card ${item.isPopular ? "popular-card" : ""}`} key={item.name}>
                     <div className="menu-item-content">
-                      <div className="menu-item-details">
-                        <div className="menu-item-header">
-                          <h3 className="menu-item-name">{item.name}</h3>
-                        </div>
-                        <p className="menu-item-description">{item.description}</p>
-                        <div className="menu-item-footer">
-                          <span className="menu-item-price">€{item.price.toFixed(2)}</span>
-                          <div className="menu-item-tags">
-                            {item.tag && (
-                              <span className={`menu-item-tag ${
-                                item.tag.includes("🌶️") || item.tag.includes("🔥")
-                                  ? "spicy-tag"
-                                  : item.tag.includes("🌱")
-                                    ? "veg-tag"
-                                    : "default-tag"
-                              }`}>
-                                {item.tag}
-                              </span>
-                            )}
-                            {item.isPopular && (
-                              <span className="menu-item-tag popular-tag">👑 Popolare</span>
-                            )}
+                      <div className="menu-item-top-row">
+                        <div className="menu-item-details">
+                          <div className="menu-item-header">
+                            <h3 className="menu-item-name">{item.name}</h3>
                           </div>
+                          <p className="menu-item-description">{item.description}</p>
+                        </div>
+
+                        {/* Clickable photo with lightbox */}
+                        <div className="menu-item-photo-wrapper">
+                          <MenuItemImage
+                            src={item.image || ""}
+                            alt={item.name}
+                            onClick={item.image ? () => setLightboxItem({ src: item.image!, name: item.name }) : undefined}
+                          />
                         </div>
                       </div>
 
-                      {/* Clickable photo with lightbox */}
-                      <div className="menu-item-photo-wrapper">
-                        <MenuItemImage
-                          src={item.image || ""}
-                          alt={item.name}
-                          onClick={item.image ? () => setLightboxItem({ src: item.image!, name: item.name }) : undefined}
-                        />
+                      {/* Footer: full-width below text+photo */}
+                      <div className="menu-item-footer">
+                        <span className="menu-item-price">€{item.price.toFixed(2)}</span>
+                        <div className="menu-item-tags">
+                          {item.tag && (
+                            <span className={`menu-item-tag ${
+                              item.tag.includes("🌶️") || item.tag.includes("🔥")
+                                ? "spicy-tag"
+                                : item.tag.includes("🌱")
+                                  ? "veg-tag"
+                                  : "default-tag"
+                            }`}>
+                              {item.tag}
+                            </span>
+                          )}
+                          {item.isPopular && (
+                            <span className="menu-item-tag popular-tag">👑 Popolare</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </article>

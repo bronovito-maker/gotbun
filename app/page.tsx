@@ -312,7 +312,7 @@ export default function Home() {
       <section className="main-final-cta" aria-labelledby="final-cta-title">
         <div>
           <p className="main-eyebrow">Ci siamo</p>
-          <h2 id="final-cta-title">Ti è venuta fame? Ordina GotBun.</h2>
+          <h2 id="final-cta-title">Ti è venuta fame? Ordina da GotBun.</h2>
           <p>Vai al portale ufficiale, scegli il tuo burger e lascia che la piastra faccia il resto.</p>
         </div>
         <a className="main-cta-btn cta-order" href={DISH_ORDER_URL} rel="noreferrer" target="_blank">
