@@ -527,7 +527,10 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
           return (
             <section key={cat.id} id={cat.id} className="menu-category-section">
               <h2 className="menu-category-heading">
-                <span>{cat.icon}</span> {cat.label}
+                <span className="menu-category-icon">{cat.icon}</span>
+                <span className="menu-category-label">
+                  {cat.label.replace(/[^\p{L}\s&]/gu, "").trim()}
+                </span>
               </h2>
               <div className="menu-grid">
                 {cat.items.map((item) => (
