@@ -134,3 +134,518 @@
 [22010476ms] [LOG] [Fast Refresh] done in 109ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
 [22068136ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
 [22068159ms] [LOG] [Fast Refresh] done in 81ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22551076ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22551406ms] [LOG] [Fast Refresh] done in 422ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22561579ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22561613ms] [LOG] [Fast Refresh] done in 137ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22569611ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22569676ms] [LOG] [Fast Refresh] done in 66ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22576388ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22576474ms] [LOG] [Fast Refresh] done in 33ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22586277ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22586352ms] [LOG] [Fast Refresh] done in 30ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22605331ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22605360ms] [LOG] [Fast Refresh] done in 35ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22633185ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22633253ms] [LOG] [Fast Refresh] done in 128ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22655934ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22656143ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22656393ms] [LOG] [Fast Refresh] done in 226ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22657020ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22657081ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22732182ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22732385ms] [LOG] [Fast Refresh] done in 311ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22742636ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22743582ms] [LOG] [Fast Refresh] done in 1049ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22743971ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22744756ms] [LOG] [Fast Refresh] done in 886ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22745023ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22745035ms] [LOG] [Fast Refresh] done in 113ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22745207ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22745285ms] [LOG] [Fast Refresh] done in 179ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22800213ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22800215ms] [LOG] [Fast Refresh] done in 103ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22800619ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22800687ms] [LOG] [Fast Refresh] done in 170ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22801027ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22801043ms] [LOG] [Fast Refresh] done in 117ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22802967ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22803067ms] [LOG] [Fast Refresh] done in 202ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22803263ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22803273ms] [LOG] [Fast Refresh] done in 113ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22942590ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22942680ms] [LOG] [Fast Refresh] done in 190ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22944945ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22945153ms] [LOG] [Fast Refresh] done in 311ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22984484ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22984818ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22984819ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22984823ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22984993ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22984994ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22984994ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22985094ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22985663ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22985670ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22985671ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22985774ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22986111ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986111ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986111ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986117ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/?_rsc=q3mOO9BClNZHexY7:0
+[22986286ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22986326ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/?_rsc=q3mOO9BClNZHexY7:0
+[22986329ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986330ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986330ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986416ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986416ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986416ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[22986432ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22986642ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/:0
+[22986935ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_react-dom_0bruynb._.js:15305
+[22987317ms] Error: ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx
+
+
+    at <unknown> (Error: ./app/menu/MenuClient.tsx:1:20)
+    at Object.getCompilationErrors (file:///Users/bronovito/Documents/Sviluppo-AI/Progetti-Web/gotbun/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1186:59)
+    at DevBundlerService.getCompilationError (file:///Users/bronovito/Documents/Sviluppo-AI/Progetti-Web/gotbun/node_modules/next/dist/server/lib/dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file:///Users/bronovito/Documents/Sviluppo-AI/Progetti-Web/gotbun/node_modules/next/dist/server/dev/next-dev-server.js:720:42)
+    at DevServer.findPageComponents (file:///Users/bronovito/Documents/Sviluppo-AI/Progetti-Web/gotbun/node_modules/next/dist/server/dev/next-dev-server.js:690:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/bronovito/Documents/Sviluppo-AI/Progetti-Web/gotbun/node_modules/next/dist/server/base-server.js:1753:26)
+[22987053ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22987201ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987202ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987202ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987309ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22987320ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/favicon.ico:0
+[22987582ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987582ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987582ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987833ms] [ERROR] ./app/menu/MenuClient.tsx:1:20
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                    ^^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987833ms] [ERROR] ./app/menu/MenuClient.tsx:1:31
+You're importing a module that depends on `useRef` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |                               ^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987833ms] [ERROR] ./app/menu/MenuClient.tsx:1:10
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect, useRef } from "react";
+    |          ^^^^^^^^
+  2 | import { DISH_ORDER_URL } from "@/lib/seo";
+  3 |
+  4 | // Types
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./app/menu/MenuClient.tsx
+    ./app/menu/page.tsx @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1945
+[22987900ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22991300ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22991346ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22991577ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22991665ms] [LOG] [Fast Refresh] done in 188ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22991974ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22992019ms] [LOG] [Fast Refresh] done in 147ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[22992347ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22992396ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22992669ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22992721ms] [LOG] [Fast Refresh] done in 153ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[22999993ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23000012ms] [LOG] [Fast Refresh] done in 67ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23006735ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23006759ms] [LOG] [Fast Refresh] done in 37ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23030125ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23030142ms] [LOG] [Fast Refresh] done in 62ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23033994ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23034001ms] [LOG] [Fast Refresh] done in 107ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23034126ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23034150ms] [LOG] [Fast Refresh] done in 124ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23034419ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23034444ms] [LOG] [Fast Refresh] done in 126ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23047047ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[23047113ms] [LOG] [Fast Refresh] done in 56ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477

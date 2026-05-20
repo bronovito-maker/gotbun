@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { DISH_ORDER_URL } from "@/lib/seo";
 
 // Types
@@ -102,6 +102,7 @@ const MenuItemImage = ({ src, alt }: { src: string; alt: string }) => {
 };
 
 export default function MenuClient({ categories }: { categories: MenuCategory[] }) {
+  const navRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState("burgers");
 
   // Configurator states
@@ -113,32 +114,60 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
   const [selectedSauces, setSelectedSauces] = useState<string[]>([]);
 
-  // Smooth scroll and active section tracking
+  // Smooth scroll with offset for sticky nav
   const scrollToCategory = (id: string) => {
     setActiveCategory(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const stickyOffset = 90; // height of sticky bar + padding
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - stickyOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   };
 
+  // Center active pill button in horizontal scroll container
+  useEffect(() => {
+    const container = navRef.current;
+    if (!container) return;
+    
+    const activeBtn = container.querySelector(".menu-nav-btn.active") as HTMLElement;
+    if (activeBtn) {
+      const containerWidth = container.offsetWidth;
+      const btnOffsetLeft = activeBtn.offsetLeft;
+      const btnWidth = activeBtn.offsetWidth;
+      
+      container.scrollTo({
+        left: btnOffsetLeft - (containerWidth / 2) + (btnWidth / 2),
+        behavior: "smooth"
+      });
+    }
+  }, [activeCategory]);
+
+  // Viewport scroll tracking with high precision
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = window.scrollY + 100;
+      const offset = 140; // viewport top offset
+      let activeId = categories[0].id;
+      
       for (const cat of categories) {
         const el = document.getElementById(cat.id);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveCategory(cat.id);
-            break;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= offset) {
+            activeId = cat.id;
           }
         }
       }
+      setActiveCategory(activeId);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run once initially
     return () => window.removeEventListener("scroll", handleScroll);
   }, [categories]);
 
@@ -210,7 +239,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
     <div className="menu-container">
       {/* Category Pills Navigation */}
       <nav className="menu-nav-wrapper" aria-label="Categorie menu">
-        <div className="menu-nav">
+        <div className="menu-nav" ref={navRef}>
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -473,7 +502,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
               </h2>
               <div className="menu-grid">
                 {cat.items.map((item) => (
-                  <article className="menu-card" key={item.name}>
+                  <article className={`menu-card ${item.isPopular ? "popular-card" : ""}`} key={item.name}>
                     <div className="menu-item-content">
                       <div className="menu-item-details">
                         <div className="menu-item-header">
@@ -483,12 +512,18 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                         <p className="menu-item-description">{item.description}</p>
                         <div className="menu-item-tags">
                           {item.tag && (
-                            <span className={`menu-item-tag ${item.tag.includes("🌶️") || item.tag.includes("🔥") ? "highlight" : ""}`}>
+                            <span className={`menu-item-tag ${
+                              item.tag.includes("🌶️") || item.tag.includes("🔥")
+                                ? "spicy-tag"
+                                : item.tag.includes("🌱")
+                                  ? "veg-tag"
+                                  : "default-tag"
+                            }`}>
                               {item.tag}
                             </span>
                           )}
                           {item.isPopular && (
-                            <span className="menu-item-tag highlight">👑 Popolare</span>
+                            <span className="menu-item-tag popular-tag">👑 Popolare</span>
                           )}
                         </div>
                       </div>
