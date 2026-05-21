@@ -35,19 +35,44 @@ Stack attuale:
 
 ```text
 app/
-├── page.tsx                 # Home istituzionale
-├── promo/page.tsx           # Landing coupon 2x1
-├── api/claim-coupon/route.ts
-├── privacy/page.tsx
-├── redeem/page.tsx
-├── layout.tsx
-└── globals.css
+├── api/
+│   └── claim-coupon/
+│       └── route.ts          # Generazione coupon, QR, payload n8n
+├── admin-login/
+│   └── page.tsx              # Form di accesso admin (Supabase Auth)
+├── admin/
+│   ├── actions.ts            # Server Actions per menu e promozioni
+│   ├── admin.css             # Stile ad hoc ad alta specificità per l'Admin
+│   ├── layout.tsx            # Sidebar e layout pannello amministrativo
+│   ├── page.tsx              # Dashboard con statistiche generali
+│   ├── menu/
+│   │   ├── page.tsx          # Gestione piatti (Server Component)
+│   │   └── AdminMenuClient.tsx # Componente interattivo listino e categorie
+│   └── promozioni/
+│       ├── page.tsx          # Configurazione promozioni (Server Component)
+│       └── AdminPromotionsClient.tsx # Toggles per attivazione promozioni e testi
+├── privacy/
+│   └── page.tsx              # Privacy e condizioni promo
+├── promo/
+│   └── page.tsx              # Landing coupon 2x1 con form
+├── redeem/
+│   └── page.tsx              # Fallback redemption locale
+├── layout.tsx                # Metadata e root layout
+└── globals.css               # Design system e stili di entrambe le esperienze
 
 lib/
-├── coupon.ts
-└── validation.ts
+├── auth.ts                   # Gestione autenticazione (Supabase Auth client-side)
+├── coupon.ts                 # Codice coupon, token redemption, date helper
+├── db.ts                     # Connessione e helper database Supabase
+└── validation.ts             # Validazione server-side form coupon
 
-proxy.ts                     # Host promo -> /promo
+utils/
+└── supabase/                 # Configurazione client, server e middleware SSR
+    ├── client.ts
+    ├── middleware.ts
+    └── server.ts
+
+proxy.ts                     # Host promo -> /promo, controllo autorizzazioni admin
 ```
 
 `proxy.ts` sostituisce il vecchio `middleware.ts`, come richiesto da Next 16.

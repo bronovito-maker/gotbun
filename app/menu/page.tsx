@@ -62,8 +62,8 @@ export default async function MenuPage() {
               height={80}
               priority
             />
-            <span className="main-logo-subtitle">riccione</span>
           </div>
+          <span className="main-logo-subtitle">riccione</span>
         </Link>
         <h1 className="menu-page-subtitle">Scegli & Addenta</h1>
         <p className="menu-page-description">

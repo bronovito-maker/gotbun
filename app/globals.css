@@ -1741,10 +1741,10 @@ input:focus {
    ========================================================================== */
 @media (min-width: 900px) {
 
-  /* Offset the ambient burger animation stage to the right behind the bubbles panel */
+  /* Center the ambient burger animation stage on desktop */
   .main-site .burger-anim {
-    justify-content: end;
-    padding-right: 5%;
+    justify-content: center;
+    padding-right: 0;
   }
 
   /* Logo aligns to the left above-the-fold and is scaled down for height optimization */
@@ -1886,6 +1886,27 @@ input:focus {
   max-width: 580px;
   margin: 0 auto 20px;
   line-height: 1.5;
+}
+
+@media (min-width: 900px) {
+  .menu-page-header {
+    padding-top: 48px;
+    margin-bottom: 48px;
+  }
+
+  .menu-page-header .main-logo-centered-link {
+    justify-content: center;
+  }
+
+  .menu-page-subtitle {
+    font-size: 3.5rem;
+    margin: 24px 0 12px;
+  }
+
+  .menu-page-description {
+    font-size: 1.1rem;
+    max-width: 640px;
+  }
 }
 
 .menu-final-cta {
@@ -2692,7 +2713,7 @@ input:focus {
   font-family: 'Luckiest Guy', cursive, sans-serif;
   font-size: 1.15rem;
   letter-spacing: 0.05em;
-  color: var(--main-text);
+  color: var(--main-white, #ffffff);
   margin: 0 0 20px 0;
   text-transform: uppercase;
 }
@@ -2771,7 +2792,7 @@ input:focus {
 }
 
 .footer-hours-title {
-  color: var(--main-text) !important;
+  color: var(--main-white, #ffffff) !important;
   font-weight: 700;
   margin-bottom: 4px !important;
 }
@@ -2849,7 +2870,8 @@ input:focus {
 .promo-disclaimer {
   display: block;
   font-size: 0.76rem;
-  color: rgba(255, 255, 255, 0.42);
+  color: var(--main-text-muted);
+  opacity: 0.8;
   margin-top: 16px;
   line-height: 1.45;
 }
@@ -2894,6 +2916,7 @@ input:focus {
   border-radius: 32px;
   background: linear-gradient(135deg, rgba(255, 122, 26, 0.25), transparent 40%, transparent 60%, rgba(0, 163, 217, 0.15));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;

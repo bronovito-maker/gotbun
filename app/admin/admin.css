@@ -114,10 +114,24 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 12px 16px;
-  color: #f8fafc;
+  color: var(--admin-text, #f5f5ee) !important;
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
-  caret-color: #f8fafc;
+  caret-color: var(--admin-text, #f5f5ee);
+}
+
+/* Specificity override for admin body inputs to prevent globals.css leaks */
+.admin-body .input-field,
+.admin-body input[type="text"],
+.admin-body input[type="email"],
+.admin-body input[type="password"],
+.admin-body input[type="tel"],
+.admin-body input[type="number"],
+.admin-body textarea,
+.admin-body select {
+  color: var(--admin-text, #f5f5ee) !important;
+  background-color: #12161b !important;
+  background: #12161b !important;
 }
 
 .input-field::placeholder {
@@ -127,8 +141,11 @@
 
 .input-field:-webkit-autofill,
 .input-field:-webkit-autofill:hover,
-.input-field:-webkit-autofill:focus {
-  -webkit-text-fill-color: #f8fafc !important;
+.input-field:-webkit-autofill:focus,
+.admin-body input:-webkit-autofill,
+.admin-body input:-webkit-autofill:hover,
+.admin-body input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--admin-text, #f5f5ee) !important;
   -webkit-box-shadow: 0 0 0 1000px #12161b inset !important;
   box-shadow: 0 0 0 1000px #12161b inset !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -577,6 +594,11 @@ input:checked + .slider:before {
 }
 
 .mobile-cards-grid {
+  display: none;
+}
+
+/* Floating Action Button (FAB) - Hidden by default on desktop */
+.fab-btn {
   display: none;
 }
 

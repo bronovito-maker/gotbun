@@ -445,9 +445,6 @@ export default function AdminMenuClient({ initialMenu }: AdminMenuClientProps) {
           <h1>Gestione Menu</h1>
           <p>Aggiungi, modifica o disattiva piatti dal listino del ristorante.</p>
         </div>
-        <button className="btn-primary" onClick={() => openDrawer()}>
-          <span>+</span> Nuovo Piatto
-        </button>
       </div>
 
       {/* --- MENU FILTER CONTROLS --- */}
@@ -541,8 +538,15 @@ export default function AdminMenuClient({ initialMenu }: AdminMenuClientProps) {
       </div>
 
       {/* --- DESKTOP TABLE VIEW --- */}
-      <div className="table-wrapper">
-        <table className="admin-table">
+      <div className="table-wrapper" style={{ padding: "16px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", borderBottom: "1px solid var(--admin-border)", paddingBottom: "12px", width: "100%" }}>
+          <h2 style={{ margin: 0, fontSize: "1rem", fontWeight: 800 }}>Gestione Piatti</h2>
+          <button className="btn-primary" type="button" onClick={() => openDrawer()}>
+            + Nuovo Piatto
+          </button>
+        </div>
+        <div style={{ overflowX: "auto", width: "100%" }}>
+          <table className="admin-table">
           <thead>
             <tr>
               <th>Foto</th>
@@ -632,6 +636,7 @@ export default function AdminMenuClient({ initialMenu }: AdminMenuClientProps) {
             ) : null}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* --- MOBILE CARDS VIEW --- */}

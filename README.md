@@ -76,6 +76,19 @@ app/
 ├── api/
 │   └── claim-coupon/
 │       └── route.ts          # Generazione coupon, QR, payload n8n
+├── admin-login/
+│   └── page.tsx              # Form di accesso admin (Supabase Auth)
+├── admin/
+│   ├── actions.ts            # Server Actions per menu e promozioni
+│   ├── admin.css             # Stile ad hoc ad alta specificità per l'Admin
+│   ├── layout.tsx            # Sidebar e layout pannello amministrativo
+│   ├── page.tsx              # Dashboard con statistiche generali
+│   ├── menu/
+│   │   ├── page.tsx          # Gestione piatti (Server Component)
+│   │   └── AdminMenuClient.tsx # Componente interattivo listino e categorie
+│   └── promozioni/
+│       ├── page.tsx          # Configurazione promozioni (Server Component)
+│       └── AdminPromotionsClient.tsx # Toggles per attivazione promozioni e testi
 ├── privacy/
 │   └── page.tsx              # Privacy e condizioni promo
 ├── promo/
@@ -86,16 +99,26 @@ app/
 ├── globals.css               # Design system e stili di entrambe le esperienze
 ├── icon.svg                  # Favicon
 ├── layout.tsx                # Metadata e root layout
-└── page.tsx                  # Sito principale
+└── page.tsx                  # Sito principale (gotbunriccione.it)
 
 lib/
+├── auth.ts                   # Gestione autenticazione (Supabase Auth client-side)
 ├── coupon.ts                 # Codice coupon, token redemption, date helper
+├── db.ts                     # Connessione e helper database Supabase
 └── validation.ts             # Validazione server-side form coupon
 
-proxy.ts                      # Rewrite host promo -> /promo
+utils/
+└── supabase/                 # Configurazione client, server e middleware SSR
+    ├── client.ts
+    ├── middleware.ts
+    └── server.ts
+
+proxy.ts                      # Rewrite host promo -> /promo, controllo autorizzazioni admin
 gotbun.json                   # Workflow n8n lead/coupon/email
 gotbun-redeem.json            # Workflow n8n redemption in cassa
-docs/brand-copy.md            # Brand identity e stile copy
+docs/
+├── brand-copy.md             # Brand identity e stile copy
+└── supabase-admin-setup.md   # Guida installazione Supabase & RLS
 ```
 
 ## Variabili ambiente

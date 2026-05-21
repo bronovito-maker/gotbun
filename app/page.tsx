@@ -122,7 +122,8 @@ export default async function Home() {
   };
 
   return (
-    <main className="main-site">
+    <>
+      <main className="main-site" style={{ paddingBottom: 0 }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(restaurantSchema)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(websiteSchema)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema)} />
@@ -386,8 +387,9 @@ export default async function Home() {
           </a>
         </div>
       </div>
+    </main>
 
-      <footer className="main-footer-rich">
+    <footer className="main-footer-rich">
         <div className="footer-grid">
           {/* Colonna 1: Raggiungici */}
           <div className="footer-col">
@@ -448,6 +450,6 @@ export default async function Home() {
           <p>© {new Date().getFullYear()} GotBun Riccione. Tutti i diritti riservati.</p>
         </div>
       </footer>
-    </main>
+    </>
   );
 }
