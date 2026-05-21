@@ -1,0 +1,61 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e27]: Dashboard Amministratore - GotBun Riccione | GotBun Riccione
+  - generic [ref=e29]:
+    - complementary [ref=e30]:
+      - generic [ref=e31]:
+        - img "GotBun Riccione" [ref=e32]
+        - generic [ref=e33]: Admin
+      - navigation [ref=e34]:
+        - link "📊 Dashboard" [ref=e35] [cursor=pointer]:
+          - /url: /admin
+          - generic [ref=e36]: 📊
+          - generic [ref=e37]: Dashboard
+        - link "🍔 Gestione Menu" [ref=e38] [cursor=pointer]:
+          - /url: /admin/menu
+          - generic [ref=e39]: 🍔
+          - generic [ref=e40]: Gestione Menu
+        - link "🏷️ Promozioni" [ref=e41] [cursor=pointer]:
+          - /url: /admin/promozioni
+          - generic [ref=e42]: 🏷️
+          - generic [ref=e43]: Promozioni
+        - link "🌐 Vedi Menu Pubblico" [ref=e44] [cursor=pointer]:
+          - /url: /menu
+          - generic [ref=e45]: 🌐
+          - generic [ref=e46]: Vedi Menu Pubblico
+      - button "Esci (Logout)" [ref=e49] [cursor=pointer]
+    - main [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e53]:
+          - heading "Pannello di Amministrazione" [level=1] [ref=e54]
+          - paragraph [ref=e55]: Panoramica delle attività e controllo del menu di GotBun Riccione.
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: Piatti Totali
+            - generic [ref=e59]: "73"
+            - generic [ref=e60]: Suddivisi in 11 categorie
+          - generic [ref=e61]:
+            - generic [ref=e62]: Promozioni Attive
+            - generic [ref=e63]: 2 / 2
+            - generic [ref=e64]: Aggiornate sul sito in tempo reale
+          - generic [ref=e65]:
+            - generic [ref=e66]: Stato Promo 2x1
+            - generic [ref=e67]: 🟢 ATTIVA
+            - generic [ref=e68]: Consumazione al tavolo
+          - generic [ref=e69]:
+            - generic [ref=e70]: Stato Sconto -10%
+            - generic [ref=e71]: 🟢 ATTIVA
+            - generic [ref=e72]: "Codice: BUN26"
+        - heading "Operazioni Rapide" [level=2] [ref=e73]
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - heading "🍔 Gestisci il Menu" [level=3] [ref=e76]
+            - paragraph [ref=e77]: Aggiorna i prezzi, modifica gli ingredienti, attiva/disattiva piatti esauriti e associa etichette colorate.
+            - link "Apri Listino Menu" [ref=e78] [cursor=pointer]:
+              - /url: /admin/menu
+          - generic [ref=e79]:
+            - heading "🏷️ Configura Promozioni" [level=3] [ref=e80]
+            - paragraph [ref=e81]: Attiva o disattiva le offerte 2x1 e lo sconto delivery. Modifica i codici coupon, le condizioni legali e le soglie di spesa.
+            - link "Gestisci Promozioni" [ref=e82] [cursor=pointer]:
+              - /url: /admin/promozioni

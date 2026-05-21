@@ -1,0 +1,68 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e27]: Gestione Promozioni - GotBun Admin
+  - generic [ref=e29]:
+    - complementary [ref=e30]:
+      - generic [ref=e31]:
+        - img "GotBun Riccione" [ref=e32]
+        - generic [ref=e33]: Admin
+      - navigation [ref=e34]:
+        - link "📊 Dashboard" [ref=e35] [cursor=pointer]:
+          - /url: /admin
+          - generic [ref=e36]: 📊
+          - generic [ref=e37]: Dashboard
+        - link "🍔 Gestione Menu" [ref=e38] [cursor=pointer]:
+          - /url: /admin/menu
+          - generic [ref=e39]: 🍔
+          - generic [ref=e40]: Gestione Menu
+        - link "🏷️ Promozioni" [active] [ref=e41] [cursor=pointer]:
+          - /url: /admin/promozioni
+          - generic [ref=e42]: 🏷️
+          - generic [ref=e43]: Promozioni
+        - link "🌐 Vedi Menu Pubblico" [ref=e44] [cursor=pointer]:
+          - /url: /menu
+          - generic [ref=e45]: 🌐
+          - generic [ref=e46]: Vedi Menu Pubblico
+      - button "Esci (Logout)" [ref=e49] [cursor=pointer]
+    - main [ref=e50]:
+      - generic [ref=e83]:
+        - generic [ref=e85]:
+          - heading "Gestione Promozioni" [level=1] [ref=e86]
+          - paragraph [ref=e87]: Configura le offerte attive sul sito, imposta i codici sconto e aggiorna i dettagli legali delle promozioni.
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - generic [ref=e91]:
+                - text: ONLINE DELIVERY/ASPORTO
+                - heading "Sconto Delivery/Asporto -10%" [level=3] [ref=e92]
+              - generic [ref=e93]:
+                - generic [ref=e94]: ATTIVA
+                - generic [ref=e95]:
+                  - checkbox [checked]
+            - paragraph [ref=e98]: “Gusta dove vuoi. Risparmia online.”
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - text: CODICE COUPON
+                - generic [ref=e101]: BUN26
+              - generic [ref=e102]:
+                - text: SPESA MINIMA
+                - generic [ref=e103]: €20.00
+            - generic [ref=e104]:
+              - generic [ref=e105]: CONDIZIONI E NOTE LEGALI
+              - paragraph [ref=e106]: Sconto del 10% applicabile a fronte di una spesa minima di 20€. Valido esclusivamente per gli ordini effettuati sul nostro portale ufficiale in modalità Delivery (consegna a domicilio) o Asporto (takeaway).
+            - button "✏️ Modifica Dettagli Promo" [ref=e107] [cursor=pointer]
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - text: TAVOLO
+                - heading "Offerta 2x1" [level=3] [ref=e111]
+              - generic [ref=e112]:
+                - generic [ref=e113]: ATTIVA
+                - generic [ref=e114]:
+                  - checkbox [checked]
+            - paragraph [ref=e117]: “Uno lo paghi. L'altro lo morde chi vuoi.”
+            - generic [ref=e118]:
+              - generic [ref=e119]: CONDIZIONI E NOTE LEGALI
+              - paragraph [ref=e120]: La promo si applica esclusivamente sull'acquisto di una portata principale a scelta (Hamburger Nostrani, Piadine, Wrap o Insalate). Sono categoricamente esclusi dalla promozione stuzzichini, appetizer, fritti, dolci e tutte le bevande. Offerta non cumulabile con altri sconti, utilizzabile per una sola consumazione al tavolo.
+            - button "✏️ Modifica Dettagli Promo" [ref=e121] [cursor=pointer]

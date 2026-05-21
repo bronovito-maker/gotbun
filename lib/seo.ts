@@ -7,7 +7,7 @@ export const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=GotBun%
 
 export const business = {
   name: "GotBun Riccione",
-  description: "Burger, smash burger, hot dog, wrap, insalate, menu online, ordini e promo 2x1 a Riccione.",
+  description: "Burger restaurant a Riccione con hamburger nostrani a Km 0, pulled pork e falafel fatti in casa, menu online, ordini e promo 2x1.",
   phone: "+390541645598",
   displayPhone: "0541 645598",
   streetAddress: "Viale Emilia 40",

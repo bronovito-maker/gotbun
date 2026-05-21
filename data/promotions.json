@@ -1,0 +1,18 @@
+[
+  {
+    "id": "promo_2x1",
+    "name": "Offerta 2x1",
+    "isActive": true,
+    "description": "Uno lo paghi. L'altro lo morde chi vuoi.",
+    "conditions": "La promo si applica esclusivamente sull'acquisto di una portata principale a scelta (Hamburger Nostrani, Piadine, Wrap o Insalate). Sono categoricamente esclusi dalla promozione stuzzichini, appetizer, fritti, dolci e tutte le bevande. Offerta non cumulabile con altri sconti, utilizzabile per una sola consumazione al tavolo."
+  },
+  {
+    "id": "promo_10",
+    "name": "Sconto Delivery/Asporto -10%",
+    "isActive": true,
+    "description": "Gusta dove vuoi. Risparmia online.",
+    "code": "BUN26",
+    "minSpend": 20,
+    "conditions": "Sconto del 10% applicabile a fronte di una spesa minima di 20€. Valido esclusivamente per gli ordini effettuati sul nostro portale ufficiale in modalità Delivery (consegna a domicilio) o Asporto (takeaway)."
+  }
+]

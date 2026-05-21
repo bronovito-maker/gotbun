@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e5]:
+        - img "GotBun Riccione" [ref=e6]
+        - generic [ref=e7]: Admin
+      - navigation [ref=e8]:
+        - link "📊 Dashboard" [ref=e9] [cursor=pointer]:
+          - /url: /admin
+          - generic [ref=e10]: 📊
+          - generic [ref=e11]: Dashboard
+        - link "🍔 Gestione Menu" [ref=e12] [cursor=pointer]:
+          - /url: /admin/menu
+          - generic [ref=e13]: 🍔
+          - generic [ref=e14]: Gestione Menu
+        - link "🏷️ Promozioni" [ref=e15] [cursor=pointer]:
+          - /url: /admin/promozioni
+          - generic [ref=e16]: 🏷️
+          - generic [ref=e17]: Promozioni
+        - link "🌐 Vedi Menu Pubblico" [ref=e18] [cursor=pointer]:
+          - /url: /menu
+          - generic [ref=e19]: 🌐
+          - generic [ref=e20]: Vedi Menu Pubblico
+      - button "Esci (Logout)" [ref=e23] [cursor=pointer]
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e75]:
+          - generic [ref=e76]: ❌
+          - generic [ref=e77]: Missing Supabase admin environment variables.
+        - generic [ref=e27]:
+          - heading "Gestione Promozioni" [level=1] [ref=e28]
+          - paragraph [ref=e29]: Configura le offerte attive sul sito, imposta i codici sconto e aggiorna i dettagli legali delle promozioni.
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - generic [ref=e32]:
+              - generic [ref=e33]:
+                - text: ONLINE DELIVERY/ASPORTO
+                - heading "Sconto Delivery/Asporto -10%" [level=3] [ref=e34]
+              - generic [ref=e35]:
+                - generic [ref=e36]: ATTIVA
+                - generic [ref=e37]:
+                  - checkbox [checked]
+            - paragraph [ref=e40]: “Gusta dove vuoi. Risparmia online.”
+            - generic [ref=e41]:
+              - generic [ref=e42]:
+                - text: CODICE COUPON
+                - generic [ref=e43]: BUN26
+              - generic [ref=e44]:
+                - text: SPESA MINIMA
+                - generic [ref=e45]: €20.00
+            - generic [ref=e46]:
+              - generic [ref=e47]: CONDIZIONI E NOTE LEGALI
+              - paragraph [ref=e48]: Sconto del 10% applicabile a fronte di una spesa minima di 20€. Valido esclusivamente per gli ordini effettuati sul nostro portale ufficiale in modalità Delivery (consegna a domicilio) o Asporto (takeaway).
+            - button "✏️ Modifica Dettagli Promo" [ref=e49] [cursor=pointer]
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - text: TAVOLO
+                - heading "Offerta 2x1" [level=3] [ref=e53]
+              - generic [ref=e54]:
+                - generic [ref=e55]: ATTIVA
+                - generic [ref=e56]:
+                  - checkbox [checked]
+            - paragraph [ref=e59]: “Uno lo paghi. L'altro lo morde chi vuoi.”
+            - generic [ref=e60]:
+              - generic [ref=e61]: CONDIZIONI E NOTE LEGALI
+              - paragraph [ref=e62]: La promo si applica esclusivamente sull'acquisto di una portata principale a scelta (Hamburger Nostrani, Piadine, Wrap o Insalate). Sono categoricamente esclusi dalla promozione stuzzichini, appetizer, fritti, dolci e tutte le bevande. Offerta non cumulabile con altri sconti, utilizzabile per una sola consumazione al tavolo.
+            - button "✏️ Modifica Dettagli Promo" [ref=e63] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e69] [cursor=pointer]:
+    - img [ref=e70]
+  - alert [ref=e73]

@@ -3,17 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import BurgerAnimation from "./components/BurgerAnimation";
 import { business, DISH_URL, DISH_ORDER_URL, homeFaqs, jsonLd, MAPS_URL, MENU_URL, PROMO_URL, SITE_URL } from "@/lib/seo";
+import { getPromotions } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "Burger a Riccione, menu online e promo 2x1",
-  description: "GotBun Riccione in Viale Emilia 40: smash burger, hot dog, wrap, menu online, ordini e promo 2x1 al tavolo.",
+  title: "Hamburger Nostrani a Riccione - GotBun",
+  description: "GotBun Riccione in Viale Emilia 40: hamburger nostrani a Km 0, falafel e pulled pork fatti in casa, menu online e promo 2x1 al tavolo.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
     url: SITE_URL,
-    title: "GotBun Riccione - Burger, menu e promo 2x1",
-    description: "Smash burger, menu online, ordini e promo 2x1 da gustare in locale a Riccione.",
+    title: "GotBun Riccione - Hamburger Nostrani e Ingredienti Locali",
+    description: "Hamburger nostrani a Km 0, pulled pork e falafel fatti in casa a Riccione. Menu online e promo 2x1.",
   },
 };
 
@@ -41,7 +42,11 @@ const infoCards = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const promotions = await getPromotions();
+  const promo2x1 = promotions.find((p) => p.id === "promo_2x1");
+  const promo10 = promotions.find((p) => p.id === "promo_10");
+  const hasActivePromos = promo2x1?.isActive || promo10?.isActive;
   const restaurantSchema = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -52,7 +57,7 @@ export default function Home() {
     telephone: business.phone,
     image: [`${SITE_URL}/gotbun_logo.png`, `${SITE_URL}/gotbun-hero-burger.png`],
     logo: `${SITE_URL}/gotbun_logo.png`,
-    servesCuisine: ["Burger", "Smash burger", "Street food", "Hot dog", "Wrap"],
+    servesCuisine: ["Burger", "Hamburger Nostrani", "Pulled Pork", "Falafel", "Wrap"],
     priceRange: "€€",
     address: {
       "@type": "PostalAddress",
@@ -161,10 +166,10 @@ export default function Home() {
 
         <div className="main-hero-copy">
           <h1 id="main-hero-title">
-            Street food caldo, croccante, <span>serio</span>.
+            Nessuna scorciatoia. <span>Solo ingredienti del territorio</span>.
           </h1>
           <p className="main-hero-text">
-            A Riccione la piastra è accesa: smash burger con crosticina, pane tostato, salse sporche al punto giusto e ordini online senza perdere tempo.
+            Dal manzo locale allevato a filiera corta, al falafel fatto a mano, fino al nostro pulled pork cotto lentamente. Ci prendiamo tutto il tempo necessario per preparare ogni piatto da zero, proprio qui a Riccione.
           </p>
         </div>
 
@@ -203,36 +208,42 @@ export default function Home() {
         </div>
 
         {/* Two Bubbles */}
-        <div className="main-bubbles-grid">
-          <Link href="/promo" className="main-bubble bubble-2x1">
-            <div className="bubble-badge">Promo Tavolo</div>
-            <div className="bubble-content">
-              <span className="bubble-title">Promo</span>
-              <span className="bubble-highlight">2x1</span>
-              <span className="bubble-details">Lun - Gio · Solo al tavolo</span>
-            </div>
-            <span className="bubble-action">Sblocca Coupon &rarr;</span>
-          </Link>
-          <div className="main-bubble bubble-discount">
-            <div className="bubble-badge">Sconto Online</div>
-            <div className="bubble-content">
-              <span className="bubble-title">Sconto Delivery & Asporto</span>
-              <span className="bubble-highlight">-10%</span>
-              <span className="bubble-details">Codice: <strong className="code-text">BUN26</strong></span>
-            </div>
-            <span className="bubble-note">Utilizzabile sul nostro sito</span>
+        {hasActivePromos && (
+          <div className="main-bubbles-grid">
+            {promo2x1?.isActive && (
+              <Link href="/promo" className="main-bubble bubble-2x1">
+                <div className="bubble-badge">Promo Tavolo</div>
+                <div className="bubble-content">
+                  <span className="bubble-title">Promo</span>
+                  <span className="bubble-highlight">2x1</span>
+                  <span className="bubble-details">Lun - Gio · Solo al tavolo</span>
+                </div>
+                <span className="bubble-action">Sblocca Coupon &rarr;</span>
+              </Link>
+            )}
+            {promo10?.isActive && (
+              <div className="main-bubble bubble-discount">
+                <div className="bubble-badge">Sconto Online</div>
+                <div className="bubble-content">
+                  <span className="bubble-title">Sconto Delivery & Asporto</span>
+                  <span className="bubble-highlight">-10%</span>
+                  <span className="bubble-details">Codice: <strong className="code-text">{promo10.code || "BUN26"}</strong></span>
+                </div>
+                <span className="bubble-note">Utilizzabile sul nostro sito</span>
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </section>
 
       {/* Featured Photo section */}
-      <section className="main-photo-gallery" aria-label="I nostri Smash Burger">
+      <section className="main-photo-gallery" aria-label="I nostri Hamburger Nostrani">
         <div className="main-gallery-card">
           <div className="gallery-image-wrapper">
             <Image
               className="gallery-image"
               src="/gotbun-hero-burger.png"
-              alt="GotBun Smash Burger caldo e croccante"
+              alt="GotBun Hamburger Nostrano caldo e gustoso"
               width={1200}
               height={800}
               priority
@@ -248,26 +259,54 @@ export default function Home() {
       <section className="main-section main-menu-section" aria-labelledby="menu-title">
         <div>
           <p className="main-eyebrow">Menu e ordini</p>
-          <h2 id="menu-title">Scegli. Ordina. Addenta.</h2>
+          <h2 id="menu-title">Ingredienti veri, ricette nostre.</h2>
         </div>
         <div className="main-section-copy">
-          <p>Signature burger pieni, smash burger bassi e cattivi con crosticina da applauso, hot dog carichi, wrap veloci e insalate per chi oggi vuole stare leggero senza mangiare triste.</p>
+          <p>I nostri hamburger con manzo nostrano a km 0, il pulled pork artigianale cotto a fuoco lento, il falafel fatto in casa e tante proposte vegetariane, wrap e insalate fresche.</p>
           <Link className="main-cta-btn cta-menu" style={{ width: 'fit-content' }} href={MENU_URL}>
             Sfoglia il menu
           </Link>
         </div>
       </section>
 
-      <section className="main-promo-card" aria-labelledby="promo-title">
-        <div>
-          <p className="main-eyebrow">Promo 2x1</p>
-          <h2 id="promo-title">Uno lo paghi. L&apos;altro lo morde chi vuoi.</h2>
-          <p>Dal lunedì al giovedì, 18:30-22:30, ti siedi al tavolo e ti giochi il 2x1 senza prenotazione. Scarichi il coupon, lo mostri in cassa e trasformi una fame normale in una scelta molto più intelligente.</p>
+      {hasActivePromos && (
+        <div className="main-promos-grid">
+          {promo2x1?.isActive && (
+            <section className="main-promo-card" aria-labelledby="promo-2x1-title">
+              <div>
+                <p className="main-eyebrow">Promo Tavolo</p>
+                <h2 id="promo-2x1-title">{promo2x1.name}: {promo2x1.description}</h2>
+                <p>Ti siedi al tavolo e ti giochi la promo senza prenotazione. Scarichi il coupon, lo mostri in cassa e raddoppi il gusto.</p>
+                <span className="promo-disclaimer">
+                  * {promo2x1.conditions}
+                </span>
+              </div>
+              <Link className="main-cta-btn cta-order" style={{ width: 'fit-content' }} href="/promo">
+                Ottieni il coupon
+              </Link>
+            </section>
+          )}
+
+          {promo10?.isActive && (
+            <section className="main-promo-card" aria-labelledby="promo-delivery-title">
+              <div>
+                <p className="main-eyebrow">Sconto Online</p>
+                <h2 id="promo-delivery-title">{promo10.name}: {promo10.description}</h2>
+                <p>Ordina a domicilio o ritira al locale direttamente dal nostro portale ufficiale. Inserisci il codice sconto al checkout e ottieni il risparmio.</p>
+                <div className="promo-code-box">
+                  Codice sconto: <strong>{promo10.code || "BUN26"}</strong>
+                </div>
+                <span className="promo-disclaimer">
+                  * {promo10.conditions}
+                </span>
+              </div>
+              <a className="main-cta-btn cta-order" style={{ width: 'fit-content' }} href={DISH_ORDER_URL} rel="noreferrer" target="_blank">
+                Ordina con sconto
+              </a>
+            </section>
+          )}
         </div>
-        <Link className="main-cta-btn cta-order" style={{ width: 'fit-content' }} href="/promo">
-          Ottieni il coupon
-        </Link>
-      </section>
+      )}
 
       <section className="main-section main-visit-section" aria-labelledby="visit-title">
         <div>
@@ -291,6 +330,19 @@ export default function Home() {
               )}
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* Filosofia del Brand / Chi Siamo */}
+      <section className="main-section main-philosophy-section" aria-labelledby="philosophy-title" style={{ borderTop: "1px solid var(--border-color, rgba(255,255,255,0.08))", paddingTop: "4rem", paddingBottom: "4rem" }}>
+        <div>
+          <p className="main-eyebrow">La nostra filosofia</p>
+          <h2 id="philosophy-title">La terra, le nostre mani, la piastra.</h2>
+        </div>
+        <div className="main-section-copy" style={{ color: "var(--main-text-muted, rgba(255, 255, 255, 0.7))", fontSize: "1.1rem", lineHeight: "1.7" }}>
+          <p>GotBun nasce dall&apos;idea che un grande burger restaurant debba parlare la lingua del luogo in cui si trova. Per questo abbiamo detto addio alle logiche del fast food per abbracciare un cammino più lento e vicino a noi.</p>
+          <p style={{ marginTop: "1rem" }}>La nostra carne di manzo è esclusivamente nostrana, proveniente da allevamenti locali a filiera corta, tracciabile e lavorata con rispetto. Tutto quello che serviamo passa prima dalle nostre mani: prepariamo in casa i nostri falafel di ceci uno a uno, e dedichiamo ore alla lenta cottura del nostro pulled pork speziato, seguendo una ricetta che abbiamo perfezionato nel tempo.</p>
+          <p style={{ marginTop: "1rem" }}>Mettiti comodo. In Viale Emilia 40 troverai un ambiente accogliente, la piastra sempre calda e piatti preparati da chi ama il buon cibo e la propria terra. Nessun trucco, nessuna fretta: solo il sapore genuino delle cose fatte in casa.</p>
         </div>
       </section>
 
@@ -323,23 +375,78 @@ export default function Home() {
       {/* Zona burger: sfondo visibile + hook testuale finale convincente */}
       <div className="main-burger-zone">
         <div className="main-burger-spacer" aria-hidden="true" />
-        <div className="main-burger-closing">
+        <div className="main-burger-closing-card">
           <p className="burger-closing-label">Ancora lì?</p>
           <p className="burger-closing-tagline">La piastra è accesa.</p>
           <p className="burger-closing-sub">
-            Ogni sera dalle&nbsp;18:30 &nbsp;·&nbsp; Viale Emilia 40, Riccione
+            Ogni sera dalle 18:30 · Viale Emilia 40, Riccione
           </p>
+          <a className="main-cta-btn cta-order burger-closing-btn" href={DISH_ORDER_URL} rel="noreferrer" target="_blank">
+            Ordina ora
+          </a>
         </div>
       </div>
 
-      <footer className="main-footer">
-        <p>© GotBun Riccione</p>
-        <nav aria-label="Link utili">
-          <Link href="/privacy">Privacy e condizioni promo</Link>
-          <a href={DISH_URL} rel="noreferrer" target="_blank">
-            Sito vetrina DISH
-          </a>
-        </nav>
+      <footer className="main-footer-rich">
+        <div className="footer-grid">
+          {/* Colonna 1: Raggiungici */}
+          <div className="footer-col">
+            <h3>Raggiungici</h3>
+            <p className="footer-address">
+              Viale Emilia 40<br />
+              47838 Riccione (RN)
+            </p>
+            <div className="footer-socials">
+              <a href="https://instagram.com/gotbun_riccione" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <svg className="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="https://facebook.com/gotbunriccione" target="_blank" rel="noreferrer" aria-label="Facebook">
+                <svg className="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </a>
+            </div>
+            <a className="footer-map-btn" href={MAPS_URL} target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "16px", height: "16px" }}><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+              Come Raggiungerci
+            </a>
+          </div>
+
+          {/* Colonna 2: Contatti */}
+          <div className="footer-col">
+            <h3>Contatti</h3>
+            <p>
+              Telefono: <a href={`tel:${business.phone}`} className="footer-link">{business.displayPhone}</a><br />
+              Email: <a href="mailto:info@gotbunriccione.it" className="footer-link">info@gotbunriccione.it</a>
+            </p>
+            <p className="footer-support">
+              Per asporto o consegne a domicilio, ordina direttamente tramite il nostro portale web ufficiale.
+            </p>
+          </div>
+
+          {/* Colonna 3: Orari di Apertura */}
+          <div className="footer-col">
+            <h3>Orari di Apertura</h3>
+            <p className="footer-hours-title">Aperti tutti i giorni</p>
+            <p className="footer-hours-time">Dalle 18:30 alle 22:45</p>
+            <p className="footer-note">Cucina sempre attiva fino a chiusura locale.</p>
+          </div>
+
+          {/* Colonna 4: Note Legali */}
+          <div className="footer-col">
+            <h3>Note Legali</h3>
+            <p className="footer-legal-text">
+              GotBun Riccione<br />
+              P.IVA: 12345678901
+            </p>
+            <nav className="footer-legal-links" aria-label="Privacy e condizioni">
+              <Link href="/privacy">Privacy & Cookie Policy</Link>
+              <a href={DISH_URL} target="_blank" rel="noreferrer">Sito vetrina DISH</a>
+            </nav>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} GotBun Riccione. Tutti i diritti riservati.</p>
+        </div>
       </footer>
     </main>
   );

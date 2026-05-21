@@ -3,18 +3,18 @@
   "nodes": [
     {
       "parameters": {
+        "httpMethod": "GET,POST",
         "path": "gotbun-redeem",
         "responseMode": "responseNode",
-        "options": {},
-        "httpMethod": "GET,POST"
+        "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        1376,
-        64
+        -128,
+        6552
       ],
-      "id": "757c61e3-b063-4f11-9236-43e5fc9c67f2",
+      "id": "d2b08a67-f39d-40a7-bc83-5ad153204dca",
       "name": "Webhook",
       "webhookId": "7677c577-45e9-4497-a220-39c5ef2ed963"
     },
@@ -101,10 +101,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1600,
-        64
+        96,
+        6552
       ],
-      "id": "fe949f3b-3d5b-445f-aa1a-58a6bbbd27ce",
+      "id": "e930168c-ec57-4a46-b10a-70f759ddd827",
       "name": "Normalize Redeem Request"
     },
     {
@@ -134,45 +134,31 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1824,
-        64
+        320,
+        6552
       ],
-      "id": "20a8235d-1dc4-4876-be0a-b715de53afdd",
+      "id": "0e208017-341a-4184-89b7-f832aa7d7039",
       "name": "IF Missing Code Or Token"
     },
     {
       "parameters": {
-        "operation": "search",
-        "base": {
-          "__rl": true,
-          "value": "app9kSNemF9AoHjif",
-          "mode": "list",
-          "cachedResultName": "GOTBUN",
-          "cachedResultUrl": "https://airtable.com/app9kSNemF9AoHjif"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tblMh2SMqVUWwHFIy",
-          "mode": "list",
-          "cachedResultName": "Coupon Leads",
-          "cachedResultUrl": "https://airtable.com/app9kSNemF9AoHjif/tblMh2SMqVUWwHFIy"
-        },
-        "filterByFormula": "={{ \"{Coupon Code}='\" + $('Normalize Redeem Request').item.json.code.replace(/'/g, \"\\\\'\") + \"'\" }}",
+        "operation": "executeQuery",
+        "query": "SELECT * FROM public.coupon_leads WHERE coupon_code = $1 LIMIT 1;",
         "options": {}
       },
-      "type": "n8n-nodes-base.airtable",
+      "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.2,
       "position": [
-        2048,
-        -8
+        544,
+        6624
       ],
-      "id": "df9f304f-9b74-4d54-8d4a-9373a7b4849c",
+      "id": "5e16fa6e-d16a-4300-9aec-70ea37ba43a8",
       "name": "Find Coupon",
       "alwaysOutputData": true,
       "credentials": {
-        "airtableTokenApi": {
-          "id": "rp1RSnovQw3fDr9f",
-          "name": "Airtable Personal Access Token account"
+        "postgres": {
+          "id": "ln0nWKzBrIQmC9rX",
+          "name": "postgres supabase gotbun"
         }
       }
     },
@@ -203,23 +189,23 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2272,
-        -8
+        992,
+        6624
       ],
-      "id": "84432d4b-42d7-4b74-b635-020f29dfc3e6",
+      "id": "9fbf49f2-b89d-481e-81cc-ba9eb1b5d496",
       "name": "IF Coupon Found"
     },
     {
       "parameters": {
-        "jsCode": "const record = $input.first()?.json || {};\nconst request = $('Normalize Redeem Request').first().json;\n\nfunction field(name, fallback = '') {\n  return record[name] ?? record.fields?.[name] ?? fallback;\n}\n\nconst now = new Date();\nconst expiresAtRaw = field('Expires At');\nconst expiresAt = expiresAtRaw ? new Date(expiresAtRaw) : null;\nconst status = String(field('Status', 'Active') || 'Active');\nconst redeemAttempts = Number(field('Redeem Attempts', 0) || 0);\n\nconst parts = new Intl.DateTimeFormat('en-GB', {\n  timeZone: 'Europe/Rome',\n  weekday: 'short',\n  hour: '2-digit',\n  minute: '2-digit',\n  hour12: false,\n}).formatToParts(now);\nconst weekday = parts.find((part) => part.type === 'weekday')?.value || '';\nconst hour = Number(parts.find((part) => part.type === 'hour')?.value || 0);\nconst minute = Number(parts.find((part) => part.type === 'minute')?.value || 0);\nconst minutesNow = hour * 60 + minute;\nconst isPromoDay = ['Mon', 'Tue', 'Wed', 'Thu'].includes(weekday);\nconst isPromoHour = minutesNow >= (18 * 60 + 30) && minutesNow <= (22 * 60 + 30);\nconst allowOutsidePromoForTest = false;\nconst storedToken = String(field('Redeem Token', '') || '');\nconst tokenMatches = storedToken.length > 0 && storedToken === request.token;\nconst isRedeemed = status.toLowerCase() === 'redeemed';\nconst isInvalidStatus = ['expired', 'invalid'].includes(status.toLowerCase());\nconst isExpired = expiresAt ? now.getTime() > expiresAt.getTime() : false;\n\nlet reason = '';\nlet message = '';\nlet canRedeem = true;\n\nif (!record.id) {\n  canRedeem = false;\n  reason = 'not_found';\n  message = 'Coupon non trovato.';\n} else if (!storedToken) {\n  canRedeem = false;\n  reason = 'missing_redeem_token_field';\n  message = 'Configurazione incompleta: nel record Airtable manca il campo Redeem Token.';\n} else if (!tokenMatches) {\n  canRedeem = false;\n  reason = 'token_mismatch';\n  message = 'Token QR non valido per questo coupon.';\n} else if (isRedeemed) {\n  canRedeem = false;\n  reason = 'already_redeemed';\n  message = 'Coupon gia utilizzato' + (field('Redeemed At') ? ' il ' + field('Redeemed At') : '') + '.';\n} else if (isInvalidStatus) {\n  canRedeem = false;\n  reason = 'invalid_status';\n  message = 'Coupon non utilizzabile. Stato attuale: ' + status + '.';\n} else if (isExpired) {\n  canRedeem = false;\n  reason = 'expired';\n  message = 'Coupon scaduto.';\n} else if (!allowOutsidePromoForTest && (!isPromoDay || !isPromoHour)) {\n  canRedeem = false;\n  reason = 'outside_promo_window';\n  message = 'Promo attiva solo dal lunedi al giovedi, 18:30-22:30.';\n}\n\nif (canRedeem) {\n  reason = 'ok';\n  message = 'Coupon valido. Segnato come usato.';\n}\n\nreturn [{ json: {\n  ...record,\n  recordId: record.id,\n  code: request.code,\n  token: request.token,\n  storedTokenConfigured: storedToken ? 'true' : 'false',\n  tokenMatches: tokenMatches ? 'true' : 'false',\n  isConfirmRequest: request.isConfirmRequest,\n  pinOk: request.pinOk,\n  scannedAt: request.scannedAt,\n  scannedAtItaly: request.scannedAtItaly,\n  redeemedBy: request.redeemedBy,\n  canRedeem: canRedeem ? 'true' : 'false',\n  reason,\n  message,\n  status,\n  name: field('Name'),\n  email: field('Email'),\n  phone: field('Phone'),\n  couponCode: field('Coupon Code', request.code),\n  expiresAt: expiresAtRaw,\n  redeemedAt: field('Redeemed At'),\n  redeemAttempts,\n  redeemAttemptsNext: redeemAttempts + 1,\n  checkedWeekday: weekday,\n  checkedTime: String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0'),\n} }];"
+        "jsCode": "const record = $input.first()?.json || {};\nconst request = $('Normalize Redeem Request').first().json;\n\nfunction field(name, fallback = '') {\n  return record[name] ?? record.fields?.[name] ?? fallback;\n}\n\nconst now = new Date();\nconst expiresAtRaw = field('Expires At');\nconst expiresAt = expiresAtRaw ? new Date(expiresAtRaw) : null;\nconst status = String(field('Status', 'Active') || 'Active');\nconst redeemAttempts = Number(field('Redeem Attempts', 0) || 0);\n\nconst parts = new Intl.DateTimeFormat('en-GB', {\n  timeZone: 'Europe/Rome',\n  weekday: 'short',\n  hour: '2-digit',\n  minute: '2-digit',\n  hour12: false,\n}).formatToParts(now);\nconst weekday = parts.find((part) => part.type === 'weekday')?.value || '';\nconst hour = Number(parts.find((part) => part.type === 'hour')?.value || 0);\nconst minute = Number(parts.find((part) => part.type === 'minute')?.value || 0);\nconst minutesNow = hour * 60 + minute;\nconst isPromoDay = ['Mon', 'Tue', 'Wed', 'Thu'].includes(weekday);\nconst isPromoHour = minutesNow >= (18 * 60 + 30) && minutesNow <= (22 * 60 + 30);\nconst allowOutsidePromoForTest = false;\nconst storedToken = String(field('Redeem Token', '') || '');\nconst tokenMatches = storedToken.length > 0 && storedToken === request.token;\nconst isRedeemed = status.toLowerCase() === 'redeemed';\nconst isInvalidStatus = ['expired', 'invalid'].includes(status.toLowerCase());\nconst isExpired = expiresAt ? now.getTime() > expiresAt.getTime() : false;\n\nlet reason = '';\nlet message = '';\nlet canRedeem = true;\n\nif (!record.id) {\n  canRedeem = false;\n  reason = 'not_found';\n  message = 'Coupon non trovato.';\n} else if (!storedToken) {\n  canRedeem = false;\n  reason = 'missing_redeem_token_field';\n  message = 'Configurazione incompleta: nel record coupon manca il campo Redeem Token.';\n} else if (!tokenMatches) {\n  canRedeem = false;\n  reason = 'token_mismatch';\n  message = 'Token QR non valido per questo coupon.';\n} else if (isRedeemed) {\n  canRedeem = false;\n  reason = 'already_redeemed';\n  message = 'Coupon gia utilizzato' + (field('Redeemed At') ? ' il ' + field('Redeemed At') : '') + '.';\n} else if (isInvalidStatus) {\n  canRedeem = false;\n  reason = 'invalid_status';\n  message = 'Coupon non utilizzabile. Stato attuale: ' + status + '.';\n} else if (isExpired) {\n  canRedeem = false;\n  reason = 'expired';\n  message = 'Coupon scaduto.';\n} else if (!allowOutsidePromoForTest && (!isPromoDay || !isPromoHour)) {\n  canRedeem = false;\n  reason = 'outside_promo_window';\n  message = 'Promo attiva solo dal lunedi al giovedi, 18:30-22:30.';\n}\n\nif (canRedeem) {\n  reason = 'ok';\n  message = 'Coupon valido. Segnato come usato.';\n}\n\nreturn [{ json: {\n  ...record,\n  recordId: record.id,\n  code: request.code,\n  token: request.token,\n  storedTokenConfigured: storedToken ? 'true' : 'false',\n  tokenMatches: tokenMatches ? 'true' : 'false',\n  isConfirmRequest: request.isConfirmRequest,\n  pinOk: request.pinOk,\n  scannedAt: request.scannedAt,\n  scannedAtItaly: request.scannedAtItaly,\n  redeemedBy: request.redeemedBy,\n  canRedeem: canRedeem ? 'true' : 'false',\n  reason,\n  message,\n  status,\n  name: field('Name'),\n  email: field('Email'),\n  phone: field('Phone'),\n  couponCode: field('Coupon Code', request.code),\n  expiresAt: expiresAtRaw,\n  redeemedAt: field('Redeemed At'),\n  redeemAttempts,\n  redeemAttemptsNext: redeemAttempts + 1,\n  checkedWeekday: weekday,\n  checkedTime: String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0'),\n} }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2496,
-        -80
+        1216,
+        6696
       ],
-      "id": "314344ef-1217-4413-93b6-9577301a4cbf",
+      "id": "981f0fd9-6749-47cf-b200-6951c38b0ff3",
       "name": "Validate Coupon"
     },
     {
@@ -249,148 +235,30 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1120,
-        -288
+        1440,
+        6696
       ],
-      "id": "4c52f82a-12f1-4552-9d88-89e63d3f0b25",
+      "id": "8a9995e6-b4e9-4b9b-b6a0-51b8449f277c",
       "name": "IF Can Redeem"
     },
     {
       "parameters": {
-        "operation": "update",
-        "base": {
-          "__rl": true,
-          "value": "app9kSNemF9AoHjif",
-          "mode": "list",
-          "cachedResultName": "GOTBUN",
-          "cachedResultUrl": "https://airtable.com/app9kSNemF9AoHjif"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tblMh2SMqVUWwHFIy",
-          "mode": "list",
-          "cachedResultName": "Coupon Leads",
-          "cachedResultUrl": "https://airtable.com/app9kSNemF9AoHjif/tblMh2SMqVUWwHFIy"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $json.recordId }}",
-            "Status": "Redeemed",
-            "Redeemed At": "={{ $json.scannedAtItaly }}",
-            "Redeemed By": "={{ $json.redeemedBy }}",
-            "Redeem Attempts": "={{ $json.redeemAttemptsNext }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": true,
-              "defaultMatch": true,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Status",
-              "displayName": "Status",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "options",
-              "options": [
-                {
-                  "name": "Active",
-                  "value": "Active"
-                },
-                {
-                  "name": "Email Sent",
-                  "value": "Email Sent"
-                },
-                {
-                  "name": "Redeemed",
-                  "value": "Redeemed"
-                },
-                {
-                  "name": "Expired",
-                  "value": "Expired"
-                },
-                {
-                  "name": "Invalid",
-                  "value": "Invalid"
-                }
-              ],
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Redeemed At",
-              "displayName": "Redeemed At",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Redeemed By",
-              "displayName": "Redeemed By",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "Last Redeem Attempt At",
-              "displayName": "Last Redeem Attempt At",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": false,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "Redeem Attempts",
-              "displayName": "Redeem Attempts",
-              "required": false,
-              "defaultMatch": false,
-              "canBeUsedToMatch": true,
-              "display": true,
-              "type": "number",
-              "readOnly": false,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": true,
-          "convertFieldsToString": false
-        },
+        "operation": "executeQuery",
+        "query": "UPDATE public.coupon_leads SET status = 'Redeemed', redeemed_at_text = $1, redeemed_by = $2, redeem_attempts = $3 WHERE id = $4 AND status = 'Active' AND redeem_token = $5 RETURNING *;",
         "options": {}
       },
-      "type": "n8n-nodes-base.airtable",
+      "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.2,
       "position": [
-        1792,
-        -288
+        2112,
+        6552
       ],
-      "id": "5dacd064-9ee8-4306-be78-d465e0a97afa",
+      "id": "0cc14f80-d855-4155-a74a-86f5a5b1d1c9",
       "name": "Update Coupon As Redeemed",
       "credentials": {
-        "airtableTokenApi": {
-          "id": "rp1RSnovQw3fDr9f",
-          "name": "Airtable Personal Access Token account"
+        "postgres": {
+          "id": "ln0nWKzBrIQmC9rX",
+          "name": "postgres supabase gotbun"
         }
       }
     },
@@ -405,10 +273,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2016,
-        -288
+        2336,
+        6552
       ],
-      "id": "094dd143-a01d-4436-ba5e-e7828523aa55",
+      "id": "f07bc978-7a37-4962-a75d-0859cd4448d1",
       "name": "Respond Redeemed OK"
     },
     {
@@ -422,10 +290,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1344,
-        -528
+        1664,
+        6528
       ],
-      "id": "6bc85b5c-ba94-4ee9-b5e4-e1b2a1165340",
+      "id": "d844a63c-3ae5-4def-85b2-db5b7919c70c",
       "name": "Respond Already Used / Expired / Outside Hours / Not Found"
     },
     {
@@ -455,10 +323,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1344,
-        -288
+        1664,
+        6744
       ],
-      "id": "71a838fa-085e-43e8-b423-9468eb84f902",
+      "id": "bb77a372-d409-4b06-8c22-b17485099cca",
       "name": "IF Confirm Request"
     },
     {
@@ -488,10 +356,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1568,
-        -288
+        1888,
+        6648
       ],
-      "id": "f160cb65-7f0c-4bc0-82e1-756e0ae40894",
+      "id": "26769969-3ec3-4a2e-a366-39a814ff1498",
       "name": "IF PIN OK"
     },
     {
@@ -505,10 +373,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1568,
-        -48
+        1888,
+        6840
       ],
-      "id": "546234ea-6fb9-4c3a-b517-810187a36e6c",
+      "id": "b7545277-7678-4533-82c0-f608182eeda4",
       "name": "Respond PIN Form"
     },
     {
@@ -522,11 +390,24 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1792,
-        -48
+        2112,
+        6744
       ],
-      "id": "415a49d7-5744-45d8-a8a1-2501aa34859d",
+      "id": "aa860b8a-6e5c-49aa-9691-141bf68dcb4f",
       "name": "Respond PIN Non Valido"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n  const row = item.json;\n  if (!row || Object.keys(row).length === 0 || row.id === undefined) {\n    return { json: {} };\n  }\n  return {\n    json: {\n      id: row.id,\n      fields: {\n        \"Status\": row.status,\n        \"Redeem Token\": row.redeem_token,\n        \"Expires At\": row.expires_at,\n        \"Redeem Attempts\": row.redeem_attempts,\n        \"Redeemed At\": row.redeemed_at_text,\n        \"Name\": row.name,\n        \"Email\": row.email,\n        \"Phone\": row.phone,\n        \"Coupon Code\": row.coupon_code,\n        \"Redeem URL\": row.redeem_url,\n        \"QR Image URL\": row.qr_image_url,\n        \"Redemption Mode\": row.redemption_mode,\n        \"Promo Days\": row.promo_days,\n        \"Promo Hours\": row.promo_hours\n      }\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        6624
+      ],
+      "id": "0ebde17e-d093-40f5-b0c3-0dcc8c4d71ce",
+      "name": "Adapter: Supabase Coupon Schema"
     }
   ],
   "pinData": {},
@@ -575,7 +456,7 @@
       "main": [
         [
           {
-            "node": "IF Coupon Found",
+            "node": "Adapter: Supabase Coupon Schema",
             "type": "main",
             "index": 0
           }
@@ -675,6 +556,17 @@
           }
         ]
       ]
+    },
+    "Adapter: Supabase Coupon Schema": {
+      "main": [
+        [
+          {
+            "node": "IF Coupon Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -682,7 +574,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "f5fed234-c9ca-42d1-9164-2dbc61026b17",
+  "versionId": "8954efd9-0064-4d91-bece-14bb4799ad5a",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e5e4156406eb2781358eadbaabf7ac25423788a2a1b74d65514ae4da6dc2f496"

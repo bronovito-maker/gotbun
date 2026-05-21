@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { DISH_ORDER_URL } from "@/lib/seo";
 
 // Types
 interface MenuItem {
@@ -128,17 +127,8 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
   const sliderReadyFrameRef = useRef<number | null>(null);
   const [activeCategory, setActiveCategory] = useState(initialCategoryId);
 
-  // Configurator states
-  const [selectedBase, setSelectedBase] = useState("manzo");
-  const [selectedBread, setSelectedBread] = useState("nero");
-  const [selectedCheeses, setSelectedCheeses] = useState<string[]>([]);
-  const [selectedVeggies, setSelectedVeggies] = useState<string[]>([]);
-  const [selectedPatties, setSelectedPatties] = useState<string[]>([]);
-  const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
-  const [selectedSauces, setSelectedSauces] = useState<string[]>([]);
-
-  // Lightbox state
-  const [lightboxItem, setLightboxItem] = useState<{ src: string; name: string } | null>(null);
+  // Selected Menu Item for Details popup
+  const [selectedItemForDetail, setSelectedItemForDetail] = useState<MenuItem | null>(null);
 
   const setCurrentCategory = useCallback((id: string) => {
     if (activeCategoryRef.current === id) return;
@@ -146,12 +136,12 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
     setActiveCategory(id);
   }, []);
 
-  // Close lightbox on Escape key
+  // Close details popup on Escape key
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxItem(null);
+      if (e.key === "Escape") setSelectedItemForDetail(null);
     };
-    if (lightboxItem) {
+    if (selectedItemForDetail) {
       document.addEventListener("keydown", handleKey);
       document.body.style.overflow = "hidden";
     } else {
@@ -161,7 +151,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
     };
-  }, [lightboxItem]);
+  }, [selectedItemForDetail]);
 
   // Smooth scroll with offset for sticky nav
   const scrollToCategory = (id: string) => {
@@ -293,69 +283,7 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
     };
   }, [categories, setCurrentCategory]);
 
-  // Price calculator logic
-  const calculateTotal = () => {
-    let total = 0;
-    
-    // 1. Base patty
-    const baseItem = CONFIG_BASES.find(b => b.id === selectedBase);
-    if (baseItem) total += baseItem.price;
-
-    // 2. Bread type
-    const breadItem = CONFIG_BREADS.find(br => br.id === selectedBread);
-    if (breadItem) total += breadItem.price;
-
-    // 3. Cheeses
-    selectedCheeses.forEach(cId => {
-      const cheese = CONFIG_CHEESES.find(c => c.id === cId);
-      if (cheese) total += cheese.price;
-    });
-
-    // 4. Veggies
-    selectedVeggies.forEach(vId => {
-      const veg = CONFIG_VEGGIES.find(v => v.id === vId);
-      if (veg) total += veg.price;
-    });
-
-    // 5. Extra Patties
-    selectedPatties.forEach(pId => {
-      const patty = CONFIG_PATTIES.find(p => p.id === pId);
-      if (patty) total += patty.price;
-    });
-
-    // 6. Extras
-    selectedExtras.forEach(eId => {
-      const extra = CONFIG_EXTRAS.find(e => e.id === eId);
-      if (extra) total += extra.price;
-    });
-
-    // 7. Sauces
-    selectedSauces.forEach(sId => {
-      const sauce = CONFIG_SAUCES.find(s => s.id === sId);
-      if (sauce) total += sauce.price;
-    });
-
-    return total.toFixed(2);
-  };
-
-  // Helper arrays toggling
-  const toggleCheckbox = (id: string, state: string[], setState: React.Dispatch<React.SetStateAction<string[]>>) => {
-    if (state.includes(id)) {
-      setState(state.filter(item => item !== id));
-    } else {
-      setState([...state, id]);
-    }
-  };
-
-  const resetConfigurator = () => {
-    setSelectedBase("manzo");
-    setSelectedBread("nero");
-    setSelectedCheeses([]);
-    setSelectedVeggies([]);
-    setSelectedPatties([]);
-    setSelectedExtras([]);
-    setSelectedSauces([]);
-  };
+  // Interactivity helper removed as the configurator is now static text.
 
   return (
     <div className="menu-container">
@@ -388,234 +316,127 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
             return (
               <section key={cat.id} id={cat.id} className="menu-category-section">
                 <h2 className="menu-category-heading">
-                  <span>{cat.icon}</span> {cat.label}
+                  <span className="menu-category-icon">{cat.icon}</span>
+                  <span className="menu-category-label">{cat.label}</span>
                 </h2>
                 
-                <div className="mybun-configurator">
-                  <div className="configurator-title-block">
-                    <h3 className="configurator-title">🛠️ Crea il tuo Bun Personalizzato</h3>
-                    <p className="configurator-subtitle">
-                      Scegli la base, il pane, il formaggio e aggiungi gli ingredienti freschi che preferisci. Calcoliamo il prezzo in tempo reale!
+                <div className="mybun-configurator" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                  <div className="configurator-title-block" style={{ borderBottom: "1px solid rgba(0, 163, 217, 0.08)", paddingBottom: "16px", marginBottom: 0 }}>
+                    <h3 className="configurator-title" style={{ fontSize: "1.6rem", fontWeight: "900", color: "#0c2a38" }}>🛠️ Crea il tuo Bun</h3>
+                    <p className="configurator-subtitle" style={{ fontSize: "1.1rem", fontWeight: "700", color: "var(--main-accent, #ff7a1a)", marginTop: "4px" }}>
+                      La base di partenza è a scelta da €7.50
+                    </p>
+                    <p style={{ color: "#557280", fontSize: "0.9rem", margin: "8px 0 0", lineHeight: "1.4" }}>
+                      Componi il tuo panino al tavolo. Elenca gli ingredienti al personale di cassa al momento dell&apos;ordine.
                     </p>
                   </div>
 
-                  <div className="configurator-steps">
-                    {/* Step 1: Scegli la Base */}
-                    <div className="config-group">
-                      <h4 className="config-group-heading">
-                        1. Scegli la Base 🥩 <span>(Seleziona una)</span>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }}>
+                    {/* Basi di Partenza */}
+                    <div>
+                      <h4 style={{ fontSize: "1rem", textTransform: "uppercase", color: "#0c2a38", marginBottom: "12px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "4px" }}>
+                        1. Scegli la Base (Include Pane Nero)
                       </h4>
-                      <div className="config-options-list">
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
                         {CONFIG_BASES.map(b => (
-                          <div 
-                            key={b.id} 
-                            className={`config-option-row ${selectedBase === b.id ? "selected" : ""}`}
-                            onClick={() => setSelectedBase(b.id)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="radio" 
-                                className="config-option-input"
-                                name="base-patty"
-                                checked={selectedBase === b.id}
-                                onChange={() => setSelectedBase(b.id)}
-                              />
-                              <span className="config-option-name">{b.name}</span>
-                            </div>
-                            <span className="config-option-price">€{b.price.toFixed(2)}</span>
-                          </div>
+                          <li key={b.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.95rem", color: "#3a5a6a" }}>
+                            <span>{b.name.replace("Pane nero + ", "")}</span>
+                            <strong style={{ color: "#0c2a38" }}>€{b.price.toFixed(2)}</strong>
+                          </li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
 
-                    {/* Step 2: Scegli il Pane */}
-                    <div className="config-group">
-                      <h4 className="config-group-heading">
-                        2. Tipo di Pane 🥯 <span>(Seleziona uno)</span>
+                    {/* Altri Tipi di Pane */}
+                    <div>
+                      <h4 style={{ fontSize: "1rem", textTransform: "uppercase", color: "#0c2a38", marginBottom: "12px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "4px" }}>
+                        2. Alternativa Pane
                       </h4>
-                      <div className="config-options-list">
-                        {CONFIG_BREADS.map(br => (
-                          <div 
-                            key={br.id} 
-                            className={`config-option-row ${selectedBread === br.id ? "selected" : ""}`}
-                            onClick={() => setSelectedBread(br.id)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="radio" 
-                                className="config-option-input"
-                                name="bread-type"
-                                checked={selectedBread === br.id}
-                                onChange={() => setSelectedBread(br.id)}
-                              />
-                              <span className="config-option-name">{br.name}</span>
-                            </div>
-                            <span className="config-option-price">
-                              {br.price > 0 ? `€${br.price.toFixed(2)}` : "Gratis"}
-                            </span>
-                          </div>
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
+                        {CONFIG_BREADS.filter(br => br.price > 0).map(br => (
+                          <li key={br.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.95rem", color: "#3a5a6a" }}>
+                            <span>{br.name}</span>
+                            <strong style={{ color: "#0c2a38" }}>+€{br.price.toFixed(2)}</strong>
+                          </li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
 
-                    {/* Step 3: Scegli il Formaggio */}
-                    <div className="config-group">
-                      <h4 className="config-group-heading">
-                        3. Aggiungi il Formaggio 🧀 <span>(Opzionale)</span>
-                      </h4>
-                      <div className="config-options-list">
-                        {CONFIG_CHEESES.map(c => (
-                          <div 
-                            key={c.id} 
-                            className={`config-option-row ${selectedCheeses.includes(c.id) ? "selected" : ""}`}
-                            onClick={() => toggleCheckbox(c.id, selectedCheeses, setSelectedCheeses)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="checkbox" 
-                                className="config-option-input"
-                                checked={selectedCheeses.includes(c.id)}
-                                onChange={() => toggleCheckbox(c.id, selectedCheeses, setSelectedCheeses)}
-                              />
-                              <span className="config-option-name">{c.name}</span>
-                            </div>
-                            <span className="config-option-price">€{c.price.toFixed(2)}</span>
+                    {/* Ingredienti e Aggiunte */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "20px" }}>
+                      <div>
+                        <h4 style={{ fontSize: "1rem", textTransform: "uppercase", color: "#0c2a38", marginBottom: "12px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "4px" }}>
+                          3. Formaggi & Verdure
+                        </h4>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
+                          <div>
+                            <p style={{ fontWeight: "700", fontSize: "0.85rem", textTransform: "uppercase", color: "var(--main-text-muted)", margin: "0 0 6px" }}>Formaggi</p>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "6px" }}>
+                              {CONFIG_CHEESES.map(c => (
+                                <li key={c.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem", color: "#557280" }}>
+                                  <span>{c.name}</span>
+                                  <strong>+€{c.price.toFixed(2)}</strong>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Step 4: Scegli le Verdure */}
-                    <div className="config-group">
-                      <h4 className="config-group-heading">
-                        4. Aggiungi Verdure 🥬 <span>(Opzionale)</span>
-                      </h4>
-                      <div className="config-options-list">
-                        {CONFIG_VEGGIES.map(v => (
-                          <div 
-                            key={v.id} 
-                            className={`config-option-row ${selectedVeggies.includes(v.id) ? "selected" : ""}`}
-                            onClick={() => toggleCheckbox(v.id, selectedVeggies, setSelectedVeggies)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="checkbox" 
-                                className="config-option-input"
-                                checked={selectedVeggies.includes(v.id)}
-                                onChange={() => toggleCheckbox(v.id, selectedVeggies, setSelectedVeggies)}
-                              />
-                              <span className="config-option-name">{v.name}</span>
-                            </div>
-                            <span className="config-option-price">€{v.price.toFixed(2)}</span>
+                          <div style={{ marginTop: "10px" }}>
+                            <p style={{ fontWeight: "700", fontSize: "0.85rem", textTransform: "uppercase", color: "var(--main-text-muted)", margin: "0 0 6px" }}>Verdure</p>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "6px" }}>
+                              {CONFIG_VEGGIES.map(v => (
+                                <li key={v.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem", color: "#557280" }}>
+                                  <span>{v.name}</span>
+                                  <strong>+€{v.price.toFixed(2)}</strong>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Step 5: Altro Hamburger/Patty */}
-                    <div className="config-group">
-                      <h4 className="config-group-heading">
-                        5. Raddoppia Patty 🥩 <span>(Hai molta fame?)</span>
-                      </h4>
-                      <div className="config-options-list">
-                        {CONFIG_PATTIES.map(p => (
-                          <div 
-                            key={p.id} 
-                            className={`config-option-row ${selectedPatties.includes(p.id) ? "selected" : ""}`}
-                            onClick={() => toggleCheckbox(p.id, selectedPatties, setSelectedPatties)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="checkbox" 
-                                className="config-option-input"
-                                checked={selectedPatties.includes(p.id)}
-                                onChange={() => toggleCheckbox(p.id, selectedPatties, setSelectedPatties)}
-                              />
-                              <span className="config-option-name">{p.name}</span>
-                            </div>
-                            <span className="config-option-price">€{p.price.toFixed(2)}</span>
+                      <div>
+                        <h4 style={{ fontSize: "1rem", textTransform: "uppercase", color: "#0c2a38", marginBottom: "12px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "4px" }}>
+                          4. Extra Proteine & Ingredienti Speciali
+                        </h4>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
+                          <div>
+                            <p style={{ fontWeight: "700", fontSize: "0.85rem", textTransform: "uppercase", color: "var(--main-text-muted)", margin: "0 0 6px" }}>Extra Carne / Patty</p>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "6px" }}>
+                              {CONFIG_PATTIES.map(p => (
+                                <li key={p.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem", color: "#557280" }}>
+                                  <span>{p.name}</span>
+                                  <strong>+€{p.price.toFixed(2)}</strong>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Step 6: Scegli gli Extra */}
-                    <div className="config-group">
-                      <h4 className="config-group-heading">
-                        6. Ingredienti Extra ✨ <span>(Opzionale)</span>
-                      </h4>
-                      <div className="config-options-list">
-                        {CONFIG_EXTRAS.map(e => (
-                          <div 
-                            key={e.id} 
-                            className={`config-option-row ${selectedExtras.includes(e.id) ? "selected" : ""}`}
-                            onClick={() => toggleCheckbox(e.id, selectedExtras, setSelectedExtras)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="checkbox" 
-                                className="config-option-input"
-                                checked={selectedExtras.includes(e.id)}
-                                onChange={() => toggleCheckbox(e.id, selectedExtras, setSelectedExtras)}
-                              />
-                              <span className="config-option-name">{e.name}</span>
-                            </div>
-                            <span className="config-option-price">€{e.price.toFixed(2)}</span>
+                          <div style={{ marginTop: "10px" }}>
+                            <p style={{ fontWeight: "700", fontSize: "0.85rem", textTransform: "uppercase", color: "var(--main-text-muted)", margin: "0 0 6px" }}>Altri Extra</p>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "6px" }}>
+                              {CONFIG_EXTRAS.map(e => (
+                                <li key={e.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem", color: "#557280" }}>
+                                  <span>{e.name}</span>
+                                  <strong>+€{e.price.toFixed(2)}</strong>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Step 7: Scegli le Salse */}
-                    <div className="config-group" style={{ gridColumn: "span 1" }}>
-                      <h4 className="config-group-heading">
-                        7. Salse artigianali 🥫 <span>(Fatte in casa)</span>
-                      </h4>
-                      <div className="config-options-list">
-                        {CONFIG_SAUCES.map(s => (
-                          <div 
-                            key={s.id} 
-                            className={`config-option-row ${selectedSauces.includes(s.id) ? "selected" : ""}`}
-                            onClick={() => toggleCheckbox(s.id, selectedSauces, setSelectedSauces)}
-                          >
-                            <div className="config-option-label-block">
-                              <input 
-                                type="checkbox" 
-                                className="config-option-input"
-                                checked={selectedSauces.includes(s.id)}
-                                onChange={() => toggleCheckbox(s.id, selectedSauces, setSelectedSauces)}
-                              />
-                              <span className="config-option-name">{s.name}</span>
-                            </div>
-                            <span className="config-option-price">€{s.price.toFixed(2)}</span>
-                          </div>
-                        ))}
+                      <div>
+                        <h4 style={{ fontSize: "1rem", textTransform: "uppercase", color: "#0c2a38", marginBottom: "12px", borderBottom: "1px solid rgba(0,0,0,0.05)", paddingBottom: "4px" }}>
+                          5. Salse Artigianali (Fatte in casa)
+                        </h4>
+                        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "8px" }}>
+                          {CONFIG_SAUCES.map(s => (
+                            <li key={s.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.9rem", color: "#557280", paddingRight: "10px" }}>
+                              <span>{s.name}</span>
+                              <strong>+€{s.price.toFixed(2)}</strong>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Calculator Footer */}
-                  <div className="configurator-footer">
-                    <div className="configurator-price-block">
-                      <span className="configurator-price-label">Prezzo Totale Calcolato</span>
-                      <span className="configurator-total-price">€{calculateTotal()}</span>
-                    </div>
-                    <div className="configurator-actions">
-                      <button 
-                        type="button" 
-                        className="configurator-reset-btn" 
-                        onClick={resetConfigurator}
-                      >
-                        Azzera
-                      </button>
-                      <a 
-                        className="configurator-order-btn" 
-                        href={DISH_ORDER_URL}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Ordina su DISH
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -633,7 +454,12 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
               </h2>
               <div className="menu-grid">
                 {cat.items.map((item) => (
-                  <article className={`menu-card ${item.isPopular ? "popular-card" : ""}`} key={item.name}>
+                  <article 
+                    className={`menu-card ${item.isPopular ? "popular-card" : ""}`} 
+                    key={item.name}
+                    onClick={() => setSelectedItemForDetail(item)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <div className="menu-item-content">
                       <div className="menu-item-top-row">
                         <div className="menu-item-details">
@@ -643,12 +469,11 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
                           <p className="menu-item-description">{item.description}</p>
                         </div>
 
-                        {/* Clickable photo with lightbox */}
+                        {/* Photo representation */}
                         <div className="menu-item-photo-wrapper">
                           <MenuItemImage
                             src={item.image || ""}
                             alt={item.name}
-                            onClick={item.image ? () => setLightboxItem({ src: item.image!, name: item.name }) : undefined}
                           />
                         </div>
                       </div>
@@ -682,30 +507,55 @@ export default function MenuClient({ categories }: { categories: MenuCategory[] 
         })}
       </div>
 
-      {/* ── Lightbox overlay ── */}
-      {lightboxItem && (
+      {/* ── Details popup overlay ── */}
+      {selectedItemForDetail && (
         <div
           className="lightbox-backdrop"
-          onClick={() => setLightboxItem(null)}
+          onClick={() => setSelectedItemForDetail(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={`Foto: ${lightboxItem.name}`}
+          aria-label={`Dettagli: ${selectedItemForDetail.name}`}
         >
           <div className="lightbox-card" onClick={(e) => e.stopPropagation()}>
             <button
               className="lightbox-close"
-              onClick={() => setLightboxItem(null)}
+              onClick={() => setSelectedItemForDetail(null)}
               aria-label="Chiudi"
             >
               ✕
             </button>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="lightbox-image"
-              src={lightboxItem.src}
-              alt={lightboxItem.name}
-            />
-            <p className="lightbox-name">{lightboxItem.name}</p>
+            {selectedItemForDetail.image && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                className="lightbox-image"
+                src={selectedItemForDetail.image}
+                alt={selectedItemForDetail.name}
+              />
+            )}
+            <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
+              <h3 className="lightbox-name" style={{ padding: 0, textAlign: "left", fontSize: "1.6rem", color: "var(--main-text, #fffaf0)" }}>
+                {selectedItemForDetail.name}
+              </h3>
+              <p style={{ fontSize: "1rem", color: "rgba(255, 255, 255, 0.75)", lineHeight: "1.55", margin: 0 }}>
+                {selectedItemForDetail.description || "Nessun ingrediente o descrizione disponibile."}
+              </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "16px", paddingTop: "16px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
+                <span style={{ fontSize: "1.8rem", fontWeight: "900", color: "#ff7a1a" }}>
+                  €{selectedItemForDetail.price.toFixed(2)}
+                </span>
+                {selectedItemForDetail.tag && (
+                  <span className={`menu-item-tag ${
+                    selectedItemForDetail.tag.includes("🌶️") || selectedItemForDetail.tag.includes("🔥")
+                      ? "spicy-tag"
+                      : selectedItemForDetail.tag.includes("🌱")
+                        ? "veg-tag"
+                        : "default-tag"
+                  }`} style={{ fontSize: "0.75rem", padding: "5px 12px" }}>
+                    {selectedItemForDetail.tag}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

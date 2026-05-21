@@ -1,0 +1,16 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e1324] [cursor=pointer]:
+    - img [ref=e1325]
+  - alert [ref=e1328]: Admin Login - GotBun Riccione | GotBun Riccione
+  - generic [ref=e1334]:
+    - link "Torna alla homepage" [ref=e1335] [cursor=pointer]:
+      - /url: /
+      - img "GotBun Riccione" [ref=e1336]
+    - heading "Pannello Gestore" [level=1] [ref=e1337]
+    - paragraph [ref=e1338]: Inserisci la password d'accesso per gestire il menu e le promozioni.
+    - generic [ref=e1339]:
+      - generic [ref=e1340]:
+        - generic [ref=e1341]: Password di Accesso
+        - textbox "Password di Accesso" [active] [ref=e1342]:
+          - /placeholder: ••••••••••••
+      - button "Accedi alla Dashboard" [ref=e1343] [cursor=pointer]

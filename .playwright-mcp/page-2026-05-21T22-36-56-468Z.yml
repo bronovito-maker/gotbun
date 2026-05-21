@@ -1,0 +1,16 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - link "Torna alla homepage" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - img "GotBun Riccione" [ref=e5]
+    - heading "Pannello Gestore" [level=1] [ref=e6]
+    - paragraph [ref=e7]: Inserisci la password d'accesso per gestire il menu e le promozioni.
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: Password di Accesso
+        - textbox "Password di Accesso" [active] [ref=e11]:
+          - /placeholder: ••••••••••••
+      - button "Accedi alla Dashboard" [ref=e12] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e18] [cursor=pointer]:
+    - img [ref=e19]
+  - alert [ref=e22]

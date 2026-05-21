@@ -4,37 +4,37 @@ Questa guida definisce identità, stile visivo e tono di comunicazione per GotBu
 
 ## Posizionamento
 
-GotBun è street food di livello a Riccione.
+GotBun è un burger restaurant di livello, curato e accogliente, a Riccione.
 
-Non è fast food generico e non è ristorazione formale. È il posto dove arrivi affamato, senti la piastra, ordini senza complicarti la vita e addenti qualcosa di caldo, croccante e fatto bene.
+Non è associato all'idea di "street food" mordi e fuggi o fast food generico. È l'esperienza di un locale dove valorizziamo la filiera corta romagnola, la tracciabilità e l'artigianalità degli ingredienti preparati da noi.
 
 Offerta principale:
 
-- signature burger
-- smash burger con crosticina
-- hot dog
-- wrap
-- insalate per chi vuole stare più leggero
-- promo in locale
-- menu e ordini online tramite DISH Order
+- Hamburger Nostrani (esclusivamente con carne di manzo a Km 0)
+- Burger di Falafel (rigorosamente fatto in casa)
+- Pulled Pork artigianale (rigorosamente fatto in casa, con lenta cottura e ricetta propria)
+- Piadine e wrap freschi
+- Insalate e sfiziosità artigianali
+- Promo 2x1 da gustare al tavolo
+- Menu e ordini online tramite DISH Order
 
 ## Promessa
 
 ```text
-Street food caldo, croccante, serio.
+Nessuna scorciatoia. Solo ingredienti del territorio.
 ```
 
 Promessa pratica:
 
-- fame risolta velocemente;
+- ingredienti locali tracciabili;
 - menu leggibile;
 - ordine online semplice;
 - promo chiare;
-- esperienza locale senza frizione.
+- esperienza curata e senza frizione.
 
 ## Target
 
-Pubblico giovane, veloce, abituato a street food, delivery, social e promo.
+Pubblico attento alla qualità, che apprezza gli ingredienti freschi, la tracciabilità locale e il cibo preparato artigianalmente in un'atmosfera accogliente e curata.
 
 Il target non vuole leggere spiegoni. Vuole capire subito:
 
@@ -48,12 +48,12 @@ Il target non vuole leggere spiegoni. Vuole capire subito:
 
 GotBun deve sembrare:
 
-- affamato;
 - diretto;
-- urbano;
 - caldo;
-- ironico;
+- contemporaneo;
 - sicuro di sé;
+- artigianale;
+- accogliente;
 - poco istituzionale;
 - mai arrogante.
 
@@ -117,7 +117,7 @@ Evitare:
 
 ## Copy per home principale
 
-Obiettivo: far scegliere menu/ordine e mostrare la promo senza trasformare la home in una landing aggressiva.
+Obiettivo: valorizzare il nuovo corso basato su tracciabilità, artigianalità e accoglienza, mantenendo chiaro l'accesso a menu, ordini e promo.
 
 Priorità CTA:
 
@@ -125,28 +125,28 @@ Priorità CTA:
 2. `Ordina online`
 3. `Scopri il coupon 2x1`
 
-Headline attuale:
+Headline consigliata (Opzione 2):
 
 ```text
-Street food caldo, croccante, serio.
+Nessuna scorciatoia. Solo ingredienti del territorio.
 ```
 
-Sottotitolo attuale:
+Sottotitolo consigliato:
 
 ```text
-A Riccione la piastra è accesa: smash burger con crosticina, pane tostato, salse sporche al punto giusto e ordini online senza perdere tempo.
+Dal manzo locale allevato a filiera corta, al falafel fatto a mano, fino al nostro pulled pork cotto lentamente. Ci prendiamo tutto il tempo necessario per preparare ogni piatto da zero, proprio qui a Riccione.
 ```
 
 Sezione menu:
 
 ```text
-Scegli. Ordina. Addenta.
+Ingredienti veri, ricette nostre.
 ```
 
 Descrizione:
 
 ```text
-Signature burger pieni, smash burger bassi e cattivi con crosticina da applauso, hot dog carichi, wrap veloci e insalate per chi oggi vuole stare leggero senza mangiare triste.
+I nostri hamburger con manzo nostrano a km 0, il pulled pork artigianale cotto a fuoco lento, il falafel fatto in casa e tante proposte vegetariane, wrap e insalate fresche.
 ```
 
 ## Copy per promo 2x1
@@ -360,13 +360,13 @@ Scarichi il coupon, lo mostri in cassa, mangi meglio.
 SEO title:
 
 ```text
-GotBun Riccione - Burger, menu e promo 2x1
+GotBun Riccione - Hamburger Nostrani e Ingredienti Locali
 ```
 
 Description:
 
 ```text
-Scopri GotBun Riccione: menu online, ordini e promo 2x1 da gustare in locale.
+Scopri GotBun Riccione: burger restaurant con hamburger nostrani a Km 0, falafel e pulled pork fatti in casa, menu online e promo 2x1 al tavolo.
 ```
 
-SEO deve restare chiaro e locale: GotBun, Riccione, burger, menu, ordini, promo.
+SEO deve restare chiaro e locale: GotBun, Riccione, hamburger nostrani, filiera corta, fatto in casa, menu, ordini, promo.

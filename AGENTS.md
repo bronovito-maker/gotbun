@@ -187,7 +187,11 @@ docs/brand-copy.md
 
 Sintesi:
 
-- tono street food, giovane, sensoriale, diretto;
+- tono moderno, sensoriale, diretto, curato e accogliente;
+- no posizionamento fast food/street food;
+- focus su burger restaurant di livello;
+- valorizzare Hamburger Nostrani con manzo a Km 0 (no smash burger);
+- evidenziare artigianalità su falafel fatto in casa e pulled pork fatto in casa a lenta cottura;
 - niente linguaggio corporate;
 - CTA forti e brevi;
 - copy chiaro sulle regole promo;

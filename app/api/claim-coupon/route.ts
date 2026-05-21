@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { addDays, generateCouponCode, generateRedeemToken } from "@/lib/coupon";
 import { validateCouponClaim } from "@/lib/validation";
+import { getPromotions } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -102,6 +103,16 @@ export async function POST(request: Request) {
   } catch {
     return NextResponse.json(
       { success: false, error: "Richiesta non valida. Riprova tra poco." },
+      { status: 400 },
+    );
+  }
+
+  // Check if promotion is active
+  const promotions = await getPromotions();
+  const promo2x1 = promotions.find(p => p.id === "promo_2x1");
+  if (!promo2x1 || !promo2x1.isActive) {
+    return NextResponse.json(
+      { success: false, error: "La promozione 2x1 non è attiva in questo momento." },
       { status: 400 },
     );
   }

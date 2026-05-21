@@ -1,0 +1,1175 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e5]:
+        - img "GotBun Riccione" [ref=e6]
+        - generic [ref=e7]: Admin
+      - navigation [ref=e8]:
+        - link "📊 Dashboard" [ref=e9] [cursor=pointer]:
+          - /url: /admin
+          - generic [ref=e10]: 📊
+          - generic [ref=e11]: Dashboard
+        - link "🍔 Gestione Menu" [ref=e12] [cursor=pointer]:
+          - /url: /admin/menu
+          - generic [ref=e13]: 🍔
+          - generic [ref=e14]: Gestione Menu
+        - link "🏷️ Promozioni" [ref=e15] [cursor=pointer]:
+          - /url: /admin/promozioni
+          - generic [ref=e16]: 🏷️
+          - generic [ref=e17]: Promozioni
+        - link "🌐 Vedi Menu Pubblico" [ref=e18] [cursor=pointer]:
+          - /url: /menu
+          - generic [ref=e19]: 🌐
+          - generic [ref=e20]: Vedi Menu Pubblico
+      - button "Esci (Logout)" [ref=e23] [cursor=pointer]
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - heading "Gestione Menu" [level=1] [ref=e28]
+            - paragraph [ref=e29]: Aggiungi, modifica o disattiva piatti dal listino del ristorante.
+          - button "+ Nuovo Piatto" [ref=e30] [cursor=pointer]:
+            - generic [ref=e31]: +
+            - text: Nuovo Piatto
+        - generic [ref=e32]:
+          - textbox "Cerca piatto o ingrediente..." [ref=e34]
+          - generic [ref=e35]:
+            - button "🍔 Tutte le categorie" [ref=e36] [cursor=pointer]
+            - button "🍔 Burgers 🍔" [ref=e37] [cursor=pointer]
+            - button "👶 Kids Menu 👶" [ref=e38] [cursor=pointer]
+            - button "🛠️ Crea il tuo Bun 🛠️" [ref=e39] [cursor=pointer]
+            - button "🥯 Piadine 🥯" [ref=e40] [cursor=pointer]
+            - button "🌯 Wraps 🌯" [ref=e41] [cursor=pointer]
+            - button "🌭 Hot Dogs 🌭" [ref=e42] [cursor=pointer]
+            - button "🥗 Insalate 🥗" [ref=e43] [cursor=pointer]
+            - button "🍟 Sfiziosità 🍟" [ref=e44] [cursor=pointer]
+            - button "🍰 Dolci 🍰" [ref=e45] [cursor=pointer]
+            - button "🍺 Bevande 🍺" [ref=e46] [cursor=pointer]
+            - button "🥫 Salse 🥫" [ref=e47] [cursor=pointer]
+        - table [ref=e49]:
+          - rowgroup [ref=e50]:
+            - row "Foto Nome Piatto Prezzo Categoria Pill / Tag Disponibile Popolare 👑 Azioni" [ref=e51]:
+              - columnheader "Foto" [ref=e52]
+              - columnheader "Nome Piatto" [ref=e53]
+              - columnheader "Prezzo" [ref=e54]
+              - columnheader "Categoria" [ref=e55]
+              - columnheader "Pill / Tag" [ref=e56]
+              - columnheader "Disponibile" [ref=e57]
+              - columnheader "Popolare 👑" [ref=e58]
+              - columnheader "Azioni" [ref=e59]
+          - rowgroup [ref=e60]:
+            - row "LUFFY 👑 LUFFY 👑 €11.90 Burgers 🍔 Consigliato Modifica" [ref=e61]:
+              - cell "LUFFY 👑" [ref=e62]:
+                - img "LUFFY 👑" [ref=e64]
+              - cell "LUFFY 👑" [ref=e65]
+              - cell "€11.90" [ref=e66]
+              - cell "Burgers 🍔" [ref=e67]
+              - cell "Consigliato" [ref=e68]:
+                - generic [ref=e69]: Consigliato
+              - cell [ref=e70]:
+                - generic [ref=e71]:
+                  - checkbox [checked]
+              - cell [ref=e73]:
+                - generic [ref=e74]:
+                  - checkbox [checked]
+              - cell "Modifica" [ref=e76]:
+                - button "Modifica" [ref=e78] [cursor=pointer]
+            - row "SMOOKYPIG 🐷 SMOOKYPIG 🐷 €12.90 Burgers 🍔 Carne Speziata Modifica" [ref=e79]:
+              - cell "SMOOKYPIG 🐷" [ref=e80]:
+                - img "SMOOKYPIG 🐷" [ref=e82]
+              - cell "SMOOKYPIG 🐷" [ref=e83]
+              - cell "€12.90" [ref=e84]
+              - cell "Burgers 🍔" [ref=e85]
+              - cell "Carne Speziata" [ref=e86]:
+                - generic [ref=e87]: Carne Speziata
+              - cell [ref=e88]:
+                - generic [ref=e89]:
+                  - checkbox [checked]
+              - cell [ref=e91]:
+                - generic [ref=e92]:
+                  - checkbox [checked]
+              - cell "Modifica" [ref=e94]:
+                - button "Modifica" [ref=e96] [cursor=pointer]
+            - row "CHICKENBUN 🐔 CHICKENBUN 🐔 €10.90 Burgers 🍔 - Modifica" [ref=e97]:
+              - cell "CHICKENBUN 🐔" [ref=e98]:
+                - img "CHICKENBUN 🐔" [ref=e100]
+              - cell "CHICKENBUN 🐔" [ref=e101]
+              - cell "€10.90" [ref=e102]
+              - cell "Burgers 🍔" [ref=e103]
+              - cell "-" [ref=e104]
+              - cell [ref=e105]:
+                - generic [ref=e106]:
+                  - checkbox [checked]
+              - cell [ref=e108]:
+                - generic [ref=e109]:
+                  - checkbox
+              - cell "Modifica" [ref=e111]:
+                - button "Modifica" [ref=e113] [cursor=pointer]
+            - row "GOTCHESSEBACON GOTCHESSEBACON €11.90 Burgers 🍔 Ispirato ai classici Modifica" [ref=e114]:
+              - cell "GOTCHESSEBACON" [ref=e115]:
+                - img "GOTCHESSEBACON" [ref=e117]
+              - cell "GOTCHESSEBACON" [ref=e118]
+              - cell "€11.90" [ref=e119]
+              - cell "Burgers 🍔" [ref=e120]
+              - cell "Ispirato ai classici" [ref=e121]:
+                - generic [ref=e122]: Ispirato ai classici
+              - cell [ref=e123]:
+                - generic [ref=e124]:
+                  - checkbox [checked]
+              - cell [ref=e126]:
+                - generic [ref=e127]:
+                  - checkbox
+              - cell "Modifica" [ref=e129]:
+                - button "Modifica" [ref=e131] [cursor=pointer]
+            - row "AMERICANBUN 🇺🇸🍳 AMERICANBUN 🇺🇸🍳 €12.90 Burgers 🍔 Carico Modifica" [ref=e132]:
+              - cell "AMERICANBUN 🇺🇸🍳" [ref=e133]:
+                - img "AMERICANBUN 🇺🇸🍳" [ref=e135]
+              - cell "AMERICANBUN 🇺🇸🍳" [ref=e136]
+              - cell "€12.90" [ref=e137]
+              - cell "Burgers 🍔" [ref=e138]
+              - cell "Carico" [ref=e139]:
+                - generic [ref=e140]: Carico
+              - cell [ref=e141]:
+                - generic [ref=e142]:
+                  - checkbox [checked]
+              - cell [ref=e144]:
+                - generic [ref=e145]:
+                  - checkbox
+              - cell "Modifica" [ref=e147]:
+                - button "Modifica" [ref=e149] [cursor=pointer]
+            - row "GUILTY PLEASURE 😋 GUILTY PLEASURE 😋 €10.90 Burgers 🍔 - Modifica" [ref=e150]:
+              - cell "GUILTY PLEASURE 😋" [ref=e151]:
+                - img "GUILTY PLEASURE 😋" [ref=e153]
+              - cell "GUILTY PLEASURE 😋" [ref=e154]
+              - cell "€10.90" [ref=e155]
+              - cell "Burgers 🍔" [ref=e156]
+              - cell "-" [ref=e157]
+              - cell [ref=e158]:
+                - generic [ref=e159]:
+                  - checkbox [checked]
+              - cell [ref=e161]:
+                - generic [ref=e162]:
+                  - checkbox
+              - cell "Modifica" [ref=e164]:
+                - button "Modifica" [ref=e166] [cursor=pointer]
+            - row "HABANERO 🌶️🌶️🌶️ HABANERO 🌶️🌶️🌶️ €12.90 Burgers 🍔 Molto Piccante 🌶️🌶️🌶️ Modifica" [ref=e167]:
+              - cell "HABANERO 🌶️🌶️🌶️" [ref=e168]:
+                - img "HABANERO 🌶️🌶️🌶️" [ref=e170]
+              - cell "HABANERO 🌶️🌶️🌶️" [ref=e171]
+              - cell "€12.90" [ref=e172]
+              - cell "Burgers 🍔" [ref=e173]
+              - cell "Molto Piccante 🌶️🌶️🌶️" [ref=e174]:
+                - generic [ref=e175]: Molto Piccante 🌶️🌶️🌶️
+              - cell [ref=e176]:
+                - generic [ref=e177]:
+                  - checkbox [checked]
+              - cell [ref=e179]:
+                - generic [ref=e180]:
+                  - checkbox
+              - cell "Modifica" [ref=e182]:
+                - button "Modifica" [ref=e184] [cursor=pointer]
+            - row "PESCATORE 🐟 PESCATORE 🐟 €12.90 Burgers 🍔 Novità Mare Modifica" [ref=e185]:
+              - cell "PESCATORE 🐟" [ref=e186]:
+                - img "PESCATORE 🐟" [ref=e188]
+              - cell "PESCATORE 🐟" [ref=e189]
+              - cell "€12.90" [ref=e190]
+              - cell "Burgers 🍔" [ref=e191]
+              - cell "Novità Mare" [ref=e192]:
+                - generic [ref=e193]: Novità Mare
+              - cell [ref=e194]:
+                - generic [ref=e195]:
+                  - checkbox [checked]
+              - cell [ref=e197]:
+                - generic [ref=e198]:
+                  - checkbox
+              - cell "Modifica" [ref=e200]:
+                - button "Modifica" [ref=e202] [cursor=pointer]
+            - row "GREENBUN 🌱 GREENBUN 🌱 €11.90 Burgers 🍔 Vegetariano 🌱 Modifica" [ref=e203]:
+              - cell "GREENBUN 🌱" [ref=e204]:
+                - img "GREENBUN 🌱" [ref=e206]
+              - cell "GREENBUN 🌱" [ref=e207]
+              - cell "€11.90" [ref=e208]
+              - cell "Burgers 🍔" [ref=e209]
+              - cell "Vegetariano 🌱" [ref=e210]:
+                - generic [ref=e211]: Vegetariano 🌱
+              - cell [ref=e212]:
+                - generic [ref=e213]:
+                  - checkbox [checked]
+              - cell [ref=e215]:
+                - generic [ref=e216]:
+                  - checkbox
+              - cell "Modifica" [ref=e218]:
+                - button "Modifica" [ref=e220] [cursor=pointer]
+            - row "LIGHTBUN 🌱 LIGHTBUN 🌱 €12.90 Burgers 🍔 Vegano Friendly 🌱 Modifica" [ref=e221]:
+              - cell "LIGHTBUN 🌱" [ref=e222]:
+                - img "LIGHTBUN 🌱" [ref=e224]
+              - cell "LIGHTBUN 🌱" [ref=e225]
+              - cell "€12.90" [ref=e226]
+              - cell "Burgers 🍔" [ref=e227]
+              - cell "Vegano Friendly 🌱" [ref=e228]:
+                - generic [ref=e229]: Vegano Friendly 🌱
+              - cell [ref=e230]:
+                - generic [ref=e231]:
+                  - checkbox [checked]
+              - cell [ref=e233]:
+                - generic [ref=e234]:
+                  - checkbox
+              - cell "Modifica" [ref=e236]:
+                - button "Modifica" [ref=e238] [cursor=pointer]
+            - row "👶 GOTBABY BURGER €8.40 Kids Menu 👶 Per i più piccoli Modifica" [ref=e239]:
+              - cell "👶" [ref=e240]:
+                - generic [ref=e242]: 👶
+              - cell "GOTBABY BURGER" [ref=e243]
+              - cell "€8.40" [ref=e244]
+              - cell "Kids Menu 👶" [ref=e245]
+              - cell "Per i più piccoli" [ref=e246]:
+                - generic [ref=e247]: Per i più piccoli
+              - cell [ref=e248]:
+                - generic [ref=e249]:
+                  - checkbox [checked]
+              - cell [ref=e251]:
+                - generic [ref=e252]:
+                  - checkbox
+              - cell "Modifica" [ref=e254]:
+                - button "Modifica" [ref=e256] [cursor=pointer]
+            - row "Nessuna STORICA 🤫 €8.00 Piadine 🥯 Tradizione Romagna Modifica" [ref=e257]:
+              - cell "Nessuna" [ref=e258]:
+                - generic [ref=e260]: Nessuna
+              - cell "STORICA 🤫" [ref=e261]
+              - cell "€8.00" [ref=e262]
+              - cell "Piadine 🥯" [ref=e263]
+              - cell "Tradizione Romagna" [ref=e264]:
+                - generic [ref=e265]: Tradizione Romagna
+              - cell [ref=e266]:
+                - generic [ref=e267]:
+                  - checkbox [checked]
+              - cell [ref=e269]:
+                - generic [ref=e270]:
+                  - checkbox
+              - cell "Modifica" [ref=e272]:
+                - button "Modifica" [ref=e274] [cursor=pointer]
+            - row "Nessuna MARINARA 🐠 €9.00 Piadine 🥯 - Modifica" [ref=e275]:
+              - cell "Nessuna" [ref=e276]:
+                - generic [ref=e278]: Nessuna
+              - cell "MARINARA 🐠" [ref=e279]
+              - cell "€9.00" [ref=e280]
+              - cell "Piadine 🥯" [ref=e281]
+              - cell "-" [ref=e282]
+              - cell [ref=e283]:
+                - generic [ref=e284]:
+                  - checkbox [checked]
+              - cell [ref=e286]:
+                - generic [ref=e287]:
+                  - checkbox
+              - cell "Modifica" [ref=e289]:
+                - button "Modifica" [ref=e291] [cursor=pointer]
+            - row "Nessuna PROTEICA 😎 €9.00 Piadine 🥯 - Modifica" [ref=e292]:
+              - cell "Nessuna" [ref=e293]:
+                - generic [ref=e295]: Nessuna
+              - cell "PROTEICA 😎" [ref=e296]
+              - cell "€9.00" [ref=e297]
+              - cell "Piadine 🥯" [ref=e298]
+              - cell "-" [ref=e299]
+              - cell [ref=e300]:
+                - generic [ref=e301]:
+                  - checkbox [checked]
+              - cell [ref=e303]:
+                - generic [ref=e304]:
+                  - checkbox
+              - cell "Modifica" [ref=e306]:
+                - button "Modifica" [ref=e308] [cursor=pointer]
+            - row "Nessuna PECCATO DI GOLA 😋 €8.50 Piadine 🥯 - Modifica" [ref=e309]:
+              - cell "Nessuna" [ref=e310]:
+                - generic [ref=e312]: Nessuna
+              - cell "PECCATO DI GOLA 😋" [ref=e313]
+              - cell "€8.50" [ref=e314]
+              - cell "Piadine 🥯" [ref=e315]
+              - cell "-" [ref=e316]
+              - cell [ref=e317]:
+                - generic [ref=e318]:
+                  - checkbox [checked]
+              - cell [ref=e320]:
+                - generic [ref=e321]:
+                  - checkbox [checked]
+              - cell "Modifica" [ref=e323]:
+                - button "Modifica" [ref=e325] [cursor=pointer]
+            - row "Nessuna VEGETALE 🌱 €7.50 Piadine 🥯 Vegetariano 🌱 Modifica" [ref=e326]:
+              - cell "Nessuna" [ref=e327]:
+                - generic [ref=e329]: Nessuna
+              - cell "VEGETALE 🌱" [ref=e330]
+              - cell "€7.50" [ref=e331]
+              - cell "Piadine 🥯" [ref=e332]
+              - cell "Vegetariano 🌱" [ref=e333]:
+                - generic [ref=e334]: Vegetariano 🌱
+              - cell [ref=e335]:
+                - generic [ref=e336]:
+                  - checkbox [checked]
+              - cell [ref=e338]:
+                - generic [ref=e339]:
+                  - checkbox
+              - cell "Modifica" [ref=e341]:
+                - button "Modifica" [ref=e343] [cursor=pointer]
+            - row "SMOOKYPIG WRAP SMOOKYPIG WRAP €9.90 Wraps 🌯 - Modifica" [ref=e344]:
+              - cell "SMOOKYPIG WRAP" [ref=e345]:
+                - img "SMOOKYPIG WRAP" [ref=e347]
+              - cell "SMOOKYPIG WRAP" [ref=e348]
+              - cell "€9.90" [ref=e349]
+              - cell "Wraps 🌯" [ref=e350]
+              - cell "-" [ref=e351]
+              - cell [ref=e352]:
+                - generic [ref=e353]:
+                  - checkbox [checked]
+              - cell [ref=e355]:
+                - generic [ref=e356]:
+                  - checkbox
+              - cell "Modifica" [ref=e358]:
+                - button "Modifica" [ref=e360] [cursor=pointer]
+            - row "CHICKEN WRAP CHICKEN WRAP €8.90 Wraps 🌯 - Modifica" [ref=e361]:
+              - cell "CHICKEN WRAP" [ref=e362]:
+                - img "CHICKEN WRAP" [ref=e364]
+              - cell "CHICKEN WRAP" [ref=e365]
+              - cell "€8.90" [ref=e366]
+              - cell "Wraps 🌯" [ref=e367]
+              - cell "-" [ref=e368]
+              - cell [ref=e369]:
+                - generic [ref=e370]:
+                  - checkbox [checked]
+              - cell [ref=e372]:
+                - generic [ref=e373]:
+                  - checkbox
+              - cell "Modifica" [ref=e375]:
+                - button "Modifica" [ref=e377] [cursor=pointer]
+            - row "PROTEIN WRAPP PROTEIN WRAPP €9.90 Wraps 🌯 - Modifica" [ref=e378]:
+              - cell "PROTEIN WRAPP" [ref=e379]:
+                - img "PROTEIN WRAPP" [ref=e381]
+              - cell "PROTEIN WRAPP" [ref=e382]
+              - cell "€9.90" [ref=e383]
+              - cell "Wraps 🌯" [ref=e384]
+              - cell "-" [ref=e385]
+              - cell [ref=e386]:
+                - generic [ref=e387]:
+                  - checkbox [checked]
+              - cell [ref=e389]:
+                - generic [ref=e390]:
+                  - checkbox [checked]
+              - cell "Modifica" [ref=e392]:
+                - button "Modifica" [ref=e394] [cursor=pointer]
+            - row "FALAFEL WRAP FALAFEL WRAP €8.90 Wraps 🌯 Vegetariano 🌱 Modifica" [ref=e395]:
+              - cell "FALAFEL WRAP" [ref=e396]:
+                - img "FALAFEL WRAP" [ref=e398]
+              - cell "FALAFEL WRAP" [ref=e399]
+              - cell "€8.90" [ref=e400]
+              - cell "Wraps 🌯" [ref=e401]
+              - cell "Vegetariano 🌱" [ref=e402]:
+                - generic [ref=e403]: Vegetariano 🌱
+              - cell [ref=e404]:
+                - generic [ref=e405]:
+                  - checkbox [checked]
+              - cell [ref=e407]:
+                - generic [ref=e408]:
+                  - checkbox
+              - cell "Modifica" [ref=e410]:
+                - button "Modifica" [ref=e412] [cursor=pointer]
+            - row "BASIC HOTDOG BASIC HOTDOG €6.90 Hot Dogs 🌭 - Modifica" [ref=e413]:
+              - cell "BASIC HOTDOG" [ref=e414]:
+                - img "BASIC HOTDOG" [ref=e416]
+              - cell "BASIC HOTDOG" [ref=e417]
+              - cell "€6.90" [ref=e418]
+              - cell "Hot Dogs 🌭" [ref=e419]
+              - cell "-" [ref=e420]
+              - cell [ref=e421]:
+                - generic [ref=e422]:
+                  - checkbox [checked]
+              - cell [ref=e424]:
+                - generic [ref=e425]:
+                  - checkbox
+              - cell "Modifica" [ref=e427]:
+                - button "Modifica" [ref=e429] [cursor=pointer]
+            - row "GOLOSO DOG GOLOSO DOG €9.90 Hot Dogs 🌭 - Modifica" [ref=e430]:
+              - cell "GOLOSO DOG" [ref=e431]:
+                - img "GOLOSO DOG" [ref=e433]
+              - cell "GOLOSO DOG" [ref=e434]
+              - cell "€9.90" [ref=e435]
+              - cell "Hot Dogs 🌭" [ref=e436]
+              - cell "-" [ref=e437]
+              - cell [ref=e438]:
+                - generic [ref=e439]:
+                  - checkbox [checked]
+              - cell [ref=e441]:
+                - generic [ref=e442]:
+                  - checkbox [checked]
+              - cell "Modifica" [ref=e444]:
+                - button "Modifica" [ref=e446] [cursor=pointer]
+            - row "HOTBACON DOG HOTBACON DOG €8.90 Hot Dogs 🌭 - Modifica" [ref=e447]:
+              - cell "HOTBACON DOG" [ref=e448]:
+                - img "HOTBACON DOG" [ref=e450]
+              - cell "HOTBACON DOG" [ref=e451]
+              - cell "€8.90" [ref=e452]
+              - cell "Hot Dogs 🌭" [ref=e453]
+              - cell "-" [ref=e454]
+              - cell [ref=e455]:
+                - generic [ref=e456]:
+                  - checkbox [checked]
+              - cell [ref=e458]:
+                - generic [ref=e459]:
+                  - checkbox
+              - cell "Modifica" [ref=e461]:
+                - button "Modifica" [ref=e463] [cursor=pointer]
+            - row "VEG DOG 🌱 VEG DOG 🌱 €7.90 Hot Dogs 🌭 Vegetariano 🌱 Modifica" [ref=e464]:
+              - cell "VEG DOG 🌱" [ref=e465]:
+                - img "VEG DOG 🌱" [ref=e467]
+              - cell "VEG DOG 🌱" [ref=e468]
+              - cell "€7.90" [ref=e469]
+              - cell "Hot Dogs 🌭" [ref=e470]
+              - cell "Vegetariano 🌱" [ref=e471]:
+                - generic [ref=e472]: Vegetariano 🌱
+              - cell [ref=e473]:
+                - generic [ref=e474]:
+                  - checkbox [checked]
+              - cell [ref=e476]:
+                - generic [ref=e477]:
+                  - checkbox
+              - cell "Modifica" [ref=e479]:
+                - button "Modifica" [ref=e481] [cursor=pointer]
+            - row "Salmone Salmone €9.40 Insalate 🥗 - Modifica" [ref=e482]:
+              - cell "Salmone" [ref=e483]:
+                - img "Salmone" [ref=e485]
+              - cell "Salmone" [ref=e486]
+              - cell "€9.40" [ref=e487]
+              - cell "Insalate 🥗" [ref=e488]
+              - cell "-" [ref=e489]
+              - cell [ref=e490]:
+                - generic [ref=e491]:
+                  - checkbox [checked]
+              - cell [ref=e493]:
+                - generic [ref=e494]:
+                  - checkbox
+              - cell "Modifica" [ref=e496]:
+                - button "Modifica" [ref=e498] [cursor=pointer]
+            - row "Imperiale Imperiale €9.90 Insalate 🥗 - Modifica" [ref=e499]:
+              - cell "Imperiale" [ref=e500]:
+                - img "Imperiale" [ref=e502]
+              - cell "Imperiale" [ref=e503]
+              - cell "€9.90" [ref=e504]
+              - cell "Insalate 🥗" [ref=e505]
+              - cell "-" [ref=e506]
+              - cell [ref=e507]:
+                - generic [ref=e508]:
+                  - checkbox [checked]
+              - cell [ref=e510]:
+                - generic [ref=e511]:
+                  - checkbox
+              - cell "Modifica" [ref=e513]:
+                - button "Modifica" [ref=e515] [cursor=pointer]
+            - row "Caesar Caesar €9.40 Insalate 🥗 - Modifica" [ref=e516]:
+              - cell "Caesar" [ref=e517]:
+                - img "Caesar" [ref=e519]
+              - cell "Caesar" [ref=e520]
+              - cell "€9.40" [ref=e521]
+              - cell "Insalate 🥗" [ref=e522]
+              - cell "-" [ref=e523]
+              - cell [ref=e524]:
+                - generic [ref=e525]:
+                  - checkbox [checked]
+              - cell [ref=e527]:
+                - generic [ref=e528]:
+                  - checkbox [checked]
+              - cell "Modifica" [ref=e530]:
+                - button "Modifica" [ref=e532] [cursor=pointer]
+            - row "Greca Greca €8.90 Insalate 🥗 Vegetariano 🌱 Modifica" [ref=e533]:
+              - cell "Greca" [ref=e534]:
+                - img "Greca" [ref=e536]
+              - cell "Greca" [ref=e537]
+              - cell "€8.90" [ref=e538]
+              - cell "Insalate 🥗" [ref=e539]
+              - cell "Vegetariano 🌱" [ref=e540]:
+                - generic [ref=e541]: Vegetariano 🌱
+              - cell [ref=e542]:
+                - generic [ref=e543]:
+                  - checkbox [checked]
+              - cell [ref=e545]:
+                - generic [ref=e546]:
+                  - checkbox
+              - cell "Modifica" [ref=e548]:
+                - button "Modifica" [ref=e550] [cursor=pointer]
+            - row "Light Light €8.90 Insalate 🥗 Vegetariano 🌱 Modifica" [ref=e551]:
+              - cell "Light" [ref=e552]:
+                - img "Light" [ref=e554]
+              - cell "Light" [ref=e555]
+              - cell "€8.90" [ref=e556]
+              - cell "Insalate 🥗" [ref=e557]
+              - cell "Vegetariano 🌱" [ref=e558]:
+                - generic [ref=e559]: Vegetariano 🌱
+              - cell [ref=e560]:
+                - generic [ref=e561]:
+                  - checkbox [checked]
+              - cell [ref=e563]:
+                - generic [ref=e564]:
+                  - checkbox
+              - cell "Modifica" [ref=e566]:
+                - button "Modifica" [ref=e568] [cursor=pointer]
+            - row "Dirty Fingers Dirty Fingers €5.90 Sfiziosità 🍟 Super Carico 🔥 Modifica" [ref=e569]:
+              - cell "Dirty Fingers" [ref=e570]:
+                - img "Dirty Fingers" [ref=e572]
+              - cell "Dirty Fingers" [ref=e573]
+              - cell "€5.90" [ref=e574]
+              - cell "Sfiziosità 🍟" [ref=e575]
+              - cell "Super Carico 🔥" [ref=e576]:
+                - generic [ref=e577]: Super Carico 🔥
+              - cell [ref=e578]:
+                - generic [ref=e579]:
+                  - checkbox [checked]
+              - cell [ref=e581]:
+                - generic [ref=e582]:
+                  - checkbox
+              - cell "Modifica" [ref=e584]:
+                - button "Modifica" [ref=e586] [cursor=pointer]
+            - row "Anelli di Cipolla Anelli di Cipolla €5.90 Sfiziosità 🍟 - Modifica" [ref=e587]:
+              - cell "Anelli di Cipolla" [ref=e588]:
+                - img "Anelli di Cipolla" [ref=e590]
+              - cell "Anelli di Cipolla" [ref=e591]
+              - cell "€5.90" [ref=e592]
+              - cell "Sfiziosità 🍟" [ref=e593]
+              - cell "-" [ref=e594]
+              - cell [ref=e595]:
+                - generic [ref=e596]:
+                  - checkbox [checked]
+              - cell [ref=e598]:
+                - generic [ref=e599]:
+                  - checkbox
+              - cell "Modifica" [ref=e601]:
+                - button "Modifica" [ref=e603] [cursor=pointer]
+            - row "Patatine Classic Piccole Patatine Classic Piccole €1.90 Sfiziosità 🍟 - Modifica" [ref=e604]:
+              - cell "Patatine Classic Piccole" [ref=e605]:
+                - img "Patatine Classic Piccole" [ref=e607]
+              - cell "Patatine Classic Piccole" [ref=e608]
+              - cell "€1.90" [ref=e609]
+              - cell "Sfiziosità 🍟" [ref=e610]
+              - cell "-" [ref=e611]
+              - cell [ref=e612]:
+                - generic [ref=e613]:
+                  - checkbox [checked]
+              - cell [ref=e615]:
+                - generic [ref=e616]:
+                  - checkbox
+              - cell "Modifica" [ref=e618]:
+                - button "Modifica" [ref=e620] [cursor=pointer]
+            - row "Patatine fritte Classic Grandi Patatine fritte Classic Grandi €3.90 Sfiziosità 🍟 - Modifica" [ref=e621]:
+              - cell "Patatine fritte Classic Grandi" [ref=e622]:
+                - img "Patatine fritte Classic Grandi" [ref=e624]
+              - cell "Patatine fritte Classic Grandi" [ref=e625]
+              - cell "€3.90" [ref=e626]
+              - cell "Sfiziosità 🍟" [ref=e627]
+              - cell "-" [ref=e628]
+              - cell [ref=e629]:
+                - generic [ref=e630]:
+                  - checkbox [checked]
+              - cell [ref=e632]:
+                - generic [ref=e633]:
+                  - checkbox
+              - cell "Modifica" [ref=e635]:
+                - button "Modifica" [ref=e637] [cursor=pointer]
+            - row "Patatine Crispers Piccola Patatine Crispers Piccola €2.90 Sfiziosità 🍟 - Modifica" [ref=e638]:
+              - cell "Patatine Crispers Piccola" [ref=e639]:
+                - img "Patatine Crispers Piccola" [ref=e641]
+              - cell "Patatine Crispers Piccola" [ref=e642]
+              - cell "€2.90" [ref=e643]
+              - cell "Sfiziosità 🍟" [ref=e644]
+              - cell "-" [ref=e645]
+              - cell [ref=e646]:
+                - generic [ref=e647]:
+                  - checkbox [checked]
+              - cell [ref=e649]:
+                - generic [ref=e650]:
+                  - checkbox
+              - cell "Modifica" [ref=e652]:
+                - button "Modifica" [ref=e654] [cursor=pointer]
+            - row "Patatine Crispers Grandi Patatine Crispers Grandi €4.50 Sfiziosità 🍟 - Modifica" [ref=e655]:
+              - cell "Patatine Crispers Grandi" [ref=e656]:
+                - img "Patatine Crispers Grandi" [ref=e658]
+              - cell "Patatine Crispers Grandi" [ref=e659]
+              - cell "€4.50" [ref=e660]
+              - cell "Sfiziosità 🍟" [ref=e661]
+              - cell "-" [ref=e662]
+              - cell [ref=e663]:
+                - generic [ref=e664]:
+                  - checkbox [checked]
+              - cell [ref=e666]:
+                - generic [ref=e667]:
+                  - checkbox
+              - cell "Modifica" [ref=e669]:
+                - button "Modifica" [ref=e671] [cursor=pointer]
+            - row "Olive all’ Ascolana Olive all’ Ascolana €5.90 Sfiziosità 🍟 - Modifica" [ref=e672]:
+              - cell "Olive all’ Ascolana" [ref=e673]:
+                - img "Olive all’ Ascolana" [ref=e675]
+              - cell "Olive all’ Ascolana" [ref=e676]
+              - cell "€5.90" [ref=e677]
+              - cell "Sfiziosità 🍟" [ref=e678]
+              - cell "-" [ref=e679]
+              - cell [ref=e680]:
+                - generic [ref=e681]:
+                  - checkbox [checked]
+              - cell [ref=e683]:
+                - generic [ref=e684]:
+                  - checkbox
+              - cell "Modifica" [ref=e686]:
+                - button "Modifica" [ref=e688] [cursor=pointer]
+            - row "Pepite di Pollo 6 pezzi Pepite di Pollo 6 pezzi €5.90 Sfiziosità 🍟 - Modifica" [ref=e689]:
+              - cell "Pepite di Pollo 6 pezzi" [ref=e690]:
+                - img "Pepite di Pollo 6 pezzi" [ref=e692]
+              - cell "Pepite di Pollo 6 pezzi" [ref=e693]
+              - cell "€5.90" [ref=e694]
+              - cell "Sfiziosità 🍟" [ref=e695]
+              - cell "-" [ref=e696]
+              - cell [ref=e697]:
+                - generic [ref=e698]:
+                  - checkbox [checked]
+              - cell [ref=e700]:
+                - generic [ref=e701]:
+                  - checkbox
+              - cell "Modifica" [ref=e703]:
+                - button "Modifica" [ref=e705] [cursor=pointer]
+            - row "Pepite di pollo 9 pezzi Pepite di pollo 9 pezzi €7.90 Sfiziosità 🍟 - Modifica" [ref=e706]:
+              - cell "Pepite di pollo 9 pezzi" [ref=e707]:
+                - img "Pepite di pollo 9 pezzi" [ref=e709]
+              - cell "Pepite di pollo 9 pezzi" [ref=e710]
+              - cell "€7.90" [ref=e711]
+              - cell "Sfiziosità 🍟" [ref=e712]
+              - cell "-" [ref=e713]
+              - cell [ref=e714]:
+                - generic [ref=e715]:
+                  - checkbox [checked]
+              - cell [ref=e717]:
+                - generic [ref=e718]:
+                  - checkbox
+              - cell "Modifica" [ref=e720]:
+                - button "Modifica" [ref=e722] [cursor=pointer]
+            - row "Petali di Cipolla Petali di Cipolla €5.90 Sfiziosità 🍟 - Modifica" [ref=e723]:
+              - cell "Petali di Cipolla" [ref=e724]:
+                - img "Petali di Cipolla" [ref=e726]
+              - cell "Petali di Cipolla" [ref=e727]
+              - cell "€5.90" [ref=e728]
+              - cell "Sfiziosità 🍟" [ref=e729]
+              - cell "-" [ref=e730]
+              - cell [ref=e731]:
+                - generic [ref=e732]:
+                  - checkbox [checked]
+              - cell [ref=e734]:
+                - generic [ref=e735]:
+                  - checkbox
+              - cell "Modifica" [ref=e737]:
+                - button "Modifica" [ref=e739] [cursor=pointer]
+            - row "Mozzarelline in Carrozza 6 Pezzi Mozzarelline in Carrozza 6 Pezzi €5.90 Sfiziosità 🍟 - Modifica" [ref=e740]:
+              - cell "Mozzarelline in Carrozza 6 Pezzi" [ref=e741]:
+                - img "Mozzarelline in Carrozza 6 Pezzi" [ref=e743]
+              - cell "Mozzarelline in Carrozza 6 Pezzi" [ref=e744]
+              - cell "€5.90" [ref=e745]
+              - cell "Sfiziosità 🍟" [ref=e746]
+              - cell "-" [ref=e747]
+              - cell [ref=e748]:
+                - generic [ref=e749]:
+                  - checkbox [checked]
+              - cell [ref=e751]:
+                - generic [ref=e752]:
+                  - checkbox
+              - cell "Modifica" [ref=e754]:
+                - button "Modifica" [ref=e756] [cursor=pointer]
+            - row "Mozzarelline in carrozza 9 pezzi Mozzarelline in carrozza 9 pezzi €7.90 Sfiziosità 🍟 - Modifica" [ref=e757]:
+              - cell "Mozzarelline in carrozza 9 pezzi" [ref=e758]:
+                - img "Mozzarelline in carrozza 9 pezzi" [ref=e760]
+              - cell "Mozzarelline in carrozza 9 pezzi" [ref=e761]
+              - cell "€7.90" [ref=e762]
+              - cell "Sfiziosità 🍟" [ref=e763]
+              - cell "-" [ref=e764]
+              - cell [ref=e765]:
+                - generic [ref=e766]:
+                  - checkbox [checked]
+              - cell [ref=e768]:
+                - generic [ref=e769]:
+                  - checkbox
+              - cell "Modifica" [ref=e771]:
+                - button "Modifica" [ref=e773] [cursor=pointer]
+            - row "Apple Pie Apple Pie €4.90 Dolci 🍰 - Modifica" [ref=e774]:
+              - cell "Apple Pie" [ref=e775]:
+                - img "Apple Pie" [ref=e777]
+              - cell "Apple Pie" [ref=e778]
+              - cell "€4.90" [ref=e779]
+              - cell "Dolci 🍰" [ref=e780]
+              - cell "-" [ref=e781]
+              - cell [ref=e782]:
+                - generic [ref=e783]:
+                  - checkbox [checked]
+              - cell [ref=e785]:
+                - generic [ref=e786]:
+                  - checkbox
+              - cell "Modifica" [ref=e788]:
+                - button "Modifica" [ref=e790] [cursor=pointer]
+            - row "Brownie Brownie €4.90 Dolci 🍰 - Modifica" [ref=e791]:
+              - cell "Brownie" [ref=e792]:
+                - img "Brownie" [ref=e794]
+              - cell "Brownie" [ref=e795]
+              - cell "€4.90" [ref=e796]
+              - cell "Dolci 🍰" [ref=e797]
+              - cell "-" [ref=e798]
+              - cell [ref=e799]:
+                - generic [ref=e800]:
+                  - checkbox [checked]
+              - cell [ref=e802]:
+                - generic [ref=e803]:
+                  - checkbox
+              - cell "Modifica" [ref=e805]:
+                - button "Modifica" [ref=e807] [cursor=pointer]
+            - row "Franziskaner Weissbier 50cl Franziskaner Weissbier 50cl €4.00 Bevande 🍺 - Modifica" [ref=e808]:
+              - cell "Franziskaner Weissbier 50cl" [ref=e809]:
+                - img "Franziskaner Weissbier 50cl" [ref=e811]
+              - cell "Franziskaner Weissbier 50cl" [ref=e812]
+              - cell "€4.00" [ref=e813]
+              - cell "Bevande 🍺" [ref=e814]
+              - cell "-" [ref=e815]
+              - cell [ref=e816]:
+                - generic [ref=e817]:
+                  - checkbox [checked]
+              - cell [ref=e819]:
+                - generic [ref=e820]:
+                  - checkbox
+              - cell "Modifica" [ref=e822]:
+                - button "Modifica" [ref=e824] [cursor=pointer]
+            - row "Ichnusa non filtrata 33cl Ichnusa non filtrata 33cl €3.50 Bevande 🍺 - Modifica" [ref=e825]:
+              - cell "Ichnusa non filtrata 33cl" [ref=e826]:
+                - img "Ichnusa non filtrata 33cl" [ref=e828]
+              - cell "Ichnusa non filtrata 33cl" [ref=e829]
+              - cell "€3.50" [ref=e830]
+              - cell "Bevande 🍺" [ref=e831]
+              - cell "-" [ref=e832]
+              - cell [ref=e833]:
+                - generic [ref=e834]:
+                  - checkbox [checked]
+              - cell [ref=e836]:
+                - generic [ref=e837]:
+                  - checkbox
+              - cell "Modifica" [ref=e839]:
+                - button "Modifica" [ref=e841] [cursor=pointer]
+            - row "Ichnusa non filtrata 50cl Ichnusa non filtrata 50cl €4.50 Bevande 🍺 - Modifica" [ref=e842]:
+              - cell "Ichnusa non filtrata 50cl" [ref=e843]:
+                - img "Ichnusa non filtrata 50cl" [ref=e845]
+              - cell "Ichnusa non filtrata 50cl" [ref=e846]
+              - cell "€4.50" [ref=e847]
+              - cell "Bevande 🍺" [ref=e848]
+              - cell "-" [ref=e849]
+              - cell [ref=e850]:
+                - generic [ref=e851]:
+                  - checkbox [checked]
+              - cell [ref=e853]:
+                - generic [ref=e854]:
+                  - checkbox
+              - cell "Modifica" [ref=e856]:
+                - button "Modifica" [ref=e858] [cursor=pointer]
+            - row "Corona 33cl Corona 33cl €4.00 Bevande 🍺 - Modifica" [ref=e859]:
+              - cell "Corona 33cl" [ref=e860]:
+                - img "Corona 33cl" [ref=e862]
+              - cell "Corona 33cl" [ref=e863]
+              - cell "€4.00" [ref=e864]
+              - cell "Bevande 🍺" [ref=e865]
+              - cell "-" [ref=e866]
+              - cell [ref=e867]:
+                - generic [ref=e868]:
+                  - checkbox [checked]
+              - cell [ref=e870]:
+                - generic [ref=e871]:
+                  - checkbox
+              - cell "Modifica" [ref=e873]:
+                - button "Modifica" [ref=e875] [cursor=pointer]
+            - row "Ceres 33cl Ceres 33cl €4.00 Bevande 🍺 - Modifica" [ref=e876]:
+              - cell "Ceres 33cl" [ref=e877]:
+                - img "Ceres 33cl" [ref=e879]
+              - cell "Ceres 33cl" [ref=e880]
+              - cell "€4.00" [ref=e881]
+              - cell "Bevande 🍺" [ref=e882]
+              - cell "-" [ref=e883]
+              - cell [ref=e884]:
+                - generic [ref=e885]:
+                  - checkbox [checked]
+              - cell [ref=e887]:
+                - generic [ref=e888]:
+                  - checkbox
+              - cell "Modifica" [ref=e890]:
+                - button "Modifica" [ref=e892] [cursor=pointer]
+            - row "Messina 33cl Messina 33cl €3.50 Bevande 🍺 - Modifica" [ref=e893]:
+              - cell "Messina 33cl" [ref=e894]:
+                - img "Messina 33cl" [ref=e896]
+              - cell "Messina 33cl" [ref=e897]
+              - cell "€3.50" [ref=e898]
+              - cell "Bevande 🍺" [ref=e899]
+              - cell "-" [ref=e900]
+              - cell [ref=e901]:
+                - generic [ref=e902]:
+                  - checkbox [checked]
+              - cell [ref=e904]:
+                - generic [ref=e905]:
+                  - checkbox
+              - cell "Modifica" [ref=e907]:
+                - button "Modifica" [ref=e909] [cursor=pointer]
+            - row "Birra Moretti filtrata a freddo 33cl Birra Moretti filtrata a freddo 33cl €3.50 Bevande 🍺 - Modifica" [ref=e910]:
+              - cell "Birra Moretti filtrata a freddo 33cl" [ref=e911]:
+                - img "Birra Moretti filtrata a freddo 33cl" [ref=e913]
+              - cell "Birra Moretti filtrata a freddo 33cl" [ref=e914]
+              - cell "€3.50" [ref=e915]
+              - cell "Bevande 🍺" [ref=e916]
+              - cell "-" [ref=e917]
+              - cell [ref=e918]:
+                - generic [ref=e919]:
+                  - checkbox [checked]
+              - cell [ref=e921]:
+                - generic [ref=e922]:
+                  - checkbox
+              - cell "Modifica" [ref=e924]:
+                - button "Modifica" [ref=e926] [cursor=pointer]
+            - row "Birra Moretti 0.0% Alcol 33cl Birra Moretti 0.0% Alcol 33cl €3.50 Bevande 🍺 - Modifica" [ref=e927]:
+              - cell "Birra Moretti 0.0% Alcol 33cl" [ref=e928]:
+                - img "Birra Moretti 0.0% Alcol 33cl" [ref=e930]
+              - cell "Birra Moretti 0.0% Alcol 33cl" [ref=e931]
+              - cell "€3.50" [ref=e932]
+              - cell "Bevande 🍺" [ref=e933]
+              - cell "-" [ref=e934]
+              - cell [ref=e935]:
+                - generic [ref=e936]:
+                  - checkbox [checked]
+              - cell [ref=e938]:
+                - generic [ref=e939]:
+                  - checkbox
+              - cell "Modifica" [ref=e941]:
+                - button "Modifica" [ref=e943] [cursor=pointer]
+            - row "Birra Amarcord Gradisca 33cl Birra Amarcord Gradisca 33cl €4.00 Bevande 🍺 - Modifica" [ref=e944]:
+              - cell "Birra Amarcord Gradisca 33cl" [ref=e945]:
+                - img "Birra Amarcord Gradisca 33cl" [ref=e947]
+              - cell "Birra Amarcord Gradisca 33cl" [ref=e948]
+              - cell "€4.00" [ref=e949]
+              - cell "Bevande 🍺" [ref=e950]
+              - cell "-" [ref=e951]
+              - cell [ref=e952]:
+                - generic [ref=e953]:
+                  - checkbox [checked]
+              - cell [ref=e955]:
+                - generic [ref=e956]:
+                  - checkbox
+              - cell "Modifica" [ref=e958]:
+                - button "Modifica" [ref=e960] [cursor=pointer]
+            - row "San Miguel 1L San Miguel 1L €6.00 Bevande 🍺 - Modifica" [ref=e961]:
+              - cell "San Miguel 1L" [ref=e962]:
+                - img "San Miguel 1L" [ref=e964]
+              - cell "San Miguel 1L" [ref=e965]
+              - cell "€6.00" [ref=e966]
+              - cell "Bevande 🍺" [ref=e967]
+              - cell "-" [ref=e968]
+              - cell [ref=e969]:
+                - generic [ref=e970]:
+                  - checkbox [checked]
+              - cell [ref=e972]:
+                - generic [ref=e973]:
+                  - checkbox
+              - cell "Modifica" [ref=e975]:
+                - button "Modifica" [ref=e977] [cursor=pointer]
+            - row "Acqua Naturale 50cl Acqua Naturale 50cl €1.50 Bevande 🍺 - Modifica" [ref=e978]:
+              - cell "Acqua Naturale 50cl" [ref=e979]:
+                - img "Acqua Naturale 50cl" [ref=e981]
+              - cell "Acqua Naturale 50cl" [ref=e982]
+              - cell "€1.50" [ref=e983]
+              - cell "Bevande 🍺" [ref=e984]
+              - cell "-" [ref=e985]
+              - cell [ref=e986]:
+                - generic [ref=e987]:
+                  - checkbox [checked]
+              - cell [ref=e989]:
+                - generic [ref=e990]:
+                  - checkbox
+              - cell "Modifica" [ref=e992]:
+                - button "Modifica" [ref=e994] [cursor=pointer]
+            - row "Acqua Frizzante 50cl Acqua Frizzante 50cl €1.50 Bevande 🍺 - Modifica" [ref=e995]:
+              - cell "Acqua Frizzante 50cl" [ref=e996]:
+                - img "Acqua Frizzante 50cl" [ref=e998]
+              - cell "Acqua Frizzante 50cl" [ref=e999]
+              - cell "€1.50" [ref=e1000]
+              - cell "Bevande 🍺" [ref=e1001]
+              - cell "-" [ref=e1002]
+              - cell [ref=e1003]:
+                - generic [ref=e1004]:
+                  - checkbox [checked]
+              - cell [ref=e1006]:
+                - generic [ref=e1007]:
+                  - checkbox
+              - cell "Modifica" [ref=e1009]:
+                - button "Modifica" [ref=e1011] [cursor=pointer]
+            - row "Acqua Naturale 1L Acqua Naturale 1L €2.50 Bevande 🍺 - Modifica" [ref=e1012]:
+              - cell "Acqua Naturale 1L" [ref=e1013]:
+                - img "Acqua Naturale 1L" [ref=e1015]
+              - cell "Acqua Naturale 1L" [ref=e1016]
+              - cell "€2.50" [ref=e1017]
+              - cell "Bevande 🍺" [ref=e1018]
+              - cell "-" [ref=e1019]
+              - cell [ref=e1020]:
+                - generic [ref=e1021]:
+                  - checkbox [checked]
+              - cell [ref=e1023]:
+                - generic [ref=e1024]:
+                  - checkbox
+              - cell "Modifica" [ref=e1026]:
+                - button "Modifica" [ref=e1028] [cursor=pointer]
+            - row "Acqua Frizzante 1L Acqua Frizzante 1L €2.50 Bevande 🍺 - Modifica" [ref=e1029]:
+              - cell "Acqua Frizzante 1L" [ref=e1030]:
+                - img "Acqua Frizzante 1L" [ref=e1032]
+              - cell "Acqua Frizzante 1L" [ref=e1033]
+              - cell "€2.50" [ref=e1034]
+              - cell "Bevande 🍺" [ref=e1035]
+              - cell "-" [ref=e1036]
+              - cell [ref=e1037]:
+                - generic [ref=e1038]:
+                  - checkbox [checked]
+              - cell [ref=e1040]:
+                - generic [ref=e1041]:
+                  - checkbox
+              - cell "Modifica" [ref=e1043]:
+                - button "Modifica" [ref=e1045] [cursor=pointer]
+            - row "Coca Cola 33cl Coca Cola 33cl €2.50 Bevande 🍺 - Modifica" [ref=e1046]:
+              - cell "Coca Cola 33cl" [ref=e1047]:
+                - img "Coca Cola 33cl" [ref=e1049]
+              - cell "Coca Cola 33cl" [ref=e1050]
+              - cell "€2.50" [ref=e1051]
+              - cell "Bevande 🍺" [ref=e1052]
+              - cell "-" [ref=e1053]
+              - cell [ref=e1054]:
+                - generic [ref=e1055]:
+                  - checkbox [checked]
+              - cell [ref=e1057]:
+                - generic [ref=e1058]:
+                  - checkbox
+              - cell "Modifica" [ref=e1060]:
+                - button "Modifica" [ref=e1062] [cursor=pointer]
+            - row "Coca Cola Zero 33cl Coca Cola Zero 33cl €2.50 Bevande 🍺 - Modifica" [ref=e1063]:
+              - cell "Coca Cola Zero 33cl" [ref=e1064]:
+                - img "Coca Cola Zero 33cl" [ref=e1066]
+              - cell "Coca Cola Zero 33cl" [ref=e1067]
+              - cell "€2.50" [ref=e1068]
+              - cell "Bevande 🍺" [ref=e1069]
+              - cell "-" [ref=e1070]
+              - cell [ref=e1071]:
+                - generic [ref=e1072]:
+                  - checkbox [checked]
+              - cell [ref=e1074]:
+                - generic [ref=e1075]:
+                  - checkbox
+              - cell "Modifica" [ref=e1077]:
+                - button "Modifica" [ref=e1079] [cursor=pointer]
+            - row "Coca Cola 1.5L Coca Cola 1.5L €4.50 Bevande 🍺 - Modifica" [ref=e1080]:
+              - cell "Coca Cola 1.5L" [ref=e1081]:
+                - img "Coca Cola 1.5L" [ref=e1083]
+              - cell "Coca Cola 1.5L" [ref=e1084]
+              - cell "€4.50" [ref=e1085]
+              - cell "Bevande 🍺" [ref=e1086]
+              - cell "-" [ref=e1087]
+              - cell [ref=e1088]:
+                - generic [ref=e1089]:
+                  - checkbox [checked]
+              - cell [ref=e1091]:
+                - generic [ref=e1092]:
+                  - checkbox
+              - cell "Modifica" [ref=e1094]:
+                - button "Modifica" [ref=e1096] [cursor=pointer]
+            - row "Coca Cola Zero 1.5L Coca Cola Zero 1.5L €4.50 Bevande 🍺 - Modifica" [ref=e1097]:
+              - cell "Coca Cola Zero 1.5L" [ref=e1098]:
+                - img "Coca Cola Zero 1.5L" [ref=e1100]
+              - cell "Coca Cola Zero 1.5L" [ref=e1101]
+              - cell "€4.50" [ref=e1102]
+              - cell "Bevande 🍺" [ref=e1103]
+              - cell "-" [ref=e1104]
+              - cell [ref=e1105]:
+                - generic [ref=e1106]:
+                  - checkbox [checked]
+              - cell [ref=e1108]:
+                - generic [ref=e1109]:
+                  - checkbox
+              - cell "Modifica" [ref=e1111]:
+                - button "Modifica" [ref=e1113] [cursor=pointer]
+            - row "Fanta 33cl Fanta 33cl €2.50 Bevande 🍺 - Modifica" [ref=e1114]:
+              - cell "Fanta 33cl" [ref=e1115]:
+                - img "Fanta 33cl" [ref=e1117]
+              - cell "Fanta 33cl" [ref=e1118]
+              - cell "€2.50" [ref=e1119]
+              - cell "Bevande 🍺" [ref=e1120]
+              - cell "-" [ref=e1121]
+              - cell [ref=e1122]:
+                - generic [ref=e1123]:
+                  - checkbox [checked]
+              - cell [ref=e1125]:
+                - generic [ref=e1126]:
+                  - checkbox
+              - cell "Modifica" [ref=e1128]:
+                - button "Modifica" [ref=e1130] [cursor=pointer]
+            - row "Sprite 33cl Sprite 33cl €2.50 Bevande 🍺 - Modifica" [ref=e1131]:
+              - cell "Sprite 33cl" [ref=e1132]:
+                - img "Sprite 33cl" [ref=e1134]
+              - cell "Sprite 33cl" [ref=e1135]
+              - cell "€2.50" [ref=e1136]
+              - cell "Bevande 🍺" [ref=e1137]
+              - cell "-" [ref=e1138]
+              - cell [ref=e1139]:
+                - generic [ref=e1140]:
+                  - checkbox [checked]
+              - cell [ref=e1142]:
+                - generic [ref=e1143]:
+                  - checkbox
+              - cell "Modifica" [ref=e1145]:
+                - button "Modifica" [ref=e1147] [cursor=pointer]
+            - row "The Limone 33cl The Limone 33cl €2.50 Bevande 🍺 - Modifica" [ref=e1148]:
+              - cell "The Limone 33cl" [ref=e1149]:
+                - img "The Limone 33cl" [ref=e1151]
+              - cell "The Limone 33cl" [ref=e1152]
+              - cell "€2.50" [ref=e1153]
+              - cell "Bevande 🍺" [ref=e1154]
+              - cell "-" [ref=e1155]
+              - cell [ref=e1156]:
+                - generic [ref=e1157]:
+                  - checkbox [checked]
+              - cell [ref=e1159]:
+                - generic [ref=e1160]:
+                  - checkbox
+              - cell "Modifica" [ref=e1162]:
+                - button "Modifica" [ref=e1164] [cursor=pointer]
+            - row "The Pesca 33cl The Pesca 33cl €2.50 Bevande 🍺 - Modifica" [ref=e1165]:
+              - cell "The Pesca 33cl" [ref=e1166]:
+                - img "The Pesca 33cl" [ref=e1168]
+              - cell "The Pesca 33cl" [ref=e1169]
+              - cell "€2.50" [ref=e1170]
+              - cell "Bevande 🍺" [ref=e1171]
+              - cell "-" [ref=e1172]
+              - cell [ref=e1173]:
+                - generic [ref=e1174]:
+                  - checkbox [checked]
+              - cell [ref=e1176]:
+                - generic [ref=e1177]:
+                  - checkbox
+              - cell "Modifica" [ref=e1179]:
+                - button "Modifica" [ref=e1181] [cursor=pointer]
+            - row "Redbull 25cl Redbull 25cl €3.00 Bevande 🍺 - Modifica" [ref=e1182]:
+              - cell "Redbull 25cl" [ref=e1183]:
+                - img "Redbull 25cl" [ref=e1185]
+              - cell "Redbull 25cl" [ref=e1186]
+              - cell "€3.00" [ref=e1187]
+              - cell "Bevande 🍺" [ref=e1188]
+              - cell "-" [ref=e1189]
+              - cell [ref=e1190]:
+                - generic [ref=e1191]:
+                  - checkbox [checked]
+              - cell [ref=e1193]:
+                - generic [ref=e1194]:
+                  - checkbox
+              - cell "Modifica" [ref=e1196]:
+                - button "Modifica" [ref=e1198] [cursor=pointer]
+            - row "Nessuna Budweiser 33cl €4.00 Bevande 🍺 - Modifica" [ref=e1199]:
+              - cell "Nessuna" [ref=e1200]:
+                - generic [ref=e1202]: Nessuna
+              - cell "Budweiser 33cl" [ref=e1203]
+              - cell "€4.00" [ref=e1204]
+              - cell "Bevande 🍺" [ref=e1205]
+              - cell "-" [ref=e1206]
+              - cell [ref=e1207]:
+                - generic [ref=e1208]:
+                  - checkbox [checked]
+              - cell [ref=e1210]:
+                - generic [ref=e1211]:
+                  - checkbox
+              - cell "Modifica" [ref=e1213]:
+                - button "Modifica" [ref=e1215] [cursor=pointer]
+            - row "Salsa Ketchup Salsa Ketchup €0.50 Salse 🥫 - Modifica" [ref=e1216]:
+              - cell "Salsa Ketchup" [ref=e1217]:
+                - img "Salsa Ketchup" [ref=e1219]
+              - cell "Salsa Ketchup" [ref=e1220]
+              - cell "€0.50" [ref=e1221]
+              - cell "Salse 🥫" [ref=e1222]
+              - cell "-" [ref=e1223]
+              - cell [ref=e1224]:
+                - generic [ref=e1225]:
+                  - checkbox [checked]
+              - cell [ref=e1227]:
+                - generic [ref=e1228]:
+                  - checkbox
+              - cell "Modifica" [ref=e1230]:
+                - button "Modifica" [ref=e1232] [cursor=pointer]
+            - row "Salsa Maionese (Veg) Salsa Maionese (Veg) €0.50 Salse 🥫 - Modifica" [ref=e1233]:
+              - cell "Salsa Maionese (Veg)" [ref=e1234]:
+                - img "Salsa Maionese (Veg)" [ref=e1236]
+              - cell "Salsa Maionese (Veg)" [ref=e1237]
+              - cell "€0.50" [ref=e1238]
+              - cell "Salse 🥫" [ref=e1239]
+              - cell "-" [ref=e1240]
+              - cell [ref=e1241]:
+                - generic [ref=e1242]:
+                  - checkbox [checked]
+              - cell [ref=e1244]:
+                - generic [ref=e1245]:
+                  - checkbox
+              - cell "Modifica" [ref=e1247]:
+                - button "Modifica" [ref=e1249] [cursor=pointer]
+            - row "Salsa BBQ Salsa BBQ €0.50 Salse 🥫 - Modifica" [ref=e1250]:
+              - cell "Salsa BBQ" [ref=e1251]:
+                - img "Salsa BBQ" [ref=e1253]
+              - cell "Salsa BBQ" [ref=e1254]
+              - cell "€0.50" [ref=e1255]
+              - cell "Salse 🥫" [ref=e1256]
+              - cell "-" [ref=e1257]
+              - cell [ref=e1258]:
+                - generic [ref=e1259]:
+                  - checkbox [checked]
+              - cell [ref=e1261]:
+                - generic [ref=e1262]:
+                  - checkbox
+              - cell "Modifica" [ref=e1264]:
+                - button "Modifica" [ref=e1266] [cursor=pointer]
+            - row "Salsa Habanero Salsa Habanero €0.80 Salse 🥫 - Modifica" [ref=e1267]:
+              - cell "Salsa Habanero" [ref=e1268]:
+                - img "Salsa Habanero" [ref=e1270]
+              - cell "Salsa Habanero" [ref=e1271]
+              - cell "€0.80" [ref=e1272]
+              - cell "Salse 🥫" [ref=e1273]
+              - cell "-" [ref=e1274]
+              - cell [ref=e1275]:
+                - generic [ref=e1276]:
+                  - checkbox [checked]
+              - cell [ref=e1278]:
+                - generic [ref=e1279]:
+                  - checkbox
+              - cell "Modifica" [ref=e1281]:
+                - button "Modifica" [ref=e1283] [cursor=pointer]
+            - row "Salsa Senape Salsa Senape €0.50 Salse 🥫 - Modifica" [ref=e1284]:
+              - cell "Salsa Senape" [ref=e1285]:
+                - img "Salsa Senape" [ref=e1287]
+              - cell "Salsa Senape" [ref=e1288]
+              - cell "€0.50" [ref=e1289]
+              - cell "Salse 🥫" [ref=e1290]
+              - cell "-" [ref=e1291]
+              - cell [ref=e1292]:
+                - generic [ref=e1293]:
+                  - checkbox [checked]
+              - cell [ref=e1295]:
+                - generic [ref=e1296]:
+                  - checkbox
+              - cell "Modifica" [ref=e1298]:
+                - button "Modifica" [ref=e1300] [cursor=pointer]
+            - row "Salsa Burger Salsa Burger €0.50 Salse 🥫 - Modifica" [ref=e1301]:
+              - cell "Salsa Burger" [ref=e1302]:
+                - img "Salsa Burger" [ref=e1304]
+              - cell "Salsa Burger" [ref=e1305]
+              - cell "€0.50" [ref=e1306]
+              - cell "Salse 🥫" [ref=e1307]
+              - cell "-" [ref=e1308]
+              - cell [ref=e1309]:
+                - generic [ref=e1310]:
+                  - checkbox [checked]
+              - cell [ref=e1312]:
+                - generic [ref=e1313]:
+                  - checkbox
+              - cell "Modifica" [ref=e1315]:
+                - button "Modifica" [ref=e1317] [cursor=pointer]
+        - button "Aggiungi piatto" [ref=e1318]: +
+  - button "Open Next.js Dev Tools" [ref=e1324] [cursor=pointer]:
+    - img [ref=e1325]
+  - alert [ref=e1328]
