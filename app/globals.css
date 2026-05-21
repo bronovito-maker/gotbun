@@ -1580,6 +1580,7 @@ input:focus {
 .main-burger-spacer {
   width: 100%;
   min-height: clamp(160px, 32vh, 280px);
+  min-height: clamp(160px, 32svh, 280px); /* Stable viewport height on mobile */
   pointer-events: none;
 }
 

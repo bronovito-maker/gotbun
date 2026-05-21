@@ -214,14 +214,20 @@ function getLayerMotionStyle(ingredient: Ingredient, motion: BurgerMotion): CSSP
   const rotate = lerp(assembledRotate, ingredient.ambientRotate, decomposeProgress);
   const scale = lerp(assembledScale, ingredient.ambientScale, decomposeProgress);
   const baseOpacity = ingredient.key === "shadow" ? 0.08 + easedProgress * 0.34 : 0.32 + easedProgress * 0.42;
-  const blur = Math.max(0, 4.2 - easedProgress * 4.2);
-  const shadowAlpha = motion.mobile ? 0.12 + easedProgress * 0.1 : 0.16 + easedProgress * 0.16;
 
-  return {
+  const style: CSSProperties = {
     opacity: baseOpacity,
     transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
-    filter: `blur(${blur}px) drop-shadow(0 ${Math.round(14 - easedProgress * 5)}px ${Math.round(18 + easedProgress * 8)}px rgba(0, 0, 0, ${shadowAlpha}))`,
   };
+
+  // On mobile, bypass complex filter (blur + drop shadow) to enable 60fps compositor-only animation
+  if (!motion.mobile) {
+    const blur = Math.max(0, 4.2 - easedProgress * 4.2);
+    const shadowAlpha = 0.16 + easedProgress * 0.16;
+    style.filter = `blur(${blur}px) drop-shadow(0 ${Math.round(14 - easedProgress * 5)}px ${Math.round(18 + easedProgress * 8)}px rgba(0, 0, 0, ${shadowAlpha}))`;
+  }
+
+  return style;
 }
 
 function getInitialLayerStyle(ingredient: Ingredient): CSSProperties {
@@ -245,6 +251,10 @@ export default function BurgerAnimation() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileQuery = window.matchMedia("(max-width: 640px)");
 
+    // Stable metrics tracking to avoid layout jumps on mobile address bar collapse/expand
+    let lastWidth = window.innerWidth;
+    let stableViewportHeight = window.innerHeight;
+
     const applyMotion = (nextMotion: BurgerMotion) => {
       const root = rootRef.current;
 
@@ -260,7 +270,7 @@ export default function BurgerAnimation() {
         const style = getLayerMotionStyle(ingredient, nextMotion);
         layer.style.opacity = String(style.opacity);
         layer.style.transform = String(style.transform);
-        layer.style.filter = String(style.filter);
+        layer.style.filter = style.filter !== undefined ? String(style.filter) : "";
       }
 
       if (progressLabelRef.current) {
@@ -269,8 +279,8 @@ export default function BurgerAnimation() {
     };
 
     const measurePage = () => {
-      const viewportHeight = window.innerHeight || 1;
-      const scrollMax = Math.max(1, document.documentElement.scrollHeight - viewportHeight);
+      // Use stable viewport height to calculate consistent scroll boundaries
+      const scrollMax = Math.max(1, document.documentElement.scrollHeight - stableViewportHeight);
 
       pageMetricsRef.current = {
         scrollMax,
@@ -292,14 +302,30 @@ export default function BurgerAnimation() {
       if (!metrics) return;
 
       const scrollY = getScrollY();
+
+      // Calculate actual real-time bottom of the page to handle dynamic address bar state
+      const actualViewportHeight = window.innerHeight;
+      const actualScrollMax = Math.max(1, document.documentElement.scrollHeight - actualViewportHeight);
+      const isAtBottom = scrollY >= actualScrollMax - 10;
+      const isAtTop = scrollY <= 2;
+
+      let progress = 0;
+      if (isAtBottom) {
+        progress = 1;
+      } else if (isAtTop) {
+        progress = 0;
+      } else {
+        progress = clamp(scrollY / metrics.scrollMax);
+      }
+
       const nextMotion = reducedMotion.matches
         ? { assemble: 1, decompose: 0, mobile: mobileQuery.matches }
         : {
-            assemble: clamp(scrollY / metrics.scrollMax),
+            assemble: progress,
             decompose: 0,
             mobile: mobileQuery.matches,
           };
-      const isAtScrollEdge = !reducedMotion.matches && (scrollY <= 1 || scrollY >= metrics.scrollMax - 1);
+      const isAtScrollEdge = !reducedMotion.matches && (isAtTop || isAtBottom);
 
       if (reducedMotion.matches) {
         targetMotionRef.current = nextMotion;
@@ -347,6 +373,18 @@ export default function BurgerAnimation() {
     };
 
     const handleLayoutChange = () => {
+      const currentWidth = window.innerWidth;
+      const currentHeight = window.innerHeight;
+
+      // Ignore height changes of less than 150px on mobile/tablet to avoid address bar resize jitter
+      const heightDiff = Math.abs(currentHeight - stableViewportHeight);
+      if (currentWidth === lastWidth && currentWidth < 1024 && heightDiff < 150) {
+        return;
+      }
+
+      lastWidth = currentWidth;
+      stableViewportHeight = currentHeight;
+
       measurePage();
       scheduleTargetUpdate();
     };
