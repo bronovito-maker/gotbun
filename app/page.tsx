@@ -335,7 +335,7 @@ export default async function Home() {
       </section>
 
       {/* Filosofia del Brand / Chi Siamo */}
-      <section className="main-section main-philosophy-section" aria-labelledby="philosophy-title" style={{ borderTop: "1px solid var(--border-color, rgba(255,255,255,0.08))", paddingTop: "4rem", paddingBottom: "4rem" }}>
+      <section className="main-section main-philosophy-section" aria-labelledby="philosophy-title">
         <div>
           <p className="main-eyebrow">La nostra filosofia</p>
           <h2 id="philosophy-title">La terra, le nostre mani, la piastra.</h2>

@@ -20,6 +20,9 @@
   display: grid;
   place-items: center;
   overflow: hidden;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .burger-anim::after {
@@ -31,6 +34,9 @@
   backdrop-filter: blur(7px) saturate(1.25);
   opacity: 0.85;
   content: "";
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 /* --------------------------------------------------------------------------
@@ -64,11 +70,10 @@
   /* Stato iniziale: sparpagliato */
   transform: translateY(-120%) rotate(var(--ba-from-rotate, 0deg));
   opacity: 0;
-  filter: blur(12px);
   animation: none;
   backface-visibility: hidden;
   transform-origin: 50% 50%;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 .burger-anim__hint {

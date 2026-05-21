@@ -220,11 +220,9 @@ function getLayerMotionStyle(ingredient: Ingredient, motion: BurgerMotion): CSSP
     transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
   };
 
-  // On mobile, bypass complex filter (blur + drop shadow) to enable 60fps compositor-only animation
   if (!motion.mobile) {
-    const blur = Math.max(0, 4.2 - easedProgress * 4.2);
     const shadowAlpha = 0.16 + easedProgress * 0.16;
-    style.filter = `blur(${blur}px) drop-shadow(0 ${Math.round(14 - easedProgress * 5)}px ${Math.round(18 + easedProgress * 8)}px rgba(0, 0, 0, ${shadowAlpha}))`;
+    style.filter = `drop-shadow(0 ${Math.round(14 - easedProgress * 5)}px ${Math.round(18 + easedProgress * 8)}px rgba(0, 0, 0, ${shadowAlpha}))`;
   }
 
   return style;

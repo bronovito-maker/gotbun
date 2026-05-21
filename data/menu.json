@@ -422,8 +422,8 @@
     ]
   },
   {
-    "id": "bevande",
-    "label": "Bevande 🍺",
+    "id": "birre",
+    "label": "Birre 🍺",
     "icon": "🍺",
     "items": [
       { "name": "Franziskaner Weissbier 50cl", "price": 4.00, "description": "Birra Weiss di alta qualità", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/franziskaner 50cl.webp" },
@@ -436,6 +436,14 @@
       { "name": "Birra Moretti 0.0% Alcol 33cl", "price": 3.50, "description": "Zero alcol, gusto pieno", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/moretti 0 alcool.webp" },
       { "name": "Birra Amarcord Gradisca 33cl", "price": 4.00, "description": "Birra bionda artigianale del territorio", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/amarcord.webp" },
       { "name": "San Miguel 1L", "price": 6.00, "description": "Formato condivisione da 1 litro", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/san miguel 1l.webp" },
+      { "name": "Budweiser 33cl", "price": 4.00, "description": "American lager pulita e leggera", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/budweiser33cl.webp" }
+    ]
+  },
+  {
+    "id": "bevande",
+    "label": "Bevande Analcoliche 🥤",
+    "icon": "🥤",
+    "items": [
       { "name": "Acqua Naturale 50cl", "price": 1.50, "description": "Acqua minerale naturale", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/acqua naturale.webp" },
       { "name": "Acqua Frizzante 50cl", "price": 1.50, "description": "Acqua minerale frizzante", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/acqua frizzante 50cl.webp" },
       { "name": "Acqua Naturale 1L", "price": 2.50, "description": "Acqua minerale naturale in bottiglia grande", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/acqua naturale 1l.webp" },
@@ -448,8 +456,7 @@
       { "name": "Sprite 33cl", "price": 2.50, "description": "Bibita limone e lime", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/sprite.webp" },
       { "name": "The Limone 33cl", "price": 2.50, "description": "Te freddo San Benedetto o Estathé", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/te al limone.webp" },
       { "name": "The Pesca 33cl", "price": 2.50, "description": "Te freddo San Benedetto o Estathé", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/te alla pesca.webp" },
-      { "name": "Redbull 25cl", "price": 3.00, "description": "Energy drink", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/redbull.webp" },
-      { "name": "Budweiser 33cl", "price": 4.00, "description": "American lager pulita e leggera", "isPopular": false, "isAvailable": true, "image": "" }
+      { "name": "Redbull 25cl", "price": 3.00, "description": "Energy drink", "isPopular": false, "isAvailable": true, "image": "/Menu piatti Got Bun/redbull.webp" }
     ]
   },
   {
