@@ -252,7 +252,7 @@ export default function PromoClient({
             <div className="success-card" role="status">
               <p className="eyebrow">Coupon creato</p>
               <h2>Il tuo coupon 2x1 è pronto.</h2>
-              <p className="success-intro">Controlla la mail e salva il QR sul telefono. Se il messaggio tarda, puoi mostrare anche il codice qui sotto.</p>
+              <p className="success-intro">Controlla la mail e salva il QR sul telefono. Se non la trovi subito, controlla anche nelle cartelle Promozioni o Spam. Se il messaggio tarda, puoi mostrare anche il codice qui sotto.</p>
               <div className="qr-preview" aria-label="Anteprima QR coupon">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={success.qrImageUrl} alt={`QR coupon ${success.couponCode}`} width="420" height="420" />
@@ -281,6 +281,7 @@ export default function PromoClient({
                 <p className="eyebrow">Sai già con chi dividerlo</p>
                 <h2 id="form-title">Ricevi il tuo QR.</h2>
                 <p>Compila il form e ti inviamo il coupon 2x1 da salvare sul telefono e mostrare in cassa.</p>
+                <p className="cta-note">A volte la mail può finire in Promozioni o Spam: se non la vedi, controlla anche lì.</p>
                 <p className="form-proof">
                   <span aria-hidden="true">★★★★★</span>
                   59 recensioni dai clienti GotBun

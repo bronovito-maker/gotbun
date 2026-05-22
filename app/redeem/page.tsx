@@ -14,10 +14,10 @@ export default function RedeemFallbackPage() {
     <main className="policy-page">
       <section className="policy-hero">
         <p className="eyebrow">GotBun Riccione</p>
-        <h1>Redemption non configurata</h1>
+        <h1>Coupon non disponibile da questo link</h1>
         <p>
-          Questo QR deve puntare al webhook n8n di cassa. Configura `N8N_REDEEM_WEBHOOK_URL` per marcare
-          automaticamente i coupon come usati quando vengono scansionati.
+          Se hai aperto questo link dalla mail promo, non preoccuparti: mostra il QR ricevuto in cassa e lo staff ti
+          aiuta subito con la verifica del coupon.
         </p>
       </section>
     </main>
