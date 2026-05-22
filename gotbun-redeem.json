@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "httpMethod": "GET,POST",
+        "multipleMethods": true,
         "path": "gotbun-redeem",
         "responseMode": "responseNode",
         "options": {}
@@ -12,7 +12,7 @@
       "typeVersion": 2.1,
       "position": [
         -128,
-        6552
+        6560
       ],
       "id": "d2b08a67-f39d-40a7-bc83-5ad153204dca",
       "name": "Webhook",
@@ -102,7 +102,7 @@
       "typeVersion": 3.4,
       "position": [
         96,
-        6552
+        6560
       ],
       "id": "e930168c-ec57-4a46-b10a-70f759ddd827",
       "name": "Normalize Redeem Request"
@@ -135,7 +135,7 @@
       "typeVersion": 2.3,
       "position": [
         320,
-        6552
+        6560
       ],
       "id": "0e208017-341a-4184-89b7-f832aa7d7039",
       "name": "IF Missing Code Or Token"
@@ -144,7 +144,9 @@
       "parameters": {
         "operation": "executeQuery",
         "query": "SELECT * FROM public.coupon_leads WHERE coupon_code = $1 LIMIT 1;",
-        "options": {}
+        "options": {
+          "queryReplacement": "={{ $('Normalize Redeem Request').item.json.code }}"
+        }
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.2,
@@ -197,13 +199,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const record = $input.first()?.json || {};\nconst request = $('Normalize Redeem Request').first().json;\n\nfunction field(name, fallback = '') {\n  return record[name] ?? record.fields?.[name] ?? fallback;\n}\n\nconst now = new Date();\nconst expiresAtRaw = field('Expires At');\nconst expiresAt = expiresAtRaw ? new Date(expiresAtRaw) : null;\nconst status = String(field('Status', 'Active') || 'Active');\nconst redeemAttempts = Number(field('Redeem Attempts', 0) || 0);\n\nconst parts = new Intl.DateTimeFormat('en-GB', {\n  timeZone: 'Europe/Rome',\n  weekday: 'short',\n  hour: '2-digit',\n  minute: '2-digit',\n  hour12: false,\n}).formatToParts(now);\nconst weekday = parts.find((part) => part.type === 'weekday')?.value || '';\nconst hour = Number(parts.find((part) => part.type === 'hour')?.value || 0);\nconst minute = Number(parts.find((part) => part.type === 'minute')?.value || 0);\nconst minutesNow = hour * 60 + minute;\nconst isPromoDay = ['Mon', 'Tue', 'Wed', 'Thu'].includes(weekday);\nconst isPromoHour = minutesNow >= (18 * 60 + 30) && minutesNow <= (22 * 60 + 30);\nconst allowOutsidePromoForTest = false;\nconst storedToken = String(field('Redeem Token', '') || '');\nconst tokenMatches = storedToken.length > 0 && storedToken === request.token;\nconst isRedeemed = status.toLowerCase() === 'redeemed';\nconst isInvalidStatus = ['expired', 'invalid'].includes(status.toLowerCase());\nconst isExpired = expiresAt ? now.getTime() > expiresAt.getTime() : false;\n\nlet reason = '';\nlet message = '';\nlet canRedeem = true;\n\nif (!record.id) {\n  canRedeem = false;\n  reason = 'not_found';\n  message = 'Coupon non trovato.';\n} else if (!storedToken) {\n  canRedeem = false;\n  reason = 'missing_redeem_token_field';\n  message = 'Configurazione incompleta: nel record coupon manca il campo Redeem Token.';\n} else if (!tokenMatches) {\n  canRedeem = false;\n  reason = 'token_mismatch';\n  message = 'Token QR non valido per questo coupon.';\n} else if (isRedeemed) {\n  canRedeem = false;\n  reason = 'already_redeemed';\n  message = 'Coupon gia utilizzato' + (field('Redeemed At') ? ' il ' + field('Redeemed At') : '') + '.';\n} else if (isInvalidStatus) {\n  canRedeem = false;\n  reason = 'invalid_status';\n  message = 'Coupon non utilizzabile. Stato attuale: ' + status + '.';\n} else if (isExpired) {\n  canRedeem = false;\n  reason = 'expired';\n  message = 'Coupon scaduto.';\n} else if (!allowOutsidePromoForTest && (!isPromoDay || !isPromoHour)) {\n  canRedeem = false;\n  reason = 'outside_promo_window';\n  message = 'Promo attiva solo dal lunedi al giovedi, 18:30-22:30.';\n}\n\nif (canRedeem) {\n  reason = 'ok';\n  message = 'Coupon valido. Segnato come usato.';\n}\n\nreturn [{ json: {\n  ...record,\n  recordId: record.id,\n  code: request.code,\n  token: request.token,\n  storedTokenConfigured: storedToken ? 'true' : 'false',\n  tokenMatches: tokenMatches ? 'true' : 'false',\n  isConfirmRequest: request.isConfirmRequest,\n  pinOk: request.pinOk,\n  scannedAt: request.scannedAt,\n  scannedAtItaly: request.scannedAtItaly,\n  redeemedBy: request.redeemedBy,\n  canRedeem: canRedeem ? 'true' : 'false',\n  reason,\n  message,\n  status,\n  name: field('Name'),\n  email: field('Email'),\n  phone: field('Phone'),\n  couponCode: field('Coupon Code', request.code),\n  expiresAt: expiresAtRaw,\n  redeemedAt: field('Redeemed At'),\n  redeemAttempts,\n  redeemAttemptsNext: redeemAttempts + 1,\n  checkedWeekday: weekday,\n  checkedTime: String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0'),\n} }];"
+        "jsCode": "const record = $input.first()?.json || {};\nconst request = $('Normalize Redeem Request').first().json;\n\nfunction field(name, fallback = '') {\n  return record[name] ?? record.fields?.[name] ?? fallback;\n}\n\nconst now = new Date();\nconst expiresAtRaw = field('Expires At');\nconst expiresAt = expiresAtRaw ? new Date(expiresAtRaw) : null;\nconst status = String(field('Status', 'Active') || 'Active');\nconst redeemAttempts = Number(field('Redeem Attempts', 0) || 0);\n\nconst parts = new Intl.DateTimeFormat('en-GB', {\n  timeZone: 'Europe/Rome',\n  weekday: 'short',\n  hour: '2-digit',\n  minute: '2-digit',\n  hour12: false,\n}).formatToParts(now);\nconst weekday = parts.find((part) => part.type === 'weekday')?.value || '';\nconst hour = Number(parts.find((part) => part.type === 'hour')?.value || 0);\nconst minute = Number(parts.find((part) => part.type === 'minute')?.value || 0);\n\nconst storedToken = String(field('Redeem Token', '') || '');\nconst tokenMatches = storedToken.length > 0 && storedToken === request.token;\nconst isRedeemed = status.toLowerCase() === 'redeemed';\nconst isInvalidStatus = ['expired', 'invalid'].includes(status.toLowerCase());\nconst isExpired = expiresAt ? now.getTime() > expiresAt.getTime() : false;\n\nlet reason = '';\nlet message = '';\nlet canRedeem = true;\n\nif (!record.id) {\n  canRedeem = false;\n  reason = 'not_found';\n  message = 'Coupon non trovato.';\n} else if (!storedToken) {\n  canRedeem = false;\n  reason = 'missing_redeem_token_field';\n  message = 'Configurazione incompleta: nel record manca il campo Redeem Token.';\n} else if (!tokenMatches) {\n  canRedeem = false;\n  reason = 'token_mismatch';\n  message = 'Token QR non valido per questo coupon.';\n} else if (isRedeemed) {\n  canRedeem = false;\n  reason = 'already_redeemed';\n  message = 'Coupon gia utilizzato' + (field('Redeemed At') ? ' il ' + field('Redeemed At') : '') + '.';\n} else if (isInvalidStatus) {\n  canRedeem = false;\n  reason = 'invalid_status';\n  message = 'Coupon non utilizzabile. Stato attuale: ' + status + '.';\n} else if (isExpired) {\n  canRedeem = false;\n  reason = 'expired';\n  message = 'Coupon scaduto.';\n}\n\nif (canRedeem) {\n  reason = 'ok';\n  message = 'Coupon valido. Segnato come usato.';\n}\n\nreturn [{ json: {\n  ...record,\n  recordId: record.id,\n  code: request.code,\n  token: request.token,\n  storedTokenConfigured: storedToken ? 'true' : 'false',\n  tokenMatches: tokenMatches ? 'true' : 'false',\n  isConfirmRequest: request.isConfirmRequest,\n  pinOk: request.pinOk,\n  scannedAt: request.scannedAt,\n  scannedAtItaly: request.scannedAtItaly,\n  redeemedBy: request.redeemedBy,\n  canRedeem: canRedeem ? 'true' : 'false',\n  reason,\n  message,\n  status,\n  name: field('Name'),\n  email: field('Email'),\n  phone: field('Phone'),\n  couponCode: field('Coupon Code', request.code),\n  expiresAt: expiresAtRaw,\n  redeemedAt: field('Redeemed At'),\n  redeemAttempts,\n  redeemAttemptsNext: redeemAttempts + 1,\n  checkedWeekday: weekday,\n  checkedTime: String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0'),\n} }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         1216,
-        6696
+        6704
       ],
       "id": "981f0fd9-6749-47cf-b200-6951c38b0ff3",
       "name": "Validate Coupon"
@@ -236,7 +238,7 @@
       "typeVersion": 2.3,
       "position": [
         1440,
-        6696
+        6704
       ],
       "id": "8a9995e6-b4e9-4b9b-b6a0-51b8449f277c",
       "name": "IF Can Redeem"
@@ -245,13 +247,15 @@
       "parameters": {
         "operation": "executeQuery",
         "query": "UPDATE public.coupon_leads SET status = 'Redeemed', redeemed_at_text = $1, redeemed_by = $2, redeem_attempts = $3 WHERE id = $4 AND status = 'Active' AND redeem_token = $5 RETURNING *;",
-        "options": {}
+        "options": {
+          "queryReplacement": "={{ $('Validate Coupon').item.json.scannedAtItaly }},\n{{ $('Validate Coupon').item.json.redeemedBy }},\n{{ $('Validate Coupon').item.json.redeemAttemptsNext }},\n{{ $('Validate Coupon').item.json.recordId }},\n{{ $('Validate Coupon').item.json.token }}"
+        }
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.2,
       "position": [
         2112,
-        6552
+        6560
       ],
       "id": "0cc14f80-d855-4155-a74a-86f5a5b1d1c9",
       "name": "Update Coupon As Redeemed",
@@ -265,7 +269,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ (() => {\n  const couponCode = $('Validate Coupon').first().json.couponCode || $('Validate Coupon').first().json.code;\n  const customerName = $('Validate Coupon').first().json.name || 'Cliente';\n  const scannedAt = $('Validate Coupon').first().json.scannedAtItaly || $('Validate Coupon').first().json.scannedAt || '';\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Coupon confermato | GotBun</title><style>:root{--bg:#f0fafc;--card:#ffffff;--ink:#0a222d;--muted:#1c3b4a;--line:rgba(0,163,217,.2);--ok:#78c257;--ok-ink:#11351d;--accent:#007fa8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 20%,rgba(0,163,217,.1),transparent 30%),radial-gradient(circle at 90% 80%,rgba(0,163,217,.14),transparent 40%),var(--bg);color:var(--ink);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;display:grid;min-height:100vh;place-items:center;padding:20px}.card{width:min(620px,100%);border:1px solid var(--line);border-radius:24px;background:var(--card);padding:26px;box-shadow:0 14px 40px rgba(0,163,217,.12)}.badge{display:inline-flex;border-radius:999px;background:var(--ok);color:var(--ok-ink);padding:8px 12px;font-weight:900;letter-spacing:.08em;font-size:.75rem;text-transform:uppercase}h1{font-family:'Luckiest Guy','Arial Black',Outfit,Arial,sans-serif;font-size:clamp(2rem,9vw,4rem);line-height:.92;margin:16px 0 12px;font-weight:400}.ok{font-size:1.08rem;font-weight:800;color:#1e7f3b;margin:0 0 12px}.code{border:2px dashed rgba(0,127,168,.45);border-radius:16px;padding:14px;font-size:1.3rem;font-weight:900;overflow-wrap:anywhere}.meta{color:var(--muted);line-height:1.6;margin:14px 0 0}.small{font-size:.92rem;color:var(--accent);font-weight:700;margin-top:8px}</style></head><body><main class=\"card\"><span class=\"badge\">Confermato</span><h1>Coupon usato correttamente</h1><p class=\"ok\">Perfetto, il coupon e stato registrato in cassa.</p><div class=\"code\">' + couponCode + '</div><p class=\"meta\">Cliente: <strong>' + customerName + '</strong><br>Conferma: ' + scannedAt + '<br>Promo: 2x1 tavolo GotBun</p><p class=\"small\">Puoi chiudere questa schermata.</p></main></body></html>';\n})() }}",
+        "responseBody": "={{ (() => {\n  const v = $('Validate Coupon').first().json;\n  const code = v.couponCode || v.code || 'N/D';\n  const name = v.name || 'Cliente';\n  const when = v.scannedAtItaly || v.scannedAt || '';\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>VALIDATO | GotBun</title><style>:root{--bg:#ecfff2;--card:#ffffff;--ink:#0d2a1c;--line:#84d3a3;--ok:#1f8f4e;--ok-soft:#dff7e8}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);display:grid;min-height:100vh;place-items:center;padding:16px}.card{width:min(720px,100%);background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.08)}.head{background:var(--ok);color:#fff;padding:14px 18px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.9rem}.body{padding:22px}.state{display:inline-block;background:var(--ok-soft);color:var(--ok);padding:8px 12px;border-radius:999px;font-weight:900;font-size:.9rem;letter-spacing:.04em}.title{font-family:\"Luckiest Guy\",\"Arial Black\",Outfit,Arial,sans-serif;font-size:clamp(2.4rem,10vw,5rem);line-height:.9;margin:14px 0 8px}.msg{font-size:1.16rem;font-weight:800;margin:0 0 14px}.code{border:2px dashed var(--line);border-radius:14px;padding:14px;font-size:1.5rem;font-weight:900;word-break:break-word}.meta{margin-top:14px;line-height:1.6;color:#2a5a45}.next{margin-top:12px;font-weight:800;color:#1f8f4e}</style></head><body><main class=\"card\"><div class=\"head\">Cassa GotBun</div><div class=\"body\"><span class=\"state\">Esito operazione</span><h1 class=\"title\">VALIDATO</h1><p class=\"msg\">Coupon registrato con successo.</p><div class=\"code\">' + code + '</div><p class=\"meta\">Cliente: <strong>' + name + '</strong><br>Ora: ' + when + '</p><p class=\"next\">Puoi passare al prossimo cliente.</p></div></main></body></html>';\n})() }}",
         "options": {
           "responseCode": 200
         }
@@ -274,7 +278,7 @@
       "typeVersion": 1.5,
       "position": [
         2336,
-        6552
+        6560
       ],
       "id": "f07bc978-7a37-4962-a75d-0859cd4448d1",
       "name": "Respond Redeemed OK"
@@ -282,7 +286,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ (() => {\n  const data = $json;\n  const request = $('Normalize Redeem Request').first().json;\n  const reason = data.reason || request.reason || 'not_found';\n  const code = data.couponCode || data.code || request.code || 'N/D';\n  const rawMessage = data.message || request.message || '';\n  const isWarning = reason === 'outside_promo_window';\n\n  const title =\n    reason === 'already_redeemed' ? 'Coupon gia usato' :\n    reason === 'expired' ? 'Coupon scaduto' :\n    reason === 'outside_promo_window' ? 'Fuori orario promo' :\n    'Coupon non riconosciuto';\n\n  const safeMessage =\n    reason === 'already_redeemed' ? (rawMessage || 'Questo coupon risulta gia utilizzato.') :\n    reason === 'expired' ? 'Questo coupon ha superato la data di validita.' :\n    reason === 'outside_promo_window' ? 'La promo 2x1 e valida dal lunedi al giovedi, 18:30-22:30.' :\n    'Questo link non corrisponde a un coupon attivo. Apri la ultima email ricevuta e mostra il QR in cassa.';\n\n  const note =\n    reason === 'already_redeemed' ? 'Se pensi ci sia un errore, chiedi verifica allo staff in cassa.' :\n    reason === 'outside_promo_window' ? 'Torna in fascia promo e mostra lo stesso QR.' :\n    'Se hai appena richiesto il coupon, attendi qualche secondo e riapri la mail.';\n\n  const badge = isWarning ? 'Attenzione' : 'Stop';\n  const badgeBg = isWarning ? '#ffc342' : '#ef4f35';\n  const badgeFg = isWarning ? '#23130c' : '#fffaf0';\n\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>' + title + ' | GotBun</title><style>:root{--bg:#f0fafc;--card:#ffffff;--ink:#0a222d;--muted:#1c3b4a;--line:rgba(0,163,217,.2)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 20%,rgba(0,163,217,.1),transparent 30%),radial-gradient(circle at 90% 80%,rgba(0,163,217,.14),transparent 40%),var(--bg);color:var(--ink);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;display:grid;min-height:100vh;place-items:center;padding:20px}.card{width:min(620px,100%);border:1px solid var(--line);border-radius:24px;background:var(--card);padding:26px;box-shadow:0 14px 40px rgba(0,163,217,.12)}.badge{display:inline-flex;border-radius:999px;background:' + badgeBg + ';color:' + badgeFg + ';padding:8px 12px;font-weight:900;letter-spacing:.08em;font-size:.75rem;text-transform:uppercase}h1{font-family:'Luckiest Guy','Arial Black',Outfit,Arial,sans-serif;font-size:clamp(2rem,9vw,4rem);line-height:.92;margin:16px 0 12px;font-weight:400}.code{border:2px dashed rgba(0,127,168,.45);border-radius:16px;padding:14px;font-size:1.3rem;font-weight:900;overflow-wrap:anywhere;margin-top:12px}.meta{color:var(--muted);line-height:1.62;margin:0}.hint{margin-top:14px;color:#007fa8;font-weight:700}</style></head><body><main class=\"card\"><span class=\"badge\">' + badge + '</span><h1>' + title + '</h1><p class=\"meta\">' + safeMessage + '</p><div class=\"code\">' + code + '</div><p class=\"hint\">' + note + '</p></main></body></html>';\n})() }}",
+        "responseBody": "={{ (() => {\n  const data = $json;\n  const req = $('Normalize Redeem Request').first().json;\n  const reason = data.reason || req.reason || 'not_found';\n  const code = data.couponCode || data.code || req.code || 'N/D';\n\n  const title =\n    reason === 'already_redeemed' ? 'GIA USATO' :\n    reason === 'expired' ? 'SCADUTO' :\n    reason === 'invalid_status' ? 'NON UTILIZZABILE' :\n    'NON VALIDO';\n\n  const message =\n    reason === 'already_redeemed' ? 'Questo coupon risulta gia utilizzato.' :\n    reason === 'expired' ? 'Questo coupon e scaduto.' :\n    reason === 'invalid_status' ? 'Lo stato del coupon non permette la validazione.' :\n    reason === 'token_mismatch' ? 'Il token del QR non corrisponde al coupon.' :\n    'Coupon non riconosciuto.';\n\n  const action =\n    reason === 'already_redeemed' ? 'Non applicare la promo: coupon gia usato.' :\n    reason === 'expired' ? 'Non applicare la promo: coupon scaduto.' :\n    'Controlla che il cliente mostri il QR ricevuto via mail.';\n\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>' + title + ' | GotBun</title><style>:root{--bg:#fff2f2;--card:#ffffff;--ink:#2c1010;--line:#ef9a9a;--bad:#c73737;--bad-soft:#ffe2e2}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);display:grid;min-height:100vh;place-items:center;padding:16px}.card{width:min(720px,100%);background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.08)}.head{background:var(--bad);color:#fff;padding:14px 18px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.9rem}.body{padding:22px}.state{display:inline-block;background:var(--bad-soft);color:var(--bad);padding:8px 12px;border-radius:999px;font-weight:900;font-size:.9rem;letter-spacing:.04em}.title{font-family:\"Luckiest Guy\",\"Arial Black\",Outfit,Arial,sans-serif;font-size:clamp(2.4rem,10vw,5rem);line-height:.9;margin:14px 0 8px}.msg{font-size:1.1rem;font-weight:800;margin:0 0 14px}.code{border:2px dashed var(--line);border-radius:14px;padding:14px;font-size:1.4rem;font-weight:900;word-break:break-word}.meta{margin-top:14px;line-height:1.6;color:#6a3030}.next{margin-top:12px;font-weight:800;color:#9b2d2d}</style></head><body><main class=\"card\"><div class=\"head\">Cassa GotBun</div><div class=\"body\"><span class=\"state\">Esito operazione</span><h1 class=\"title\">' + title + '</h1><p class=\"msg\">' + message + '</p><div class=\"code\">' + code + '</div><p class=\"meta\">Controllo cassa: verifica sempre codice e QR del cliente.</p><p class=\"next\">' + action + '</p></div></main></body></html>';\n})() }}",
         "options": {
           "responseCode": 200
         }
@@ -294,7 +298,7 @@
         6528
       ],
       "id": "d844a63c-3ae5-4def-85b2-db5b7919c70c",
-      "name": "Respond Already Used / Expired / Outside Hours / Not Found"
+      "name": "Respond Error States"
     },
     {
       "parameters": {
@@ -324,7 +328,7 @@
       "typeVersion": 2.3,
       "position": [
         1664,
-        6744
+        6752
       ],
       "id": "bb77a372-d409-4b06-8c22-b17485099cca",
       "name": "IF Confirm Request"
@@ -357,7 +361,7 @@
       "typeVersion": 2.3,
       "position": [
         1888,
-        6648
+        6656
       ],
       "id": "26769969-3ec3-4a2e-a366-39a814ff1498",
       "name": "IF PIN OK"
@@ -365,7 +369,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ (() => {\n  const code = $json.couponCode || $json.code;\n  const token = $json.token;\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Conferma coupon | GotBun</title><style>:root{--bg:#f0fafc;--card:#ffffff;--ink:#0a222d;--muted:#1c3b4a;--line:rgba(0,163,217,.2);--accent:#007fa8;--cta1:#00a3d9;--cta2:#007fa8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 20%,rgba(0,163,217,.1),transparent 30%),radial-gradient(circle at 90% 80%,rgba(0,163,217,.14),transparent 40%),var(--bg);color:var(--ink);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;display:grid;min-height:100vh;place-items:center;padding:20px}.card{width:min(620px,100%);border:1px solid var(--line);border-radius:24px;background:var(--card);padding:26px;box-shadow:0 14px 40px rgba(0,163,217,.12)}.badge{display:inline-flex;border-radius:999px;background:#ffc342;color:#23130c;padding:8px 12px;font-weight:900;letter-spacing:.08em;font-size:.75rem;text-transform:uppercase}h1{font-family:'Luckiest Guy','Arial Black',Outfit,Arial,sans-serif;font-size:clamp(2rem,9vw,4rem);line-height:.92;margin:16px 0 10px;font-weight:400}.meta{color:var(--muted);line-height:1.58}.tip{margin-top:8px;color:var(--accent);font-weight:700}.code{border:2px dashed rgba(0,127,168,.45);border-radius:16px;padding:14px;font-size:1.3rem;font-weight:900;overflow-wrap:anywhere;margin:12px 0}input{width:100%;box-sizing:border-box;border:1px solid rgba(0,127,168,.32);border-radius:14px;background:#ffffff;color:#0a222d;font-size:1.35rem;font-weight:900;text-align:center;letter-spacing:.18em;padding:14px;margin:8px 0 10px}button{width:100%;border:0;border-radius:999px;background:linear-gradient(135deg,var(--cta1),var(--cta2));color:#ffffff;font-size:1.02rem;font-weight:900;padding:15px 18px;cursor:pointer}</style></head><body><main class=\"card\"><span class=\"badge\">Cassa</span><h1>Conferma utilizzo coupon</h1><p class=\"meta\">Mostra questa schermata allo staff. Il PIN viene inserito solo in cassa per segnare il coupon come usato.</p><div class=\"code\">' + code + '</div><p class=\"tip\">Cliente: non inserire nessun PIN personale.</p><form method=\"POST\" action=\"/webhook/gotbun-redeem?code=' + encodeURIComponent($json.code) + '&token=' + encodeURIComponent(token) + '\"><input name=\"pin\" type=\"password\" inputmode=\"numeric\" autocomplete=\"one-time-code\" placeholder=\"PIN cassa\" autofocus><button type=\"submit\">Conferma e segna come usato</button></form></main></body></html>';\n})() }}",
+        "responseBody": "={{ (() => {\n  const code = $json.couponCode || $json.code;\n  const token = $json.token;\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Conferma coupon | GotBun</title><style>:root{--bg:#f0fafc;--card:#ffffff;--ink:#0a222d;--muted:#1c3b4a;--line:rgba(0,163,217,.2);--accent:#007fa8;--cta1:#00a3d9;--cta2:#007fa8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 20%,rgba(0,163,217,.1),transparent 30%),radial-gradient(circle at 90% 80%,rgba(0,163,217,.14),transparent 40%),var(--bg);color:var(--ink);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;display:grid;min-height:100vh;place-items:center;padding:20px}.card{width:min(620px,100%);border:1px solid var(--line);border-radius:24px;background:var(--card);padding:26px;box-shadow:0 14px 40px rgba(0,163,217,.12)}.badge{display:inline-flex;border-radius:999px;background:#ffc342;color:#23130c;padding:8px 12px;font-weight:900;letter-spacing:.08em;font-size:.75rem;text-transform:uppercase}h1{font-family:\\'Luckiest Guy\\',\\'Arial Black\\',Outfit,Arial,sans-serif;font-size:clamp(2rem,9vw,4rem);line-height:.92;margin:16px 0 10px;font-weight:400}.meta{color:var(--muted);line-height:1.58}.tip{margin-top:8px;color:var(--accent);font-weight:700}.code{border:2px dashed rgba(0,127,168,.45);border-radius:16px;padding:14px;font-size:1.3rem;font-weight:900;overflow-wrap:anywhere;margin:12px 0}input{width:100%;box-sizing:border-box;border:1px solid rgba(0,127,168,.32);border-radius:14px;background:#ffffff;color:#0a222d;font-size:1.35rem;font-weight:900;text-align:center;letter-spacing:.18em;padding:14px;margin:8px 0 10px}button{width:100%;border:0;border-radius:999px;background:linear-gradient(135deg,var(--cta1),var(--cta2));color:#ffffff;font-size:1.02rem;font-weight:900;padding:15px 18px;cursor:pointer}</style></head><body><main class=\"card\"><span class=\"badge\">Cassa</span><h1>Conferma utilizzo coupon</h1><p class=\"meta\">Mostra questa schermata allo staff. Il PIN viene inserito solo in cassa per segnare il coupon come usato.</p><div class=\"code\">' + code + '</div><p class=\"tip\">Cliente: non inserire nessun PIN personale.</p><form method=\"POST\" action=\"/webhook/gotbun-redeem?code=' + encodeURIComponent($json.code) + '&token=' + encodeURIComponent(token) + '\"><input name=\"pin\" type=\"password\" inputmode=\"numeric\" autocomplete=\"one-time-code\" placeholder=\"PIN cassa\" autofocus><button type=\"submit\">Conferma e segna come usato</button></form></main></body></html>';\n})() }}",
         "options": {
           "responseCode": 200
         }
@@ -374,7 +378,7 @@
       "typeVersion": 1.5,
       "position": [
         1888,
-        6840
+        6848
       ],
       "id": "b7545277-7678-4533-82c0-f608182eeda4",
       "name": "Respond PIN Form"
@@ -382,7 +386,7 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ (() => {\n  const code = $json.code;\n  const token = $json.token;\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>PIN non valido | GotBun</title><style>:root{--bg:#f0fafc;--card:#ffffff;--ink:#0a222d;--muted:#1c3b4a;--line:rgba(0,163,217,.2)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 20%,rgba(0,163,217,.1),transparent 30%),radial-gradient(circle at 90% 80%,rgba(0,163,217,.14),transparent 40%),var(--bg);color:var(--ink);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;display:grid;min-height:100vh;place-items:center;padding:20px}.card{width:min(620px,100%);border:1px solid var(--line);border-radius:24px;background:var(--card);padding:26px;box-shadow:0 14px 40px rgba(0,163,217,.12)}.badge{display:inline-flex;border-radius:999px;background:#ef4f35;color:#fffaf0;padding:8px 12px;font-weight:900;letter-spacing:.08em;font-size:.75rem;text-transform:uppercase}h1{font-family:'Luckiest Guy','Arial Black',Outfit,Arial,sans-serif;font-size:clamp(2rem,9vw,4rem);line-height:.92;margin:16px 0 10px;font-weight:400}.meta{color:var(--muted);line-height:1.58}a{display:inline-flex;margin-top:12px;color:#007fa8;font-weight:900;text-decoration:none}</style></head><body><main class=\"card\"><span class=\"badge\">Stop</span><h1>PIN non valido</h1><p class=\"meta\">Il coupon non e stato segnato come usato. Riprova con il PIN corretto.</p><a href=\"/webhook/gotbun-redeem?code=' + encodeURIComponent(code) + '&token=' + encodeURIComponent(token) + '\">Torna alla conferma coupon</a></main></body></html>';\n})() }}",
+        "responseBody": "={{ (() => {\n  const code = $json.code;\n  const token = $json.token;\n  return '<!doctype html><html lang=\"it\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>PIN ERRATO | GotBun</title><style>:root{--bg:#fff7ea;--card:#ffffff;--ink:#2b1e10;--line:#f1c27a;--warn:#b36a00;--warn-soft:#fff0d6}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Outfit,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);display:grid;min-height:100vh;place-items:center;padding:16px}.card{width:min(720px,100%);background:var(--card);border:2px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.08)}.head{background:var(--warn);color:#fff;padding:14px 18px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.9rem}.body{padding:22px}.state{display:inline-block;background:var(--warn-soft);color:var(--warn);padding:8px 12px;border-radius:999px;font-weight:900;font-size:.9rem}.title{font-family:\"Luckiest Guy\",\"Arial Black\",Outfit,Arial,sans-serif;font-size:clamp(2.2rem,9vw,4.6rem);line-height:.9;margin:14px 0 8px}.msg{font-size:1.1rem;font-weight:800;margin:0 0 14px}.cta{display:inline-block;background:#007fa8;color:#fff;text-decoration:none;padding:12px 18px;border-radius:999px;font-weight:900}</style></head><body><main class=\"card\"><div class=\"head\">Cassa GotBun</div><div class=\"body\"><span class=\"state\">Esito operazione</span><h1 class=\"title\">PIN ERRATO</h1><p class=\"msg\">Il coupon non e stato validato.</p><a class=\"cta\" href=\"/webhook/gotbun-redeem?code=' + encodeURIComponent(code) + '&token=' + encodeURIComponent(token) + '\">Riprova PIN</a></div></main></body></html>';\n})() }}",
         "options": {
           "responseCode": 200
         }
@@ -391,7 +395,7 @@
       "typeVersion": 1.5,
       "position": [
         2112,
-        6744
+        6752
       ],
       "id": "aa860b8a-6e5c-49aa-9691-141bf68dcb4f",
       "name": "Respond PIN Non Valido"
@@ -407,7 +411,7 @@
         6624
       ],
       "id": "0ebde17e-d093-40f5-b0c3-0dcc8c4d71ce",
-      "name": "Adapter: Supabase Coupon Schema"
+      "name": "Adapter: Supabase to Airtable Schema1"
     }
   ],
   "pinData": {},
@@ -438,7 +442,7 @@
       "main": [
         [
           {
-            "node": "Respond Already Used / Expired / Outside Hours / Not Found",
+            "node": "Respond Error States",
             "type": "main",
             "index": 0
           }
@@ -456,7 +460,7 @@
       "main": [
         [
           {
-            "node": "Adapter: Supabase Coupon Schema",
+            "node": "Adapter: Supabase to Airtable Schema1",
             "type": "main",
             "index": 0
           }
@@ -474,7 +478,7 @@
         ],
         [
           {
-            "node": "Respond Already Used / Expired / Outside Hours / Not Found",
+            "node": "Respond Error States",
             "type": "main",
             "index": 0
           }
@@ -503,7 +507,7 @@
         ],
         [
           {
-            "node": "Respond Already Used / Expired / Outside Hours / Not Found",
+            "node": "Respond Error States",
             "type": "main",
             "index": 0
           }
@@ -557,7 +561,7 @@
         ]
       ]
     },
-    "Adapter: Supabase Coupon Schema": {
+    "Adapter: Supabase to Airtable Schema1": {
       "main": [
         [
           {
@@ -574,7 +578,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "8954efd9-0064-4d91-bece-14bb4799ad5a",
+  "versionId": "00cc8b70-aafb-45b7-aa98-ca0660029104",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e5e4156406eb2781358eadbaabf7ac25423788a2a1b74d65514ae4da6dc2f496"

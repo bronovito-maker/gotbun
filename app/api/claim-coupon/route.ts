@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { addDays, generateCouponCode, generateRedeemToken } from "@/lib/coupon";
+import { generateCouponCode, generateRedeemToken } from "@/lib/coupon";
 import { validateCouponClaim } from "@/lib/validation";
 import { getPromotions } from "@/lib/db";
 
@@ -8,6 +8,7 @@ export const runtime = "nodejs";
 const PROMO_DAYS = "lunedi-giovedi";
 const PROMO_HOURS = "18:30-22:30";
 const DEFAULT_QR_IMAGE_SIZE = "420x420";
+const PROMO_FIXED_EXPIRY_ITALY = "2026-06-11T23:59:59+02:00";
 
 type WebhookPayload = {
   event: "coupon_claimed";
@@ -127,7 +128,7 @@ export async function POST(request: Request) {
   }
 
   const createdAtDate = new Date();
-  const expiresAtDate = addDays(createdAtDate, 14);
+  const expiresAtDate = new Date(PROMO_FIXED_EXPIRY_ITALY);
   const createdAt = createdAtDate.toISOString();
   const expiresAt = expiresAtDate.toISOString();
   const couponCode = generateCouponCode();

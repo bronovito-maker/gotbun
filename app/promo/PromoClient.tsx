@@ -91,11 +91,9 @@ function validateClientForm(form: FormState): string | null {
 export default function PromoClient({
   isActive,
   description,
-  conditions,
 }: {
   isActive: boolean;
   description: string;
-  conditions: string;
 }) {
   const [form, setForm] = useState<FormState>(initialFormState);
   const [isLoading, setIsLoading] = useState(false);
@@ -231,7 +229,7 @@ export default function PromoClient({
           </p>
           <p className="cta-note">
             {isActive 
-              ? "Perfetto da condividere con chi finisce sempre per assaggiare il tuo burger. Il QR arriva via email e WhatsApp."
+              ? "Perfetto da condividere con chi finisce sempre per assaggiare il tuo burger. Il QR coupon arriva via email. Se lasci il consenso marketing, useremo il tuo numero per future promo WhatsApp quando il servizio sarà attivo."
               : "La promozione al tavolo è momentaneamente non attiva."}
           </p>
         </div>
@@ -250,20 +248,20 @@ export default function PromoClient({
             </div>
           ) : success ? (
             <div className="success-card" role="status">
-              <p className="eyebrow">Coupon creato</p>
-              <h2>Il tuo coupon 2x1 è pronto.</h2>
-              <p className="success-intro">Controlla la mail e salva il QR sul telefono. Se non la trovi subito, controlla anche nelle cartelle Promozioni o Spam. Se il messaggio tarda, puoi mostrare anche il codice qui sotto.</p>
+              <p className="eyebrow">Coupon pronto</p>
+              <h2>Il tuo QR coupon 2x1 è pronto.</h2>
+              <p className="success-intro">Controlla la mail. Se non la vedi subito, guarda anche in Promozioni o Spam.</p>
               <div className="qr-preview" aria-label="Anteprima QR coupon">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={success.qrImageUrl} alt={`QR coupon ${success.couponCode}`} width="420" height="420" />
               </div>
               <div className="fallback-code">
-                <span>Codice fallback</span>
+                <span>QR coupon</span>
                 <strong>{success.couponCode}</strong>
               </div>
               <p className="expiry">Valido fino al {expiresAtLabel}</p>
               <p className="conditions">
-                Mostra il QR o questo codice prima di pagare. {conditions}
+                Mostra il QR coupon in cassa quando paghi. Massimo un coupon per conto, non cumulabile.
               </p>
               {isDevelopment ? (
                 <div className="debug-box">
@@ -273,14 +271,14 @@ export default function PromoClient({
                   </p>
                 </div>
               ) : null}
-              <a className="primary-button" href="#come-funziona">Vedi come funziona</a>
+              <a className="primary-button" href="#come-funziona">Come funziona</a>
             </div>
           ) : (
             <form className="form-card" onSubmit={handleSubmit} noValidate>
               <div className="form-heading">
                 <p className="eyebrow">Sai già con chi dividerlo</p>
                 <h2 id="form-title">Ricevi il tuo QR.</h2>
-                <p>Compila il form e ti inviamo il coupon 2x1 da salvare sul telefono e mostrare in cassa.</p>
+                <p>Compila il form e ti inviamo via email il QR coupon 2x1 da salvare sul telefono e mostrare in cassa.</p>
                 <p className="cta-note">A volte la mail può finire in Promozioni o Spam: se non la vedi, controlla anche lì.</p>
                 <p className="form-proof">
                   <span aria-hidden="true">★★★★★</span>
@@ -334,7 +332,7 @@ export default function PromoClient({
                   type="checkbox"
                 />
                 <span>
-                  Accetto il trattamento dei dati per ricevere e utilizzare il coupon via email e WhatsApp.{" "}
+                  Accetto il trattamento dei dati per ricevere e utilizzare il QR coupon via email.{" "}
                   <Link href="/privacy" target="_blank">
                     Privacy e condizioni
                   </Link>
@@ -347,7 +345,7 @@ export default function PromoClient({
                   onChange={(event) => setForm((current) => ({ ...current, marketingConsent: event.target.checked }))}
                   type="checkbox"
                 />
-                <span>Voglio ricevere altre offerte GotBun via email o WhatsApp.</span>
+                <span>Voglio ricevere future promo GotBun via email e WhatsApp (quando il canale sarà attivo).</span>
               </label>
 
               {error ? <p className="form-error">{error}</p> : null}
@@ -379,9 +377,9 @@ export default function PromoClient({
         </div>
         <div className="steps-grid">
           {[
-            ["01", "Scegli la compagnie", "Meglio se è quella che dice di non avere fame e poi assaggia tutto."],
-            ["02", "Salvi il QR", "Lo ricevi via email e WhatsApp, pronto da tenere sul telefono."],
-            ["03", "Lo mostri in cassa", "Passi da GotBun, mostri il codice prima di pagare e ti godi il 2x1."],
+            ["01", "Scegli la compagnia", "Meglio se è quella che dice di non avere fame e poi assaggia tutto."],
+            ["02", "Salvi il QR coupon", "Ti arriva via email, pronto da tenere sul telefono."],
+            ["03", "Lo mostri in cassa", "Passi da GotBun, mostri il QR coupon prima di pagare e ti godi il 2x1."],
           ].map(([number, title, text]) => (
             <article className="step-card" key={number}>
               <span>{number}</span>
@@ -398,7 +396,7 @@ export default function PromoClient({
           <h2>Se vieni con chi &quot;non mangia&quot;, questa volta siete coperti.</h2>
         </div>
         <p>
-          {conditions}
+          La promo 2x1 si applica esclusivamente su una portata principale a scelta tra Hamburger, Piadine, Wrap o Insalate. Ordinando al tavolo 2 portate principali, ne paghi solo 1. Sono esclusi stuzzichini, appetizer, fritti, dolci e tutte le bevande. Mostra il QR coupon in cassa prima del pagamento. Massimo un coupon per conto, non cumulabile.
         </p>
       </section>
 

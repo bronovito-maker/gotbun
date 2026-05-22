@@ -545,6 +545,10 @@
             {
               "fieldName": "PHONE_RAW",
               "fieldValue": "={{ $('Normalize Coupon Lead1').item.json.phone }}"
+            },
+            {
+              "fieldName": "SMS",
+              "fieldValue": "={{ $('Normalize Coupon Lead1').item.json.phone }}"
             }
           ]
         },

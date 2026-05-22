@@ -1928,7 +1928,9 @@ input:focus {
 
   .menu-page-subtitle {
     font-size: 3.5rem;
-    margin: 24px 0 12px;
+    width: fit-content;
+    margin: 24px auto 12px;
+    text-align: center;
   }
 
   .menu-page-description {
