@@ -87,11 +87,10 @@ export default async function MenuPage() {
       </section>
 
       {/* Page Footer */}
-      <footer className="main-footer">
+      <footer className="main-footer menu-page-footer">
         <p>© GotBun Riccione</p>
-        <nav aria-label="Link utili">
+        <nav className="menu-page-footer-links" aria-label="Link utili">
           <Link href="/">Homepage</Link>
-          <span style={{ margin: "0 8px", color: "var(--main-text-muted)" }}>•</span>
           <Link href="/privacy">Privacy e condizioni</Link>
         </nav>
       </footer>

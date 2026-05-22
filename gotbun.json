@@ -588,7 +588,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{\n{\n  to: [\n    {\n      email: $('Normalize Coupon Lead1').item.json.email,\n      name: $('Normalize Coupon Lead1').item.json.name\n    }\n  ],\n  templateId: 1,\n  params: {\n    name: $('Normalize Coupon Lead1').item.json.name,\n    couponCode: $('Normalize Coupon Lead1').item.json.couponCode,\n    qrImageUrl: $('Normalize Coupon Lead1').item.json.qrImageUrl,\n    redeemUrl: $('Normalize Coupon Lead1').item.json.redeemUrl,\n    expiresAt: $('Normalize Coupon Lead1').item.json.expiresAt\n  }\n}\n}}",
+        "jsonBody": "={{\n{\n  to: [\n    {\n      email: $('Normalize Coupon Lead1').item.json.email,\n      name: $('Normalize Coupon Lead1').item.json.name\n    }\n  ],\n  templateId: 1,\n  params: {\n    name: $('Normalize Coupon Lead1').item.json.name,\n    couponCode: $('Normalize Coupon Lead1').item.json.couponCode,\n    qrImageUrl: $('Normalize Coupon Lead1').item.json.qrImageUrl,\n    redeemUrl: $('Normalize Coupon Lead1').item.json.redeemUrl,\n    expiresAt: (() => { const raw = $('Normalize Coupon Lead1').item.json.expiresAt; const date = new Date(raw); return Number.isNaN(date.getTime()) ? raw : new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Europe/Rome' }).format(date); })()\n  }\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",

@@ -26,14 +26,18 @@ type BurgerMotion = {
   assemble: number;
   decompose: number;
   mobile: boolean;
+  visibility: number;
 };
 
 type PageMetrics = {
   scrollMax: number;
+  freezeScrollY: number | null;
+  fadeStartY: number | null;
+  fadeEndY: number | null;
 };
 
 const EPSILON = 0.001;
-const INITIAL_MOTION: BurgerMotion = { assemble: 0, decompose: 0, mobile: false };
+const INITIAL_MOTION: BurgerMotion = { assemble: 0, decompose: 0, mobile: false, visibility: 1 };
 
 const INGREDIENTS: Ingredient[] = [
   {
@@ -186,6 +190,13 @@ function easeOutCubic(value: number) {
   return 1 - Math.pow(1 - value, 3);
 }
 
+function interpolateFade(scrollY: number, start: number | null, end: number | null) {
+  if (start === null || end === null || end <= start) return 1;
+  if (scrollY <= start) return 1;
+  if (scrollY >= end) return 0;
+  return clamp(1 - (scrollY - start) / (end - start));
+}
+
 function getScrollY() {
   return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 }
@@ -259,6 +270,7 @@ export default function BurgerAnimation() {
       if (root) {
         root.style.setProperty("--ba-progress", String(nextMotion.assemble));
         root.style.setProperty("--ba-decompose", String(nextMotion.decompose));
+        root.style.opacity = String(nextMotion.visibility);
       }
 
       for (const ingredient of INGREDIENTS) {
@@ -279,9 +291,30 @@ export default function BurgerAnimation() {
     const measurePage = () => {
       // Use stable viewport height to calculate consistent scroll boundaries
       const scrollMax = Math.max(1, document.documentElement.scrollHeight - stableViewportHeight);
+      const currentScrollY = getScrollY();
+      const closingCard = document.querySelector<HTMLElement>(".main-burger-closing-card");
+      const footer = document.querySelector<HTMLElement>(".main-footer-rich");
+
+      let freezeScrollY: number | null = null;
+      let fadeStartY: number | null = null;
+      let fadeEndY: number | null = null;
+
+      if (closingCard) {
+        const closingCardTop = closingCard.getBoundingClientRect().top + currentScrollY;
+        freezeScrollY = Math.max(0, closingCardTop - stableViewportHeight * 0.82);
+      }
+
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top + currentScrollY;
+        fadeStartY = Math.max(0, footerTop - stableViewportHeight * 1.12);
+        fadeEndY = Math.max(fadeStartY + 1, footerTop - stableViewportHeight * 0.9);
+      }
 
       pageMetricsRef.current = {
         scrollMax,
+        freezeScrollY,
+        fadeStartY,
+        fadeEndY,
       };
     };
 
@@ -316,12 +349,19 @@ export default function BurgerAnimation() {
         progress = clamp(scrollY / metrics.scrollMax);
       }
 
+      if (metrics.freezeScrollY !== null && scrollY >= metrics.freezeScrollY) {
+        progress = 1;
+      }
+
+      const visibility = interpolateFade(scrollY, metrics.fadeStartY, metrics.fadeEndY);
+
       const nextMotion = reducedMotion.matches
-        ? { assemble: 1, decompose: 0, mobile: mobileQuery.matches }
+        ? { assemble: 1, decompose: 0, mobile: mobileQuery.matches, visibility }
         : {
             assemble: progress,
             decompose: 0,
             mobile: mobileQuery.matches,
+            visibility,
           };
       const isAtScrollEdge = !reducedMotion.matches && (isAtTop || isAtBottom);
 
@@ -354,6 +394,7 @@ export default function BurgerAnimation() {
       if (
         Math.abs(nextMotion.assemble - targetMotionRef.current.assemble) > EPSILON ||
         Math.abs(nextMotion.decompose - targetMotionRef.current.decompose) > EPSILON ||
+        Math.abs(nextMotion.visibility - targetMotionRef.current.visibility) > EPSILON ||
         nextMotion.mobile !== targetMotionRef.current.mobile
       ) {
         targetMotionRef.current = nextMotion;
@@ -402,12 +443,20 @@ export default function BurgerAnimation() {
         assemble: nextAssemble,
         decompose: nextDecompose,
         mobile: target.mobile,
+        visibility:
+          Math.abs(target.visibility - current.visibility) < EPSILON
+            ? target.visibility
+            : current.visibility + (target.visibility - current.visibility) * 0.2,
       };
 
       displayMotionRef.current = nextMotion;
       applyMotion(nextMotion);
 
-      if (Math.abs(target.assemble - nextAssemble) > EPSILON || Math.abs(target.decompose - nextDecompose) > EPSILON) {
+      if (
+        Math.abs(target.assemble - nextAssemble) > EPSILON ||
+        Math.abs(target.decompose - nextDecompose) > EPSILON ||
+        Math.abs(target.visibility - nextMotion.visibility) > EPSILON
+      ) {
         frameRef.current = window.requestAnimationFrame(tick);
       } else {
         frameRef.current = null;
